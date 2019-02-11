@@ -1,6 +1,5 @@
 package xyz.mhmm.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,49 +7,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.lang.Nullable;
+import com.fasterxml.jackson.core.sym.Name;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
-@ToString(exclude="login")
+@Setter
+@ToString(exclude="user")
 @Entity
-@Table(name = "tb_user")
-@EqualsAndHashCode(of = "no")
-public class User {
+@Table(name = "tb_login")
+@EqualsAndHashCode(of="no")
+public class Login {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long no;
 
-	@Column(length = 15)
-	private String phone;
-
-	@Email
-	@NotNull
-	@Column(length = 50)
-	private String email;
+	@MapsId
+	@OneToOne
+	private User user;
 
 	@NotNull
-	@Column(length = 10, nullable = false)
-	private String name;
+	@Column(length = 20, nullable = false)
+	private String id;
 
 	@NotNull
-	@Column(nullable = false)
-	private char sex;
-
-	
-	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY, mappedBy = "user")
-	private Login login;
+	@Column(length = 100, nullable = false)
+	private String pw;
 
 }
