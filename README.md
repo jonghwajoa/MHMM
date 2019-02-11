@@ -4,7 +4,12 @@
 * DOMAIN : http://www.mhmm.xyz/
 * TRELLO : https://trello.com/b/WzgtsRpp/mhmm
 * GIT : https://github.com/jonghwajoa/MHMM
+  - 
+
 * ERD : https://www.erdcloud.com/
+
+  - 다른 대안 : http://aquerytool.com/
+
 
 
 
@@ -12,9 +17,10 @@
 
 ## Use 
 
-* Spring boot
-* Maria 
-* Boot strap
+* Spring boot 2.0
+* MariaDB :  10.1.37
+* Java 1.8
+* hibernate
 
 
 
