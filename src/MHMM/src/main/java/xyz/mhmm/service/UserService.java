@@ -6,6 +6,8 @@ import xyz.mhmm.domain.UserVO;
 
 @Service
 public interface UserService {
+	
+	
 
 	public void create(UserVO vo);
 

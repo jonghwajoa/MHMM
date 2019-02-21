@@ -10,13 +10,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import xyz.mhmm.domain.UserVO;
 import xyz.mhmm.persistence.UserDAO;
+import xyz.mhmm.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/*.xml" })
 public class UserTest {
 
 	@Autowired
-	private UserDAO userDAO;
+	private UserService userService;
 
 	private static final Logger logger = LoggerFactory.getLogger(UserTest.class);
 
@@ -26,8 +27,8 @@ public class UserTest {
 		user.setEmail("mhmm@mhmm.xyz");
 		user.setName("종화");
 		user.setSex('남');
-		user.setPhone("010-0000-0000");
+//		user.setPhone("010-0000-0000");
 
-		userDAO.create(user);
+		userService.create(user);
 	}
 }
