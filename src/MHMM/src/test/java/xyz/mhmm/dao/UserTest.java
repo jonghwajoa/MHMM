@@ -27,7 +27,7 @@ public class UserTest {
 		user.setEmail("mhmm@mhmm.xyz");
 		user.setName("종화");
 		user.setSex('남');
-//		user.setPhone("010-0000-0000");
+		user.setPhone("010-0000-0000");
 
 		userService.create(user);
 	}

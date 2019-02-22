@@ -1,0 +1,65 @@
+#section1 {
+}
+#section1 p {
+  width: 200px;
+  margin: 0 auto;
+  padding: 20px 50px;
+  background: skyblue;
+  text-align: center;
+  cursor: pointer;
+}
+
+#section2 {
+}
+#section3 {
+}
+#section4 {
+}
+
+section .content-container {
+  width: 1200px;
+  height: inherit;
+  border: 5px solid violet;
+  margin: 0 auto;
+}
+
+/* 컨텐츠 사이드 점으로 이동하는것들 */
+.content .content-side {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translatey(-50%);
+}
+
+.content .content-side ul {
+}
+
+.content .content-side ul li {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px pink;
+  margin: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.content .content-side ul li.active {
+  box-shadow: 0 0 0 2px pink;
+}
+
+.content .content-side ul li a {
+  background-color: pink;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.content .content-side ul li.active a {
+  transform: scale(0.4);
+}

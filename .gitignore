@@ -28,7 +28,17 @@
 /.nb-gradle/
 /build/
 
+### src
+src/Servers
+src/.metadata
+src/.recommenders
+src/MHMM/target
+
 ### MHMM
 MHMM/mvnw*
 MHMM/.mvn
 MHMM/.gitignore
+
+### config 정보포함파일
+src/MHMM/src/test/java/xyz/mhmm/controller/MariaDbConnectionTest.java
+src/MHMM/src/main/webapp/WEB-INF/spring/root-context.xml

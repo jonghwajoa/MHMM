@@ -14,7 +14,9 @@ import lombok.ToString;
 public class UserVO {
 
 	private Long no;
+
 	private String phone;
+
 	private String email;
 	private String name;
 	private char sex;

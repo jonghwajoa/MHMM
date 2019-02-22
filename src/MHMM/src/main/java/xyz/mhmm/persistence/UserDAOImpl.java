@@ -16,7 +16,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void create(UserVO vo) {
-		System.out.println("여기는온다.");
 		sqlSession.insert(namespace + ".create", vo);
 	}
 }

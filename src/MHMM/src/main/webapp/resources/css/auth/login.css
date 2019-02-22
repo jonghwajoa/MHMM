@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+.login-wrap {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.login-wrap section.login {
+	position: absolute;
+	width: 500px;
+	height: 450px;
+	overflow: auto;
+	margin: auto;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	box-shadow: 1px 1px 2px 2px rgba(10, 10, 10, 0.3);
+}
+
+.login-wrap section.login h3 {
+	margin-top: 1rem;
+	font-size: 2rem;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+.login-wrap section.login input {
+	display: block;
+	padding: 10px;
+	width: 300px;
+	font-size: 1rem;
+	margin: 20px auto;
+	border: none;
+	border-bottom: 1px solid #c8c8c8;
+	outline: none;
+}
+
+.login-wrap section.login input:hover[type='input'] {
+	border-bottom: 3px solid #f06595;
+}
+
+.login-wrap section.login input:hover[type='password'] {
+	border-bottom: 3px solid #f06595;
+}
+
+.login-wrap section.login input[type='submit'], input[type='button'] {
+	background: #7950f2;
+	border-radius: 5px;
+	font-weight: bold;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
+/* signup */
+.signup-wrap {
+	height: 20vh;
+	overflow: hidden;
+}
+
+.signup-wrap section.signup {
+	position: absolute;
+	width: 500px;
+	height: 600px;
+	overflow: auto;
+	margin: auto;
+	top: 100px;
+	left: -10000px;
+	bottom: 0;
+	right: 0;
+	box-shadow: 1px 1px 2px 2px rgba(10, 10, 10, 0.3);
+}
+
+.signup-wrap section.signup h3 {
+	margin-top: 1rem;
+	font-size: 2rem;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+.signup-wrap section.signup input {
+	display: block;
+	padding: 10px;
+	width: 300px;
+	font-size: 1rem;
+	margin: 20px auto;
+	border: none;
+	border-bottom: 1px solid #c8c8c8;
+	outline: none;
+}
+
+.signup-wrap section.signup input:hover[type='input'] {
+	border-bottom: 3px solid #f06595;
+}
+
+.signup-wrap section.signup input:hover[type='password'] {
+	border-bottom: 3px solid #f06595;
+}
+
+.signup-wrap section.signup input[type='submit'], input[type='button'] {
+	background: #7950f2;
+	border-radius: 5px;
+	font-weight: bold;
+	margin-top: 30px;
+	cursor: pointer;
+}
