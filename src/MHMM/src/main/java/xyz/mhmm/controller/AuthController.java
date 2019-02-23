@@ -30,4 +30,16 @@ public class AuthController {
 		return "redirect:/";
 	}
 
+	@GetMapping("/signup")
+	public String signupGET(LoginVO loginVO, UserVO userVO) {
+		System.out.println(loginVO.toString());
+		System.out.println(userVO.toString());
+	}
+
+	@PostMapping("/signup")
+	public String signupPOST(LoginVO loginVO) {
+		System.out.println(loginVO.toString());
+		return "redirect:/";
+	}
+
 }

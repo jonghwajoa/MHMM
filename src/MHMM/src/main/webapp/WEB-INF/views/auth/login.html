@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>MHMM</title>
-<link href="/css/common/reset.css" rel="stylesheet" type="text/css" />
-<link href="/css/common/nav.css" rel="stylesheet" type="text/css" />
-<link href="/css/auth/login.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
+<link rel="stylesheet" th:href="@{~/css/common/nav.css}" />
+<link rel="stylesheet" th:href="@{~/css/auth/login.css}" />
 </head>
 <body>
-	<%@include file="../partitial/nav.jsp" %>
+	<div th:insert="~{fragments/nav::nav}"></div>
 
-    <div class="login-wrap">
+     <div class="login-wrap">
       <section class="login">
         <h3>로그인 정보</h3>
         <form action="/auth/login" method="POST">
@@ -37,7 +39,7 @@
             maxlength="20"
           />
           <input type="submit" value="로그인" />
-          <input type="button" id="signup-btn"" value="회원가입" />
+          <input type="button" id="signup-btn" value="회원가입" />
           <input type="button" value="홈으로" onClick="location.href='/'" />
         </form>
       </section>
@@ -104,6 +106,7 @@
         </form>
       </section>
     </div>
+  
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

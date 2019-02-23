@@ -1,6 +1,6 @@
 # MHMM
 
-메신저 만들기 (MHM + HMM) - 2019.02.02 시작
+메신저 만들기 (MHM + HMM) - 2019.02.02 기획
 
 - DOMAIN : http://www.mhmm.xyz/
 - TRELLO : https://trello.com/b/pcE691wg/mhmm
@@ -11,10 +11,10 @@
 
 ## Use
 
-- Spring boot 2.1.2
+- Spring5
 - MariaDB : 10.1.37
 - Java 1.8
-- hibernate
+- Mybatis
 
 ## ERD
 

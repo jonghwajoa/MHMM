@@ -20,17 +20,31 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/js/**" location="/resources/js/" />
-	
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
+
+
+	<beans:bean id="springTemplateResolver"
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".html" />
+	</beans:bean>
+
+	<beans:bean id="springTemplateEngine"
+		class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<beans:property name="templateResolver"
+			ref="springTemplateResolver" />
+
+	</beans:bean>
+
 	<beans:bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property value="/WEB-INF/views/" name="prefix" />
-		<beans:property value=".jsp" name="suffix" />
+		class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+		<beans:property name="templateEngine"
+			ref="springTemplateEngine" />
+		<beans:property name="characterEncoding" value="UTF-8" />
 	</beans:bean>
 
 
-	<context:component-scan base-package="xyz.mhmm.controller" />
+	<context:component-scan
+		base-package="xyz.mhmm.controller" />
 
 
 

@@ -1,20 +1,22 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
 <html lang="ko">
-<head>
-<meta charset="UTF-8" />
+<head><meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>MHMM</title>
 
-<link href="css/common/reset.css" rel="stylesheet" type="text/css" />
-<link href="css/common/nav.css" rel="stylesheet" type="text/css" />
-<link href="css/main.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" th:href="@{css/common/reset.css}" />
+<link rel="stylesheet" th:href="@{css/common/nav.css}" />
+<link rel="stylesheet" th:href="@{css/main.css}" />
 </head>
 <body>
 
-	<%@include file="partitial/nav.jsp" %>
-	
+	<div th:insert="~{fragments/nav::nav}"></div>
+
 	<div class="content-wrap">
 		<div class="content">
 			<div class="content-side">
@@ -32,6 +34,28 @@
 					MHMM은.... 메신저 입니다..
 
 					<p>MHMM GET IN START</p>
+
+					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
+					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
+					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
+					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
+					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
+					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
+					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
+					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
+					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
+					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
+					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
+					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
+					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
+					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
+					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
+					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
+					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
+					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
+					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
+					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
+					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
 				</div>
 				<!-- //content-container -->
 			</section>
@@ -60,49 +84,7 @@
 					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
 					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
 					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
-					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
-					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
-					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
-					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
-					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
-					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
-					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
-					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
-					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
-					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
-					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
-					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
-					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
-					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
-					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
-					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
-					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
-					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
-					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
-					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
-					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
-					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
-					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
-					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
-					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
-					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
-					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
-					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
-					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
-					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
-					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
+
 					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
 					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
 					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
@@ -268,7 +250,18 @@
 					consectetur adipisicing elit. Vitae dolor culpa cumque,
 					perspiciatis saepe voluptatum modi quibusdam velit neque atque.
 					Fugit, eius sapiente nostrum cupiditate mollitia ipsum soluta
-					assumenda doloremque.</div>
+					assumenda doloremque. voluptatum modi quibusdam velit neque atque.
+					Fugit, eius sapiente nostrum cupiditate mollitia ipsum soluta
+					assumenda doloremque.Lorem ipsum dolor sit amet consectetur
+					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
+					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
+					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
+					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
+					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
+					neque atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
+					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
+					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
+					voluptatum modi quibusdam velit</div>
 				<!-- //content-container -->
 			</section>
 			<!-- //section3 -->
@@ -279,7 +272,18 @@
 					consectetur adipisicing elit. Vitae dolor culpa cumque,
 					perspiciatis saepe voluptatum modi quibusdam velit neque atque.
 					Fugit, eius sapiente nostrum cupiditate mollitia ipsum soluta
-					assumenda doloremque.</div>
+					assumenda doloremque. neque atque. Fugit, eius sapiente nostrum
+					cupiditate mollitia ipsum soluta assumenda doloremque.Lorem ipsum
+					dolor sit amet consectetur adipisicing elit. Vitae dolor culpa
+					cumque, perspiciatis saepe voluptatum modi quibusdam velit neque
+					atque. Fugit, eius sapiente nostrum cupiditate mollitia ipsum
+					soluta assumenda doloremque.Lorem ipsum dolor sit amet consectetur
+					adipisicing elit. Vitae dolor culpa cumque, perspiciatis saepe
+					voluptatum modi quibusdam velit neque atque. Fugit, eius sapiente
+					nostrum cupiditate mollitia ipsum soluta assumenda doloremque.Lorem
+					ipsum dolor sit amet consectetur adipisicing elit. Vitae dolor
+					culpa cumque, perspiciatis saepe voluptatum modi quibusdam velit
+					neque atque. Fugit, eius sapiente</div>
 				<!-- //content-container -->
 			</section>
 			<!-- //section4 -->
