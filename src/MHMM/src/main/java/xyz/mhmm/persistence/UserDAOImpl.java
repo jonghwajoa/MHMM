@@ -15,17 +15,29 @@ public class UserDAOImpl implements UserDAO {
 	private static final String namespace = "xyz.mhmm.mappers.userMapper";
 
 	@Override
-	public void create(UserDTO dto) {
-		int user = sqlSession.insert(namespace + ".create", dto);
-		System.out.println(user);
-		System.out.println(sqlSession.insert(namespace + ".create", dto));
-		System.out.println(sqlSession.insert(namespace + ".create", dto));
+	public void create(UserDTO user) {
+		sqlSession.insert(namespace + ".create", user);
 	}
 
 	@Override
 	public boolean findExistByEmail(String email) {
 		String isNull = sqlSession.selectOne(namespace + ".findExistByEmail", email);
-		return isNull !=null ? true : false;
+		return isNull != null ? true : false;
 	}
-	
+
+	@Override
+	public void updateToName(UserDTO user) {
+		sqlSession.update(namespace + ".updateToName", user);
+	}
+
+	@Override
+	public void updateToEmail(UserDTO user) {
+		sqlSession.update(namespace + ".updateToEmail", user);
+	}
+
+	@Override
+	public void delete(Long no) {
+		sqlSession.delete(namespace + ".delete", no);
+	}
+
 }

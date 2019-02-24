@@ -10,10 +10,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		tbl_user where email = #{email}
 	</select>
 
-	<insert id="create" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into tbl_user (name,email) values
-		(#{name},
+	<insert id="create" useGeneratedKeys="true" keyProperty="no"
+		parameterType="UserDTO">
+		insert into tbl_user (name,email) values ( #{name},
 		#{email} )
 	</insert>
+
+	<update id="updateToName">
+		update tbl_user set name= #{name} where no = #{no}
+	</update>
+
+	<update id="updateToEmail">
+		update tbl_user set email= #{email} where no = #{no}
+	</update>
+
+	<delete id="delete">
+		delete from tbl_user where no = #{no}
+	</delete>
 
 </mapper>

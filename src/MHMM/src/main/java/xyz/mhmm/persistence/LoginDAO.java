@@ -1,9 +1,12 @@
 package xyz.mhmm.persistence;
 
+import xyz.mhmm.domain.LoginDTO;
 import xyz.mhmm.domain.UserDTO;
 
 public interface LoginDAO {
-	public void create(LoginDAO dto);
 	
-	public boolean findExistById(String userId);
+	public boolean findExistById(String id);
+	public LoginDTO findById(String id);
+	public void create(UserDTO user);
+	public void updateToPw(LoginDTO user);
 }

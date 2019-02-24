@@ -1,4 +1,4 @@
-package xyz.mhmm.controller;
+package xyz.mhmm.setting;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

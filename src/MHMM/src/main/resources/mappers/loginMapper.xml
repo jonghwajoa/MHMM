@@ -5,10 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="xyz.mhmm.mappers.loginMapper">
 
+	<insert id="create">
+		insert into tbl_login ( no, id, pw ) values ( #{no}, #{id}, #{pw} )
+	</insert>
+
+
 	<select id="selectExistId" resultType="string">
-		select id from tbl_login where id = #{userId}
+		select id from tbl_login
+		where id = #{id}
 	</select>
 
+	<update id="updateToPw">
+		update tbl_login set pw= #{pw} where no = #{no}
+	</update>
 
 
 </mapper>

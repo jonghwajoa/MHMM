@@ -1,4 +1,4 @@
-package xyz.mhmm.controller;
+package xyz.mhmm.setting;
 
 import java.sql.Connection;
 
