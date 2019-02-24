@@ -2,13 +2,13 @@ package xyz.mhmm.service;
 
 import org.springframework.stereotype.Service;
 
-import xyz.mhmm.domain.UserVO;
+import xyz.mhmm.domain.UserDTO;
 
 @Service
-public interface UserService {
+public interface AuthService {
 	
 	
 
-	public void create(UserVO vo);
+	public Boolean create(UserDTO vo);
 
 }

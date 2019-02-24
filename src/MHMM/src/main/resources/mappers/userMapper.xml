@@ -5,9 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="xyz.mhmm.mappers.userMapper">
 
-	<insert id="create">
-		insert into tbl_user (phone, name,email,sex) values
-		(#{phone}, #{name}, #{email}, #{sex} )
+	<select id="findExistByEmail" resultType="string">
+		select email from
+		tbl_user where email = #{email}
+	</select>
+
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into tbl_user (name,email) values
+		(#{name},
+		#{email} )
 	</insert>
 
 </mapper>

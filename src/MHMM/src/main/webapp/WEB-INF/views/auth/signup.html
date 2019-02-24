@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>MHMM</title>
+<link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
+<link rel="stylesheet" th:href="@{~/css/common/nav.css}" />
+<link rel="stylesheet" th:href="@{~/css/auth/signup.css}" />
+</head>
+<body>
+	<div th:insert="~{fragments/nav::nav}"></div>
+
+    <div class="signup-wrap">
+      <section class="signup">
+        <h3>회원가입</h3>
+        <form action="/auth/signup" method="POST">
+          <div class="input-form">
+            <label for="id" class="ir_su">아이디</label>
+            <input
+              type="input"
+              id="id"
+              name="id"
+              class="input_text"
+              placeholder="아이디를 입력해주세요"
+              autocomplete="off"
+              maxlength="20"
+            />
+            <span class="message" id="userId-Message"></span>
+          </div>
+          <div class="input-form">
+            <label for="pw" class="ir_su">비밀번호</label>
+            <input
+              type="password"
+              id="pw"
+              name="pw"
+              class="input_text"
+              placeholder="비밀번호를 입력해주세요"
+              autocomplete="off"
+              maxlength="20"
+            />
+            <span class="message"></span>
+          </div>
+          <label for="pwCheck" class="ir_su">비밀번호 확인</label>
+          <input
+            type="password"
+            id="pwCheck"
+            name="pwCheck"
+            class="input_text"
+            placeholder="비밀번호를 한번더 입력해주세요"
+            autocomplete="off"
+            maxlength="20"
+          />
+          <label for="email" class="ir_su">이메일</label>
+          <input
+            type="input"
+            id="email"
+            name="email"
+            class="input_text"
+            placeholder="이메일을 입력해주세요"
+            autocomplete="off"
+            maxlength="50"
+          />
+          <label for="name" class="ir_su">이름</label>
+          <input
+            type="input"
+            id="name"
+            name="name"
+            class="input_text"
+            placeholder="이름을 입력해주세요"
+            autocomplete="off"
+            maxlength="10"
+          />
+
+          <input type="submit" id="signup-submit-btn" value="회원가입" />
+          <input type="button" value="로그인페이지로" onClick="location.href='/auth/login'"/>
+          <input type="button" value="홈으로" onClick="location.href='/'" />
+        </form>
+      </section>
+    </div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+	<script th:src=@{~/js/common/nav.js}></script>
+	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
+	<!--   <script th:src=@{~/js/auth/signup.js}></script> -->
+</body>
+</html>

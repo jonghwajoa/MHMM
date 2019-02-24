@@ -6,14 +6,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import xyz.mhmm.domain.UserVO;
+import xyz.mhmm.domain.UserDTO;
 
 @Component
 public class UserValidation implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return UserVO.class.equals(clazz);
+		return UserDTO.class.equals(clazz);
 	}
 
 	@Override
