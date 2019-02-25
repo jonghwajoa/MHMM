@@ -37,8 +37,9 @@ src/MHMM/target
 ### MHMM
 MHMM/mvnw*
 MHMM/.mvn
-MHMM/.gitignore
+MHMM/target
+Servers
 
-### config 정보포함파일
-src/MHMM/src/main/webapp/WEB-INF/spring/root-context.xml
-src/MHMM/src/test/java/xyz/mhmm/setting/MariaDbConnectionTest.java
+### setting include file
+MHMM/src/test/java/xyz/mhmm/setting/MariaDbConnectionTest.java
+MHMM/src/main/webapp/WEB-INF/spring/root-context.xml
