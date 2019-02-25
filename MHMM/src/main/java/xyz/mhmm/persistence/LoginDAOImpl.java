@@ -16,8 +16,9 @@ public class LoginDAOImpl implements LoginDAO {
 	private static final String namespace = "xyz.mhmm.mappers.loginMapper";
 
 	@Override
-	public void create(UserDTO user) {
+	public Long create(UserDTO user) {
 		sqlSession.insert(namespace + ".create", user);
+		return user.getNo();
 	}
 
 	@Override

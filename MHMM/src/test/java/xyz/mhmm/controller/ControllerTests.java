@@ -33,7 +33,7 @@ import xyz.mhmm.controller.AuthController;
 @ContextHierarchy({ @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" }),
 		@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" }) })
 @WebAppConfiguration
-public class AuthTests {
+public class ControllerTests {
 
 	@Autowired
 	AuthController authController;
@@ -48,9 +48,12 @@ public class AuthTests {
 
 	@Before
 	public void setup() {
+		int colortest;
 		mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
-
+	
+	// 주석
+	/* 주석 색상*/
 	public void getLoginTest() throws Exception {
 		mockMvc.perform(get("/auth/login")).andDo(print()).andExpect(status().isOk());
 		System.out.println("-----------------------");

@@ -8,7 +8,7 @@ import xyz.mhmm.domain.UserDTO;
 @Service
 public interface AuthService {
 	public boolean findExistByEmail(String email);
-	public boolean create(UserDTO user);
+	public UserDTO create(UserDTO user) throws Exception;
 	public void updateForUser(UserDTO user);
 	public void updateForPw(LoginDTO login);
 

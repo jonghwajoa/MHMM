@@ -22,25 +22,25 @@ public class UserDTO {
 	private Long no;
 
 	@NotNull
-	@Email(message = "�씠硫붿씪 �삎�떇�씠 �삱諛붾Ⅴ吏� �븡�뒿�땲�떎.")
-	@Length(min = 5, message = "�씠硫붿씪�� 理쒖냼 5�옄由� �씠�긽�엯�땲�떎.")
-	@Length(max = 50, message = "�씠硫붿씪 理쒕� 湲몄씠�뒗 50�엯�땲�떎.")
+	@Email(message = "이메일 형식이 올바르지 않습니다.")
+	@Length(min = 5, message = "이메일은 최소 5자리 이상입니다.")
+	@Length(max = 50, message = "이메일 최대 길이는 50입니다.")
 	private String email;
 
 	@NotNull
-	@Length(min = 2, message = "�씠由꾩� 理쒖냼 2�옄由� �씠�긽�엯�땲�떎.")
-	@Length(max = 10, message = "�씠由꾩� 理쒕� 湲몄씠 10�엯�땲�떎.")
-	@Pattern(regexp = "\\S{2,10}", message = "�씠由꾩� 2~10�옄濡� �엯�젰�빐二쇱꽭�슂.")
+	@Length(min = 2, message = "이름은 최소 2자리 이상입니다.")
+	@Length(max = 10, message = "이름은 최대 길이 10입니다.")
+	@Pattern(regexp = "\\S{2,10}", message = "이름은 2~10자로 입력해주세요.")
 	private String name;
 
 	@NotNull
-	@Length(min = 5, message = "�븘�씠�뵒�뒗 理쒖냼 5�옄由� �씠�긽�엯�땲�떎.")
-	@Length(max = 20, message = "�븘�씠�뵒�뒗 理쒕� 20�옄由� �엯�땲�떎.")
+	@Length(min = 5, message = "아이디는 최소 5자리 이상입니다.")
+	@Length(max = 20, message = "아이디는 최대 20자리 입니다.")
 	private String id;
 
 	@NotNull
-	@Length(min = 5, message = "鍮꾨�踰덊샇�뒗 理쒖냼 5�옄由� �씠�긽�엯�땲�떎.")
-	@Length(max = 100, message = "鍮꾨�踰덊샇�뒗 理쒕� 100�옄由� �엯�땲�떎.")
+	@Length(min = 5, message = "비밀번호는 최소 5자리 이상입니다.")
+	@Length(max = 100, message = "비밀번호는 최대 100자리 입니다.")
 	private String pw;
 
 }
