@@ -2,34 +2,37 @@ package xyz.mhmm.controller;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import xyz.mhmm.domain.LoginDTO;
-import xyz.mhmm.domain.UserDTO;
+import xyz.mhmm.commons.ErrorResponse;
+import xyz.mhmm.domain.LoginVO;
+import xyz.mhmm.dto.AuthDTO;
+import xyz.mhmm.service.AuthService;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	AuthService authService;
 
 	@GetMapping("/login")
 	public String loginGET() {
-		logger.info("auth/login");
 		return "auth/login";
 	}
 
 	@PostMapping("/login")
-	public String loginPOST(LoginDTO loginVO) {
+	public String loginPOST(LoginVO loginVO) {
 		System.out.println(loginVO.toString());
-		System.out.println("�뿤�뿤 �뿬�뀘湲곕떦");
 		return "redirect:/";
 	}
 
@@ -39,15 +42,16 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public String signupPOST(@ModelAttribute("UserVO") @Valid UserDTO userDTO, BindingResult bindingResult,
+	public ResponseEntity<?> signupPOST(@RequestBody @ModelAttribute @Valid AuthDTO.Create dto, BindingResult result,
 			Model model) {
-		System.out.println(userDTO);
-		if (bindingResult.hasErrors()) {
-			System.out.println("�뿬湲대뜲..?");
-			return "auth/signup";
+		if (result.hasErrors()) {
+			ErrorResponse errorResponse = new ErrorResponse();
+			result.getAllErrors().forEach(e -> errorResponse.add(e.getCode(), e.getDefaultMessage()));
+			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
-		System.out.println("�뿬湲댁븘�땶�뜲...");
-		return "index";
-	}
 
+//		authService.create(dto);
+
+		return new ResponseEntity<>(null, HttpStatus.CREATED);
+	}
 }

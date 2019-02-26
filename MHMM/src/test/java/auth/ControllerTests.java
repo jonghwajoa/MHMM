@@ -1,5 +1,6 @@
-package xyz.mhmm.controller;
+package auth;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,10 +24,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.View;
+import org.thymeleaf.engine.IElementDefinitionsAware;
 
 import xyz.mhmm.controller.AuthController;
 
@@ -48,12 +52,9 @@ public class ControllerTests {
 
 	@Before
 	public void setup() {
-		int colortest;
 		mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
-	
-	// 주석
-	/* 주석 색상*/
+
 	public void getLoginTest() throws Exception {
 		mockMvc.perform(get("/auth/login")).andDo(print()).andExpect(status().isOk());
 		System.out.println("-----------------------");
@@ -65,27 +66,21 @@ public class ControllerTests {
 	}
 
 	@Test
+	@Description("이메일이 양식이 앙닌경우")
 	public void postSignupTest() throws Exception {
 		MultiValueMap<String, String> map = getParams();
 
-		MvcResult result = mockMvc.perform(post("/auth/signup").params(map)).andExpect(status().isOk())
-				.andExpect(model().hasErrors()).andReturn();
+		MvcResult result = mockMvc.perform(post("/auth/signup").params(map)).andExpect(status().isOk()).andReturn();
+//				.andExpect(model().hasErrors()).andReturn();
 
-		Map<String, Object> model = result.getModelAndView().getModel();
-		View view = result.getModelAndView().getView();
-		model.forEach((s, o) -> {
-			System.out.println(o);
-		});
-
-		System.out.println(view);
 
 	}
 
 	public MultiValueMap<String, String> getParams() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-		map.add("id", "jonghwaid");
+		map.add("id", "d");
 		map.add("pw", "jonghwapw");
-		map.add("email", "eamil@xyz");
+		map.add("email", "eamilxyz");
 		map.add("name", "name");
 		return map;
 	}

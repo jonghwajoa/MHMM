@@ -1,4 +1,4 @@
-package xyz.mhmm.errors;
+package xyz.mhmm.commons;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

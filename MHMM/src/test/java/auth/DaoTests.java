@@ -1,4 +1,4 @@
-package xyz.mhmm.auth;
+package auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.FixMethodOrder;
@@ -7,21 +7,24 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import xyz.mhmm.domain.LoginDTO;
-import xyz.mhmm.domain.UserDTO;
+import xyz.mhmm.domain.LoginVO;
+import xyz.mhmm.domain.UserVO;
+import xyz.mhmm.dto.AuthDTO;
 import xyz.mhmm.persistence.LoginDAO;
 import xyz.mhmm.persistence.UserDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/*.xml" })
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@ContextHierarchy({ @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" }),
+		@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" }) })
+@WebAppConfiguration
 @Transactional
-@Rollback
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DaoTests {
 
 	@Autowired
@@ -30,20 +33,26 @@ public class DaoTests {
 	@Autowired
 	private UserDAO userDAO;
 
+	static Long userNo;
+
 	@Test
+	@Commit
 	public void test1_createUser() {
-		UserDTO user = createUserDtoForUser();
+		AuthDTO.Create user = createDto();
 		userDAO.create(user);
+		userNo = user.getNo();
+		assertThat(user.getNo()).isNotNull();
 	}
 
 	@Test
 	public void test2_createLogin() {
-		UserDTO user = createUserDtoForLogin();
-		Long userNo = loginDAO.create(user);
-		assertThat(userNo).isNotNull();
+		AuthDTO.Create user = createDto();
+		user.setNo(userNo);
+		System.out.println(user.toString());
+		loginDAO.create(user);
+		assertThat(user.getNo()).isNotNull();
 	}
 
-	@Test
 	public void test3_selectExistIdTest() {
 		boolean result = loginDAO.findExistById("userid");
 		assertThat(result).isTrue();
@@ -52,7 +61,6 @@ public class DaoTests {
 		assertThat(result).isFalse();
 	}
 
-	@Test
 	public void test3_selectExistEmailTest() {
 		boolean result = userDAO.findExistByEmail("dqwdwq");
 		assertThat(result).isFalse();
@@ -61,52 +69,49 @@ public class DaoTests {
 		assertThat(result).isTrue();
 	}
 
-	@Test
 	public void test4_updateToNameTest() {
-		UserDTO user = createUserDtoForUser();
+		UserVO user = createUserDtoForUser();
 		user.setName("수정한이름");
 		user.setNo(1L);
 		userDAO.updateToName(user);
 	}
 
-	@Test
 	public void test4_updateToEmailTest() {
-		UserDTO user = createUserDtoForUser();
+		UserVO user = createUserDtoForUser();
 		user.setEmail("update@mhmm.xyz");
 		user.setNo(1L);
 		userDAO.updateToEmail(user);
 	}
 
-	@Test
 	public void test4_updateToPwTest() {
-		LoginDTO user = createLoginDto();
+		LoginVO user = createLoginDto();
 		user.setPw("바꾼비밀번호");
 		loginDAO.updateToPw(user);
 	}
 
-	@Test
 	public void test5_deleteUser() {
 		userDAO.delete(1L);
 	}
 
-	public UserDTO createUserDtoForLogin() {
-		UserDTO user = new UserDTO();
+	public AuthDTO.Create createDto() {
+		AuthDTO.Create user = new AuthDTO.Create();
+		user.setId("userid");
+		user.setPw("userpw");
+		user.setEmail("21322mhmm@mhmm.xyz");
+		user.setName("종화");
+		return user;
+	}
+
+	public LoginVO createLoginDto() {
+		LoginVO user = new LoginVO();
 		user.setId("userid");
 		user.setPw("userpw");
 		user.setNo(33L);
 		return user;
 	}
 
-	public LoginDTO createLoginDto() {
-		LoginDTO user = new LoginDTO();
-		user.setId("userid");
-		user.setPw("userpw");
-		user.setNo(33L);
-		return user;
-	}
-
-	public UserDTO createUserDtoForUser() {
-		UserDTO user = new UserDTO();
+	public UserVO createUserDtoForUser() {
+		UserVO user = new UserVO();
 		user.setEmail("21322mhmm@mhmm.xyz");
 		user.setName("종화");
 		return user;

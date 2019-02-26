@@ -43,3 +43,4 @@ Servers
 ### setting include file
 MHMM/src/test/java/xyz/mhmm/setting/MariaDbConnectionTest.java
 MHMM/src/main/webapp/WEB-INF/spring/root-context.xml
+MHMM/.*

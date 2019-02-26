@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@GetMapping("/")
 	public String index(Model model) {
-		logger.info("인덱스 페이지");
+		System.out.println("index page");
 		return "index";
 	}
-
 }
