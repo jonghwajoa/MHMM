@@ -23,8 +23,10 @@ public class AuthService {
 	LoginDAO logindao;
 
 	public AuthDTO.Create create(AuthDTO.Create user) {
+		
 		String id = user.getId();
 		String email = user.getEmail();
+		
 		if (logindao.findExistById(id)) {
 			throw new IdDuplicatedException();
 		}

@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
-@NoArgsConstructor
 public class ErrorResponse {
 
 	private int status;
@@ -34,9 +32,7 @@ public class ErrorResponse {
 		this.errors = errors;
 	}
 
-	@Setter
 	@AllArgsConstructor
-	@NoArgsConstructor
 	@Getter
 	public static class FieldError {
 		private String field;

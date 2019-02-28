@@ -7,7 +7,7 @@ import lombok.Getter;
 public class IdDuplicatedException extends BusinessException {
 	
 	public IdDuplicatedException() {
-        super(ErrorCode.EMAIL_DUPLICATION);
+        super(ErrorCode.ID_DUPLICATION);
     }
 
 }

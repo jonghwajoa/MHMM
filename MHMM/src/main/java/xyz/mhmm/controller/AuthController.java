@@ -1,10 +1,7 @@
 package xyz.mhmm.controller;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
@@ -21,10 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
+import xyz.mhmm.commons.BusinessException;
 import xyz.mhmm.commons.EmailDuplicatedException;
 import xyz.mhmm.commons.ErrorCode;
 import xyz.mhmm.commons.ErrorResponse;
@@ -39,7 +34,7 @@ import xyz.mhmm.service.AuthService;
 public class AuthController {
 
 	@Autowired
-	AuthService authService;
+	private AuthService authService;
 
 	@GetMapping("/login")
 	public String loginGET() {
@@ -59,9 +54,12 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	@ResponseBody
-	public ResponseEntity<?> signupPOST(@RequestBody @ModelAttribute @Valid AuthDTO.Create dto, BindingResult result,
+	public ResponseEntity<?> signupPOST(@RequestBody @Valid AuthDTO.Create dto, BindingResult result,
 			Model model) {
+
+		System.out.println(dto.toString());
 		if (result.hasErrors()) {
+
 			List<FieldError> errors = result.getFieldErrors().stream()
 					.map(obj -> new FieldError(obj.getField(), obj.getCode(), obj.getDefaultMessage()))
 					.collect(Collectors.toList());
@@ -73,13 +71,9 @@ public class AuthController {
 		return new ResponseEntity<>(AuthDTO.convertResponse(authService.create(dto)), HttpStatus.CREATED);
 	}
 
-	@ExceptionHandler(EmailDuplicatedException.class)
-	public ResponseEntity<?> handleUserDuplicatedException(EmailDuplicatedException e) {
-		return new ResponseEntity<>(e.getErrorCode(), HttpStatus.BAD_REQUEST);
+	@ExceptionHandler({ EmailDuplicatedException.class, IdDuplicatedException.class })
+	public ResponseEntity<?> handleUserDuplicatedException(BusinessException e) {
+		return new ResponseEntity<>(new ErrorResponse(e.getErrorCode()), HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(IdDuplicatedException.class)
-	public ResponseEntity<?> handleIdDuplicatedException(IdDuplicatedException e) {
-		return new ResponseEntity<>(e.getErrorCode(), HttpStatus.BAD_REQUEST);
-	}
 }
