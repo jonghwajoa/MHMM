@@ -40,10 +40,19 @@ public class AuthDTO {
 
 	@Data
 	public static class CreateResponse {
+		private Long no;
 		private String email;
 		private String name;
 		private String id;
-		private String pw;
+	}
+
+	public static AuthDTO.CreateResponse convertResponse(AuthDTO.Create origin) {
+		AuthDTO.CreateResponse newUser = new AuthDTO.CreateResponse();
+		newUser.setNo(origin.getNo());
+		newUser.setEmail(origin.getEmail());
+		newUser.setId(origin.getId());
+		newUser.setName(origin.getName());
+		return newUser;
 	}
 
 }

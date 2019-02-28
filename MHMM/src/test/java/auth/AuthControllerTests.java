@@ -1,10 +1,8 @@
 package auth;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,12 +22,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.View;
-import org.thymeleaf.engine.IElementDefinitionsAware;
 
 import xyz.mhmm.controller.AuthController;
 
@@ -37,7 +32,7 @@ import xyz.mhmm.controller.AuthController;
 @ContextHierarchy({ @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" }),
 		@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" }) })
 @WebAppConfiguration
-public class ControllerTests {
+public class AuthControllerTests {
 
 	@Autowired
 	AuthController authController;
@@ -65,22 +60,31 @@ public class ControllerTests {
 				.andExpect(redirectedUrl("/"));
 	}
 
-	@Test
 	@Description("이메일이 양식이 앙닌경우")
-	public void postSignupTest() throws Exception {
+	public void SignupInvalidInputTest() throws Exception {
 		MultiValueMap<String, String> map = getParams();
 
-		MvcResult result = mockMvc.perform(post("/auth/signup").params(map)).andExpect(status().isOk()).andReturn();
-//				.andExpect(model().hasErrors()).andReturn();
+		MvcResult result = mockMvc.perform(post("/auth/signup").params(map)).andExpect(status().isBadRequest())
+				.andDo(print()).andReturn();
 
+		String body = result.getResponse().getContentAsString();
+	}
+
+	@Test
+	@Description("존재하는 이메일인 경우")
+	public void SignupDuplicatedEmialTest() throws Exception {
+		MultiValueMap<String, String> map = getParams();
+
+		MvcResult result = mockMvc.perform(post("/auth/signup").params(map)).andExpect(status().isBadRequest())
+				.andDo(print()).andReturn();
 
 	}
 
 	public MultiValueMap<String, String> getParams() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-		map.add("id", "d");
+		map.add("id", "jonghwa");
 		map.add("pw", "jonghwapw");
-		map.add("email", "eamilxyz");
+		map.add("email", "mhmmamhmm.xyz");
 		map.add("name", "name");
 		return map;
 	}

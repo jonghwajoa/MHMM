@@ -25,7 +25,7 @@ import xyz.mhmm.persistence.UserDAO;
 @WebAppConfiguration
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class DaoTests {
+public class AuthDaoTests {
 
 	@Autowired
 	private LoginDAO loginDAO;

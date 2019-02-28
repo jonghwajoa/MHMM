@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import xyz.mhmm.commons.UserDuplicatedException;
+import xyz.mhmm.commons.EmailDuplicatedException;
+import xyz.mhmm.commons.IdDuplicatedException;
 import xyz.mhmm.domain.LoginVO;
 import xyz.mhmm.domain.UserVO;
 import xyz.mhmm.dto.AuthDTO;
@@ -21,15 +22,15 @@ public class AuthService {
 	@Autowired
 	LoginDAO logindao;
 
-	public AuthDTO.Create create(AuthDTO.Create user) throws Exception {
+	public AuthDTO.Create create(AuthDTO.Create user) {
 		String id = user.getId();
 		String email = user.getEmail();
 		if (logindao.findExistById(id)) {
-			throw new UserDuplicatedException("이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요.");
+			throw new IdDuplicatedException();
 		}
 
 		if (userdao.findExistByEmail(email)) {
-			throw new UserDuplicatedException("이미 사용중인 이메일 입니다. 다른 이메이을 사용해주세요.");
+			throw new EmailDuplicatedException();
 		}
 
 		userdao.create(user);
@@ -37,7 +38,7 @@ public class AuthService {
 		return user;
 	}
 
-	public boolean findExistByEmail(String email) {
+	public boolean duplicateCheckByEmail(String email) {
 		// TODO Auto-generated method stub
 		return false;
 	}

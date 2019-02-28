@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import xyz.mhmm.commons.UserDuplicatedException;
+import xyz.mhmm.commons.EmailDuplicatedException;
 import xyz.mhmm.domain.UserVO;
 import xyz.mhmm.dto.AuthDTO;
 import xyz.mhmm.service.AuthService;
@@ -26,10 +26,11 @@ import xyz.mhmm.service.AuthService;
 @WebAppConfiguration
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ServiceTests {
+public class AuthServiceTests {
 
 	@Autowired
-	AuthService authService;
+	private AuthService authService;
+
 
 	@Test
 	@Description("이미 사용중인 아이디 일경우")
@@ -40,12 +41,11 @@ public class ServiceTests {
 		try {
 			result = authService.create(user);
 		} catch (Exception e) {
-			assertThat(e).isInstanceOf(UserDuplicatedException.class).hasMessage("이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요.");
+			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요.");
 		}
 		assertThat(result).isNull();
 	}
 
-	@Test
 	@Description("이미 사용중인 이메일인 경우")
 	public void test1_SingupEmailExceptionTest() {
 		AuthDTO.Create user = createDto();
@@ -54,7 +54,7 @@ public class ServiceTests {
 		try {
 			result = authService.create(user);
 		} catch (Exception e) {
-			assertThat(e).isInstanceOf(UserDuplicatedException.class).hasMessage("이미 사용중인 이메일 입니다. 다른 이메이을 사용해주세요.");
+			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 이메일 입니다. 다른 이메이을 사용해주세요.");
 		}
 		assertThat(result).isNull();
 	}
@@ -71,7 +71,10 @@ public class ServiceTests {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-//		assertThat(user). has properties chaining찾아보기
+		assertThat(result).hasFieldOrPropertyWithValue("email", "updateEmail@mhmm.xyz")
+					.hasFieldOrPropertyWithValue("name", "jonghwa")
+					.hasFieldOrPropertyWithValue("id", "updateId")
+					.hasFieldOrProperty("no");
 	}
 
 	public AuthDTO.Create createDto() {

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import xyz.mhmm.domain.LoginVO;
-import xyz.mhmm.domain.UserVO;
 import xyz.mhmm.dto.AuthDTO;
 
 @Repository

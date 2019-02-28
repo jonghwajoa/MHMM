@@ -44,8 +44,6 @@
 
 
 	<context:component-scan
-		base-package="xyz.mhmm" />
-
-
+		base-package="xyz.mhmm.controller" />
 
 </beans:beans>

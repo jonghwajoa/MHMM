@@ -1,40 +1,47 @@
 package xyz.mhmm.commons;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import groovy.transform.ToString;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ErrorResponse {
-	private List<FieldError> errors = new LinkedList<>();
 
-	public void add(String field, String reason) {
-		errors.add(new ErrorResponse.FieldError(field, reason));
+	private int status;
+	private String message;
+	private String code;
+	private List<FieldError> errors;
+
+	public boolean hasFiledError() {
+		return this.errors != null;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		errors.forEach(e -> sb.append("Filed: " + e.field + ", Reason: " + e.reason + "\n"));
-		return sb.toString();
+	public ErrorResponse(ErrorCode errorCode) {
+		this.status = errorCode.getStatus();
+		this.code = errorCode.getCode();
+		this.message = errorCode.getMessage();
 	}
 
+	public ErrorResponse(ErrorCode errorCode, List<FieldError> errors) {
+		this.status = errorCode.getStatus();
+		this.code = errorCode.getCode();
+		this.message = errorCode.getMessage();
+		this.errors = errors;
+	}
+
+	@Setter
 	@AllArgsConstructor
+	@NoArgsConstructor
 	@Getter
 	public static class FieldError {
 		private String field;
+		private String value;
 		private String reason;
-
-		@Override
-		public String toString() {
-			return "Filed: " + this.field + ", Reason: " + this.reason;
-		}
 	}
 
 }
