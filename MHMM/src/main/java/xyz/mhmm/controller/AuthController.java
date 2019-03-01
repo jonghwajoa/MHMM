@@ -25,16 +25,30 @@ import xyz.mhmm.commons.ErrorCode;
 import xyz.mhmm.commons.ErrorResponse;
 import xyz.mhmm.commons.ErrorResponse.FieldError;
 import xyz.mhmm.commons.IdDuplicatedException;
+import xyz.mhmm.commons.UserNotExistException;
 import xyz.mhmm.domain.LoginVO;
 import xyz.mhmm.dto.AuthDTO;
 import xyz.mhmm.service.AuthService;
+import xyz.mhmm.validation.UserValidation;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+	
+	/*  제공해야하는 기능
+	 * 로그인 , 회원가입 POST 요청
+	 * 로그아웃 
+	 * 회원 탈퇴 기능
+	 * 로그인 VIEW , 회원가입 VIEW
+	 * 
+	 * TODO : 비밀번호 변경
+	 */
 
 	@Autowired
 	private AuthService authService;
+
+	@Autowired
+	private UserValidation userValidation;
 
 	@GetMapping("/login")
 	public String loginGET() {
@@ -52,28 +66,37 @@ public class AuthController {
 		return "auth/signup";
 	}
 
-	@PostMapping("/signup")
-	@ResponseBody
-	public ResponseEntity<?> signupPOST(@RequestBody @Valid AuthDTO.Create dto, BindingResult result,
-			Model model) {
+	@PostMapping(path = "/signup", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> signupPOST(@RequestBody @Valid AuthDTO.Create dto, BindingResult result) {
+		userValidation.pwEqCheck(dto, result);
 
-		System.out.println(dto.toString());
 		if (result.hasErrors()) {
-
-			List<FieldError> errors = result.getFieldErrors().stream()
-					.map(obj -> new FieldError(obj.getField(), obj.getCode(), obj.getDefaultMessage()))
-					.collect(Collectors.toList());
-
-			ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INVALID_INPUT_VALUE, errors);
+			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(AuthDTO.convertResponse(authService.create(dto)), HttpStatus.CREATED);
 	}
 
+	@PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> loginPOST(@RequestBody @Valid AuthDTO.Login dto, BindingResult result) {
+
+		if (result.hasErrors()) {
+			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
+			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(AuthDTO.convertLoginResponse(authService.Login(dto)), HttpStatus.OK);
+	}
+
 	@ExceptionHandler({ EmailDuplicatedException.class, IdDuplicatedException.class })
 	public ResponseEntity<?> handleUserDuplicatedException(BusinessException e) {
-		return new ResponseEntity<>(new ErrorResponse(e.getErrorCode()), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UserNotExistException.class) 
+	public ResponseEntity<?> handleUserNotExistException(BusinessException e) {
+		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.NOT_FOUND);
 	}
 
 }

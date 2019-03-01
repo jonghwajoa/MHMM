@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<typeAliases>
 		<package name="xyz.mhmm.dto" />
+		<package name="xyz.mhmm.domain" />
 	</typeAliases>
 
 </configuration>

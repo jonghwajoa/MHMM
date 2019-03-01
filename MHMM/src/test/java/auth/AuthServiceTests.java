@@ -15,9 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import xyz.mhmm.commons.BusinessException;
 import xyz.mhmm.commons.EmailDuplicatedException;
+import xyz.mhmm.commons.ErrorCode;
+import xyz.mhmm.commons.UserNotExistException;
 import xyz.mhmm.domain.UserVO;
 import xyz.mhmm.dto.AuthDTO;
+import xyz.mhmm.dto.AuthDTO.Login;
+import xyz.mhmm.persistence.LoginDAO;
 import xyz.mhmm.service.AuthService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,8 +36,6 @@ public class AuthServiceTests {
 	@Autowired
 	private AuthService authService;
 
-
-	@Test
 	@Description("이미 사용중인 아이디 일경우")
 	public void test1_SingupIdExceptionTest() {
 		AuthDTO.Create user = createDto();
@@ -53,13 +56,12 @@ public class AuthServiceTests {
 		AuthDTO.Create result = null;
 		try {
 			result = authService.create(user);
-		} catch (Exception e) {
+		} catch (BusinessException e) {
 			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 이메일 입니다. 다른 이메이을 사용해주세요.");
 		}
 		assertThat(result).isNull();
 	}
 
-	@Test
 	@Description("회원 가입 성공한 경우")
 	public void test1_SingupSuccessTest() {
 		AuthDTO.Create user = createDto();
@@ -72,9 +74,40 @@ public class AuthServiceTests {
 			System.out.println(e);
 		}
 		assertThat(result).hasFieldOrPropertyWithValue("email", "updateEmail@mhmm.xyz")
-					.hasFieldOrPropertyWithValue("name", "jonghwa")
-					.hasFieldOrPropertyWithValue("id", "updateId")
-					.hasFieldOrProperty("no");
+				.hasFieldOrPropertyWithValue("name", "jonghwa").hasFieldOrPropertyWithValue("id", "updateId")
+				.hasFieldOrProperty("no");
+	}
+
+	@Description("로그인 실패하는경우")
+	public void test2_LoginFailTest() {
+		AuthDTO.Login user = new AuthDTO.Login();
+
+		user.setId("userid");
+		user.setPw("userpwpw");
+		try {
+			authService.Login(user);
+		} catch (BusinessException e) {
+			ErrorCode exception = e.getErrorCode();
+			assertThat(exception.getMessage()).isEqualTo("아이디 혹은 비밀번호가 올바르지 않습니다.");
+			assertThat(exception.getStatus()).isEqualTo(404);
+			assertThat(exception.getCode()).isEqualTo("A003");
+		}
+	}
+
+	@Test
+	@Description("로그인 성공하는 경우")
+	public void test2_LoginSuccessTest() {
+		AuthDTO.Login user = new AuthDTO.Login();
+		user.setId("userid");
+		user.setPw("userpw");
+		try {
+			Login result = authService.Login(user);
+			assertThat(result.getId()).isEqualTo(user.getId());
+			assertThat(result.getPw()).isEqualTo(user.getPw());
+		} catch (BusinessException e) {
+			System.out.println(e);
+		}
+
 	}
 
 	public AuthDTO.Create createDto() {

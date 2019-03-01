@@ -1,12 +1,12 @@
 package auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -35,8 +35,6 @@ public class AuthDaoTests {
 
 	static Long userNo;
 
-	@Test
-	@Commit
 	public void test1_createUser() {
 		AuthDTO.Create user = createDto();
 		userDAO.create(user);
@@ -44,7 +42,6 @@ public class AuthDaoTests {
 		assertThat(user.getNo()).isNotNull();
 	}
 
-	@Test
 	public void test2_createLogin() {
 		AuthDTO.Create user = createDto();
 		user.setNo(userNo);
@@ -71,14 +68,12 @@ public class AuthDaoTests {
 
 	public void test4_updateToNameTest() {
 		UserVO user = createUserDtoForUser();
-		user.setName("수정한이름");
 		user.setNo(1L);
 		userDAO.updateToName(user);
 	}
 
 	public void test4_updateToEmailTest() {
 		UserVO user = createUserDtoForUser();
-		user.setEmail("update@mhmm.xyz");
 		user.setNo(1L);
 		userDAO.updateToEmail(user);
 	}
@@ -91,6 +86,11 @@ public class AuthDaoTests {
 
 	public void test5_deleteUser() {
 		userDAO.delete(1L);
+	}
+
+	@Test
+	public void findLoginById() {
+		LoginVO vo = loginDAO.findById("userid2");
 	}
 
 	public AuthDTO.Create createDto() {
@@ -112,8 +112,6 @@ public class AuthDaoTests {
 
 	public UserVO createUserDtoForUser() {
 		UserVO user = new UserVO();
-		user.setEmail("21322mhmm@mhmm.xyz");
-		user.setName("종화");
 		return user;
 	}
 

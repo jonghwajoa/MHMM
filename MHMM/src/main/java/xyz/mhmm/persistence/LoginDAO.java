@@ -20,8 +20,7 @@ public class LoginDAO {
 	}
 
 	public LoginVO findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(namespace + ".findById", id);
 	}
 
 	public boolean findExistById(String id) {

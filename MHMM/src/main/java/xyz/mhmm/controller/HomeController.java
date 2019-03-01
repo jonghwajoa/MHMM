@@ -10,7 +10,6 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String index(Model model) {
-		System.out.println("index page");
 		return "index";
 	}
 }

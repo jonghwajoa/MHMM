@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import xyz.mhmm.commons.EmailDuplicatedException;
 import xyz.mhmm.commons.IdDuplicatedException;
+import xyz.mhmm.commons.UserNotExistException;
 import xyz.mhmm.domain.LoginVO;
 import xyz.mhmm.domain.UserVO;
 import xyz.mhmm.dto.AuthDTO;
@@ -20,14 +21,14 @@ public class AuthService {
 	UserDAO userdao;
 
 	@Autowired
-	LoginDAO logindao;
+	LoginDAO loginDAO;
 
 	public AuthDTO.Create create(AuthDTO.Create user) {
-		
+
 		String id = user.getId();
 		String email = user.getEmail();
-		
-		if (logindao.findExistById(id)) {
+
+		if (loginDAO.findExistById(id)) {
 			throw new IdDuplicatedException();
 		}
 
@@ -36,7 +37,7 @@ public class AuthService {
 		}
 
 		userdao.create(user);
-		logindao.create(user);
+		loginDAO.create(user);
 		return user;
 	}
 
@@ -52,6 +53,24 @@ public class AuthService {
 
 	public void updateForPw(LoginVO login) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public AuthDTO.Login Login(AuthDTO.Login dto) {
+
+		LoginVO findUser = loginDAO.findById(dto.getId());
+
+		if (findUser == null) {
+			throw new UserNotExistException();
+		}
+
+		String bcryptPass = dto.getPw();
+
+		if (!bcryptPass.equals(findUser.getPw())) {
+			throw new UserNotExistException();
+		}
+
+		return dto;
 
 	}
 }
