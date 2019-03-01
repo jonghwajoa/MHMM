@@ -34,12 +34,9 @@ import xyz.mhmm.validation.UserValidation;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
-	
-	/*  제공해야하는 기능
-	 * 로그인 , 회원가입 POST 요청
-	 * 로그아웃 
-	 * 회원 탈퇴 기능
-	 * 로그인 VIEW , 회원가입 VIEW
+
+	/*
+	 * 제공해야하는 기능 로그인 , 회원가입 POST 요청 로그아웃 회원 탈퇴 기능 로그인 VIEW , 회원가입 VIEW
 	 * 
 	 * TODO : 비밀번호 변경
 	 */
@@ -53,12 +50,6 @@ public class AuthController {
 	@GetMapping("/login")
 	public String loginGET() {
 		return "auth/login";
-	}
-
-	@PostMapping("/login")
-	public String loginPOST(LoginVO loginVO) {
-		System.out.println(loginVO.toString());
-		return "redirect:/";
 	}
 
 	@GetMapping("/signup")
@@ -93,8 +84,8 @@ public class AuthController {
 	public ResponseEntity<?> handleUserDuplicatedException(BusinessException e) {
 		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.BAD_REQUEST);
 	}
-	
-	@ExceptionHandler(UserNotExistException.class) 
+
+	@ExceptionHandler(UserNotExistException.class)
 	public ResponseEntity<?> handleUserNotExistException(BusinessException e) {
 		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.NOT_FOUND);
 	}

@@ -35,6 +35,8 @@ public class AuthService {
 		if (userdao.findExistByEmail(email)) {
 			throw new EmailDuplicatedException();
 		}
+		
+		 
 
 		userdao.create(user);
 		loginDAO.create(user);

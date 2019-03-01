@@ -37,7 +37,8 @@ const ajaxUtil = {
         }
       };
       xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xhr.send(JSON.stringify(params));
       xhr.onerror = () => reject(req.status);
     });
@@ -52,7 +53,7 @@ const ajaxUtil = {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function() {
-        if (xhr.status === 204) {
+        if (xhr.status < 300) {
           resolve(xhr.responseText);
         } else {
           reject({ status: xhr.status, message: xhr.responseText });

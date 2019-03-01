@@ -117,7 +117,7 @@ public class AuthControllerTests {
 	@Description("비밀번호 확인이 일치하지 않는 경우")
 	public void SignupNotEqPwTest() throws Exception {
 		AuthDTO.Create createDTO = new AuthDTO.Create();
-		createDTO.setId("useridg");
+		createDTO.setId("userid");
 		createDTO.setPw("jonghwapw");
 		createDTO.setPwCheck("jonghaawapw");
 		createDTO.setName("name");
@@ -199,12 +199,13 @@ public class AuthControllerTests {
 		result.andExpect(jsonPath("$.status").value(400));
 		result.andExpect(jsonPath("$.code").value("C001"));
 		
-		result.andExpect(jsonPath("$.errors[0].field").value("pw"));
+	
+		result.andExpect(jsonPath("$.errors[0].field").value("id"));
 		result.andExpect(jsonPath("$.errors[0].value").value("Length"));
-		result.andExpect(jsonPath("$.errors[0].reason").value("비밀번호는 최소 5자리 이상입니다."));
-		result.andExpect(jsonPath("$.errors[1].field").value("id"));
+		result.andExpect(jsonPath("$.errors[0].reason").value("아이디는 최소 5자리 이상입니다."));
+		result.andExpect(jsonPath("$.errors[1].field").value("pw"));
 		result.andExpect(jsonPath("$.errors[1].value").value("Length"));
-		result.andExpect(jsonPath("$.errors[1].reason").value("아이디는 최소 5자리 이상입니다."));
+		result.andExpect(jsonPath("$.errors[1].reason").value("비밀번호는 최소 5자리 이상입니다."));
 	}
 
 	@Test
