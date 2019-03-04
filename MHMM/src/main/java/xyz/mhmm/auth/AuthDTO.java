@@ -1,4 +1,4 @@
-package xyz.mhmm.dto;
+package xyz.mhmm.auth;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

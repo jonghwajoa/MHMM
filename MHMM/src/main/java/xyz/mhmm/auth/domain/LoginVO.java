@@ -1,4 +1,4 @@
-package xyz.mhmm.domain;
+package xyz.mhmm.auth.domain;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,10 +12,10 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserVO {
+@AllArgsConstructor
+@ToString
+public class LoginVO {
 
 	private Long no;
 

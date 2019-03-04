@@ -7,23 +7,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import xyz.mhmm.domain.LoginVO;
-import xyz.mhmm.domain.UserVO;
-import xyz.mhmm.dto.AuthDTO;
-import xyz.mhmm.persistence.LoginDAO;
-import xyz.mhmm.persistence.UserDAO;
+import xyz.mhmm.auth.AuthDTO;
+import xyz.mhmm.auth.dao.LoginDAO;
+import xyz.mhmm.auth.dao.UserDAO;
+import xyz.mhmm.auth.domain.LoginVO;
+import xyz.mhmm.auth.domain.UserVO;
+import xyz.mhmm.config.WebApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextHierarchy({ @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" }),
-		@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" }) })
+@ContextConfiguration(classes = WebApplication.class)
 @WebAppConfiguration
 @Transactional
+@Rollback
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuthDaoTests {
 
@@ -35,6 +36,7 @@ public class AuthDaoTests {
 
 	static Long userNo;
 
+	@Test
 	public void test1_createUser() {
 		AuthDTO.Create user = createDto();
 		userDAO.create(user);
@@ -42,37 +44,30 @@ public class AuthDaoTests {
 		assertThat(user.getNo()).isNotNull();
 	}
 
+	@Test
 	public void test2_createLogin() {
 		AuthDTO.Create user = createDto();
+		user.setPwCheck("userpw");
 		user.setNo(userNo);
 		System.out.println(user.toString());
 		loginDAO.create(user);
 		assertThat(user.getNo()).isNotNull();
 	}
 
-	public void test3_selectExistIdTest() {
-		boolean result = loginDAO.findExistById("userid");
-		assertThat(result).isTrue();
-
-		result = loginDAO.findExistById("jonghwaid");
-		assertThat(result).isFalse();
+	@Test
+	public void findByEamilTest() {
+		UserVO vo = userDAO.findByEmail("mhmm@mhmm.xyz");
+		System.out.println("응???");
+		System.out.println(vo.toString());
 	}
 
-	public void test3_selectExistEmailTest() {
-		boolean result = userDAO.findExistByEmail("dqwdwq");
-		assertThat(result).isFalse();
-
-		result = userDAO.findExistByEmail("mhmm@mhmm.xyz");
-		assertThat(result).isTrue();
-	}
-
-	public void test4_updateToNameTest() {
+	public void updateToNameTest() {
 		UserVO user = createUserDtoForUser();
 		user.setNo(1L);
 		userDAO.updateToName(user);
 	}
 
-	public void test4_updateToEmailTest() {
+	public void updateToEmailTest() {
 		UserVO user = createUserDtoForUser();
 		user.setNo(1L);
 		userDAO.updateToEmail(user);
@@ -84,13 +79,8 @@ public class AuthDaoTests {
 		loginDAO.updateToPw(user);
 	}
 
-	public void test5_deleteUser() {
+	public void deleteUser() {
 		userDAO.delete(1L);
-	}
-
-	@Test
-	public void findLoginById() {
-		LoginVO vo = loginDAO.findById("userid2");
 	}
 
 	public AuthDTO.Create createDto() {

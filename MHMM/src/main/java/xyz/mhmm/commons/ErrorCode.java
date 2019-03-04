@@ -8,8 +8,7 @@ import lombok.ToString;
 public enum ErrorCode {
 
 	// Common
-	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"), 
-	METHOD_NOT_ALLOWED(405, "C002", " Invalid Input Value"),
+	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"), METHOD_NOT_ALLOWED(405, "C002", " Invalid Input Value"),
 	HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
 
 	// Auth
@@ -26,5 +25,5 @@ public enum ErrorCode {
 		this.message = message;
 		this.code = code;
 	}
-	
+
 }

@@ -8,26 +8,22 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import xyz.mhmm.auth.AuthDTO;
+import xyz.mhmm.auth.AuthDTO.Login;
+import xyz.mhmm.auth.AuthService;
 import xyz.mhmm.commons.BusinessException;
 import xyz.mhmm.commons.EmailDuplicatedException;
 import xyz.mhmm.commons.ErrorCode;
-import xyz.mhmm.commons.UserNotExistException;
-import xyz.mhmm.domain.UserVO;
-import xyz.mhmm.dto.AuthDTO;
-import xyz.mhmm.dto.AuthDTO.Login;
-import xyz.mhmm.persistence.LoginDAO;
-import xyz.mhmm.service.AuthService;
+import xyz.mhmm.config.WebApplication;
+import xyz.mhmm.config.WebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextHierarchy({ @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" }),
-		@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" }) })
+@ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
 @WebAppConfiguration
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -36,6 +32,7 @@ public class AuthServiceTests {
 	@Autowired
 	private AuthService authService;
 
+	@Test
 	@Description("이미 사용중인 아이디 일경우")
 	public void test1_SingupIdExceptionTest() {
 		AuthDTO.Create user = createDto();
@@ -46,7 +43,7 @@ public class AuthServiceTests {
 		} catch (Exception e) {
 			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요.");
 		}
-		assertThat(result).isNull();
+//		assertThat(result).isNull();
 	}
 
 	@Description("이미 사용중인 이메일인 경우")
@@ -94,7 +91,6 @@ public class AuthServiceTests {
 		}
 	}
 
-	@Test
 	@Description("로그인 성공하는 경우")
 	public void test2_LoginSuccessTest() {
 		AuthDTO.Login user = new AuthDTO.Login();

@@ -1,12 +1,10 @@
-package xyz.mhmm.validation;
+package xyz.mhmm.auth;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
-import xyz.mhmm.dto.AuthDTO;
-
 @Component
-public class UserValidation {
+public class AuthValidation {
 	
 	
 	public void pwEqCheck(AuthDTO.Create dto, Errors errors) {
