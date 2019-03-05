@@ -12,21 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.mhmm.commons.BusinessException;
-import xyz.mhmm.commons.EmailDuplicatedException;
-import xyz.mhmm.commons.ErrorCode;
-import xyz.mhmm.commons.ErrorResponse;
-import xyz.mhmm.commons.IdDuplicatedException;
-import xyz.mhmm.commons.UserNotExistException;
+import xyz.mhmm.auth.exception.EmailDuplicatedException;
+import xyz.mhmm.auth.exception.IdDuplicatedException;
+import xyz.mhmm.auth.exception.UserNotExistException;
+import xyz.mhmm.exception.BusinessException;
+import xyz.mhmm.exception.ErrorCode;
+import xyz.mhmm.exception.ErrorResponse;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthRestController {
 
 	/*
-	 * 제공해야하는 기능 로그인 , 회원가입 POST 요청 로그아웃 회원 탈퇴 기능 로그인 VIEW , 회원가입 VIEW
-	 * 
-	 * TODO : 비밀번호 변경
+	 * 제공해야하는 기능 로그인 , 회원가입 POST 요청 로그아웃 회원 탈퇴 기능 TODO : 비밀번호 변경
 	 */
 
 	@Autowired

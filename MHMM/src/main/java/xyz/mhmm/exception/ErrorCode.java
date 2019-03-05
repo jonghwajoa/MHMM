@@ -1,4 +1,4 @@
-package xyz.mhmm.commons;
+package xyz.mhmm.exception;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -8,8 +8,8 @@ import lombok.ToString;
 public enum ErrorCode {
 
 	// Common
-	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"), METHOD_NOT_ALLOWED(405, "C002", " Invalid Input Value"),
-	HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
+	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"), METHOD_NOT_ALLOWED(405, "C005", " Invalid Input Value"),
+	HANDLE_ACCESS_DENIED(403, "C003", "Access is Denied"), NOT_FOUND_EXCEPTION(404, "C004", "Page Not Found"),
 
 	// Auth
 	EMAIL_DUPLICATION(400, "A001", "이미 사용중인 이메일 입니다. 다른 이메일을 사용해주세요."),

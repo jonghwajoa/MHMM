@@ -92,3 +92,23 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 	font-family: 'Nanum Gothic';
 	src: url('../../fonts/NanumGothic-Regular.ttf') format('ttf');
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}

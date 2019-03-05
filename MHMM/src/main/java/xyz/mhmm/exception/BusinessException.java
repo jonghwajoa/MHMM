@@ -1,4 +1,4 @@
-package xyz.mhmm.commons;
+package xyz.mhmm.exception;
 
 public class BusinessException extends RuntimeException {
 

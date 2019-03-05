@@ -8,9 +8,9 @@ import xyz.mhmm.auth.dao.LoginDAO;
 import xyz.mhmm.auth.dao.UserDAO;
 import xyz.mhmm.auth.domain.LoginVO;
 import xyz.mhmm.auth.domain.UserVO;
-import xyz.mhmm.commons.EmailDuplicatedException;
-import xyz.mhmm.commons.IdDuplicatedException;
-import xyz.mhmm.commons.UserNotExistException;
+import xyz.mhmm.auth.exception.EmailDuplicatedException;
+import xyz.mhmm.auth.exception.IdDuplicatedException;
+import xyz.mhmm.auth.exception.UserNotExistException;
 
 @Service
 @Transactional

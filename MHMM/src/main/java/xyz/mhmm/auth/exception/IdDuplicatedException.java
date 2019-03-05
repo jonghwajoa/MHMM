@@ -1,6 +1,8 @@
-package xyz.mhmm.commons;
+package xyz.mhmm.auth.exception;
 
 import lombok.Getter;
+import xyz.mhmm.exception.BusinessException;
+import xyz.mhmm.exception.ErrorCode;
 
 @Getter
 public class IdDuplicatedException extends BusinessException {

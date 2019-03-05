@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -15,17 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import xyz.mhmm.auth.AuthDTO;
 import xyz.mhmm.auth.AuthDTO.Login;
+import xyz.mhmm.auth.exception.EmailDuplicatedException;
+import xyz.mhmm.auth.exception.IdDuplicatedException;
 import xyz.mhmm.auth.AuthService;
-import xyz.mhmm.commons.BusinessException;
-import xyz.mhmm.commons.EmailDuplicatedException;
-import xyz.mhmm.commons.ErrorCode;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
+import xyz.mhmm.exception.BusinessException;
+import xyz.mhmm.exception.ErrorCode;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
 @WebAppConfiguration
 @Transactional
+@Rollback
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuthServiceTests {
 
@@ -41,11 +44,12 @@ public class AuthServiceTests {
 		try {
 			result = authService.create(user);
 		} catch (Exception e) {
-			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요.");
+			assertThat(e).isInstanceOf(IdDuplicatedException.class).hasMessage("이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요.");
 		}
-//		assertThat(result).isNull();
+		assertThat(result).isNull();
 	}
 
+	@Test
 	@Description("이미 사용중인 이메일인 경우")
 	public void test1_SingupEmailExceptionTest() {
 		AuthDTO.Create user = createDto();
@@ -54,11 +58,12 @@ public class AuthServiceTests {
 		try {
 			result = authService.create(user);
 		} catch (BusinessException e) {
-			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 이메일 입니다. 다른 이메이을 사용해주세요.");
+			assertThat(e).isInstanceOf(EmailDuplicatedException.class).hasMessage("이미 사용중인 이메일 입니다. 다른 이메일을 사용해주세요.");
 		}
 		assertThat(result).isNull();
 	}
 
+	@Test
 	@Description("회원 가입 성공한 경우")
 	public void test1_SingupSuccessTest() {
 		AuthDTO.Create user = createDto();
@@ -75,6 +80,7 @@ public class AuthServiceTests {
 				.hasFieldOrProperty("no");
 	}
 
+	@Test
 	@Description("로그인 실패하는경우")
 	public void test2_LoginFailTest() {
 		AuthDTO.Login user = new AuthDTO.Login();

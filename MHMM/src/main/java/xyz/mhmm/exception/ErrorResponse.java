@@ -1,4 +1,4 @@
-package xyz.mhmm.commons;
+package xyz.mhmm.exception;
 
 import java.util.List;
 import java.util.stream.Collectors;

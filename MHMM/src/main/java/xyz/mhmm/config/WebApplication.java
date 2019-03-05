@@ -7,6 +7,7 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -27,12 +28,14 @@ public class WebApplication implements WebApplicationInitializer {
 		ServletRegistration.Dynamic app = servletContext.addServlet("app", dispatcherServlet);
 		app.setLoadOnStartup(1);
 		app.addMapping("/");
+		app.setInitParameter("throwExceptionIfNoHandlerFound", "true");
 
 		FilterRegistration charEncodingFilterReg = servletContext.addFilter("CharacterEncodingFilter",
 				CharacterEncodingFilter.class);
 		charEncodingFilterReg.setInitParameter("encoding", "UTF-8");
 		charEncodingFilterReg.setInitParameter("forceEncoding", "true");
 		charEncodingFilterReg.addMappingForUrlPatterns(null, true, "/*");
+		
 	}
 
 }

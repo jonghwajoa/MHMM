@@ -1,4 +1,7 @@
-package xyz.mhmm.commons;
+package xyz.mhmm.auth.exception;
+
+import xyz.mhmm.exception.BusinessException;
+import xyz.mhmm.exception.ErrorCode;
 
 public class UserNotExistException extends BusinessException {
 
