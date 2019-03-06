@@ -9,14 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.hamcrest.core.IsNull;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -28,11 +25,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import xyz.mhmm.auth.AuthRestController;
 import xyz.mhmm.auth.AuthDTO;
+import xyz.mhmm.auth.AuthRestController;
 import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
@@ -41,7 +37,7 @@ import xyz.mhmm.config.WebConfig;
 @ContextConfiguration(classes = { WebApplication.class, WebConfig.class, DBConfig.class })
 @WebAppConfiguration
 @Transactional
-public class AuthControllerTests {
+public class AuthRestControllerTests {
 
 	@Autowired
 	private AuthRestController authController;
@@ -52,9 +48,6 @@ public class AuthControllerTests {
 
 	@Autowired
 	private WebApplicationContext ctx;
-
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
 
 	@Before
 	public void setup() {
@@ -243,17 +236,18 @@ public class AuthControllerTests {
 		AuthDTO.searchUser dto = new AuthDTO.searchUser();
 		dto.setId("user1");
 
-		ResultActions result = mockMvc.perform(get("/api/auth/search").param("id", "user1")
-				.contentType(MediaType.APPLICATION_JSON_UTF8))
+		ResultActions result = mockMvc
+				.perform(get("/api/auth/search").param("id", "user1").contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andDo(print()).andExpect(status().isOk());
 
 		result.andExpect(jsonPath("$.id").value("user1"));
 
 		dto.setId("user1000");
-		result = mockMvc.perform(get("/api/auth/search").contentType(MediaType.APPLICATION_JSON_UTF8)
-				.param("id", "user1000")).andDo(print()).andExpect(status().isOk());
+		result = mockMvc
+				.perform(get("/api/auth/search").contentType(MediaType.APPLICATION_JSON_UTF8).param("id", "user1000"))
+				.andDo(print()).andExpect(status().isNotFound());
 
-		result.andExpect(content().string(""));
+		result.andExpect(content().string("\"USER_NOT_FOUND\""));
 
 	}
 

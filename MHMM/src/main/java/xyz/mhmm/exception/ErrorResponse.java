@@ -20,14 +20,14 @@ public class ErrorResponse {
 		return this.errors != null;
 	}
 
-	public ErrorResponse(ErrorCode errorCode, List<FieldError> errors) {
+	public ErrorResponse(final ErrorCode errorCode, final List<FieldError> errors) {
 		this.status = errorCode.getStatus();
 		this.code = errorCode.getCode();
 		this.message = errorCode.getMessage();
 		this.errors = errors;
 	}
-	
-	public ErrorResponse(ErrorCode errorCode) {
+
+	public ErrorResponse(final ErrorCode errorCode) {
 		this.status = errorCode.getStatus();
 		this.code = errorCode.getCode();
 		this.message = errorCode.getMessage();
@@ -36,7 +36,7 @@ public class ErrorResponse {
 	public static ErrorResponse of(final BusinessException e) {
 		return new ErrorResponse(e.getErrorCode());
 	}
-	
+
 	public static ErrorResponse of(final ErrorCode code) {
 		return new ErrorResponse(code);
 	}
@@ -44,7 +44,7 @@ public class ErrorResponse {
 	public static ErrorResponse of(final ErrorCode code, final List<FieldError> errors) {
 		return new ErrorResponse(code, errors);
 	}
-	
+
 	public static ErrorResponse of(final ErrorCode code, final BindingResult result) {
 		return new ErrorResponse(code, FieldError.of(result));
 	}

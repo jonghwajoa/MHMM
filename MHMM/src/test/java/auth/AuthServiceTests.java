@@ -19,6 +19,7 @@ import xyz.mhmm.auth.AuthDTO.Login;
 import xyz.mhmm.auth.exception.EmailDuplicatedException;
 import xyz.mhmm.auth.exception.IdDuplicatedException;
 import xyz.mhmm.auth.AuthService;
+import xyz.mhmm.auth.domain.LoginVO;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 import xyz.mhmm.exception.BusinessException;
@@ -103,7 +104,7 @@ public class AuthServiceTests {
 		user.setId("userid");
 		user.setPw("userpw");
 		try {
-			Login result = authService.Login(user);
+			LoginVO result = authService.Login(user);
 			assertThat(result.getId()).isEqualTo(user.getId());
 			assertThat(result.getPw()).isEqualTo(user.getPw());
 		} catch (BusinessException e) {

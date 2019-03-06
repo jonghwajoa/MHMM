@@ -27,8 +27,9 @@ import xyz.mhmm.exception.ErrorResponse;
 public class AuthRestController {
 
 	/*
-	 * 제공해야하는 기능 로그인 , 회원가입 POST 요청 로그아웃 회원 탈퇴 기능 TODO : 비밀번호 변경
+	 * 제공해야하는 기능 로그인 , 회원가입 POST 요청 로그아웃 회원 탈퇴 기능
 	 */
+	// TODO : 비밀번호 변경
 
 	@Autowired
 	private AuthService authService;
@@ -76,15 +77,5 @@ public class AuthRestController {
 			return new ResponseEntity<>(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(AuthDTO.convertSearchResponse(vo), HttpStatus.OK);
-	}
-
-	@ExceptionHandler({ EmailDuplicatedException.class, IdDuplicatedException.class })
-	public ResponseEntity<?> handleUserDuplicatedException(BusinessException e) {
-		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.BAD_REQUEST);
-	}
-
-	@ExceptionHandler(UserNotExistException.class)
-	public ResponseEntity<?> handleUserNotExistException(BusinessException e) {
-		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.NOT_FOUND);
 	}
 }

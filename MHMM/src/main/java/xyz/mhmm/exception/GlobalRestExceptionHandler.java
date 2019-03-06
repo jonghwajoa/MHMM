@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
-@RequestMapping(produces = "application/vnd.error+json")
 public class GlobalRestExceptionHandler {
 
 	@ExceptionHandler(NoHandlerFoundException.class)
@@ -20,5 +19,11 @@ public class GlobalRestExceptionHandler {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
 		return new ResponseEntity<>(ErrorResponse.of(ErrorCode.METHOD_NOT_ALLOWED), HttpStatus.METHOD_NOT_ALLOWED);
+	}
+
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<?> handleUserNotExistException(BusinessException e) {
+		System.out.println(e.getErrorCode().getStatus());
+		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.valueOf(e.getErrorCode().getStatus()));
 	}
 }

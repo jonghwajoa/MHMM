@@ -17,8 +17,9 @@ public enum ErrorCode {
 	USER_NOT_EXIST(404, "A003", "아이디 혹은 비밀번호가 올바르지 않습니다."),
 
 	// friend
-	USER_NOT_FOUND(404, "F001", "검색한 아이디는 존재하지 않습니다.");
-	
+	USER_NOT_FOUND(404, "F001", "검색한 아이디는 존재하지 않습니다."), USER_ALREADY_FRIEND(400, "F002", "이미 친구등록한 유저입니다."),
+	OWN_SELF_ADD_FRIEND(400, "F003", "자기자신을 친구추가 할 수 없습니다.");
+
 	private int status;
 	private final String code;
 	private final String message;

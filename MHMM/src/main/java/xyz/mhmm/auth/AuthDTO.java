@@ -6,17 +6,16 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
-import groovy.transform.ToString;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import xyz.mhmm.auth.domain.LoginVO;
 
 public class AuthDTO {
 
-	@Data
+	@Setter
+	@Getter
 	public static class Create {
-
 		private Long no;
 
 		@NotBlank(message = "이메일은 반드시 입력해야 합니다.")
@@ -47,7 +46,9 @@ public class AuthDTO {
 		private String pwCheck;
 	}
 
-	@Data
+	@Getter
+	@Setter
+	@ToString
 	public static class CreateResponse {
 		private Long no;
 		private String email;
@@ -71,6 +72,7 @@ public class AuthDTO {
 
 	@Setter
 	@Getter
+	@ToString
 	public static class LoginResponse {
 		private String id;
 	}

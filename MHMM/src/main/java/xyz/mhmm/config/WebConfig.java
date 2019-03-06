@@ -60,7 +60,9 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/messenger");
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/messenger")
+			.addPathPatterns("/api/friend/");
+		
 	}
 
 	@Override
