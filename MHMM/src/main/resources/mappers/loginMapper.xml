@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="findById" resultType="LoginVO">
-		select id, pw from tbl_login
+		select * from tbl_login
 		where id = #{id}
 	</select>
 

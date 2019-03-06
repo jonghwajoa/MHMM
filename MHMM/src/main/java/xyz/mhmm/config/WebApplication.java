@@ -7,6 +7,7 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -14,7 +15,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration
-@Import({ DBConfig.class })
 public class WebApplication implements WebApplicationInitializer {
 
 	@Override /* web.xml */
@@ -28,7 +28,7 @@ public class WebApplication implements WebApplicationInitializer {
 		ServletRegistration.Dynamic app = servletContext.addServlet("app", dispatcherServlet);
 		app.setLoadOnStartup(1);
 		app.addMapping("/");
-		app.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+//		app.setInitParameter("throwExceptionIfNoHandlerFound", "true");
 
 		FilterRegistration charEncodingFilterReg = servletContext.addFilter("CharacterEncodingFilter",
 				CharacterEncodingFilter.class);

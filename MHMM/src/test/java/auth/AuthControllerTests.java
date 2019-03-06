@@ -3,6 +3,7 @@ package auth;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -26,15 +28,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import xyz.mhmm.auth.AuthRestController;
 import xyz.mhmm.auth.AuthDTO;
+import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
+@ContextConfiguration(classes = { WebApplication.class, WebConfig.class, DBConfig.class })
 @WebAppConfiguration
 @Transactional
 public class AuthControllerTests {
@@ -73,7 +77,7 @@ public class AuthControllerTests {
 		createDTO.setName("name");
 		createDTO.setEmail("mhmmmhmm.xyz");
 
-		ResultActions result = mockMvc.perform(post("/auth/signup").contentType(MediaType.APPLICATION_JSON)
+		ResultActions result = mockMvc.perform(post("/api/auth/signup").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createDTO))).andExpect(status().isBadRequest());
 
 		result.andExpect(jsonPath("$.message").value("Invalid Input Value"));
@@ -95,7 +99,7 @@ public class AuthControllerTests {
 		createDTO.setEmail("mhmm@mhmm.xyz");
 
 		ResultActions result = mockMvc
-				.perform(post("/auth/signup").contentType(MediaType.APPLICATION_JSON)
+				.perform(post("/api/auth/signup").contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(createDTO)))
 				.andExpect(status().isBadRequest()).andDo(print());
 
@@ -117,7 +121,7 @@ public class AuthControllerTests {
 		createDTO.setName("name");
 		createDTO.setEmail("mhmm@amhmm.xyz");
 
-		ResultActions result = mockMvc.perform(post("/auth/signup").contentType(MediaType.APPLICATION_JSON)
+		ResultActions result = mockMvc.perform(post("/api/auth/signup").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createDTO))).andExpect(status().isBadRequest());
 
 		result.andExpect(jsonPath("$.message").value("Invalid Input Value"));
@@ -126,7 +130,6 @@ public class AuthControllerTests {
 		result.andExpect(jsonPath("$.errors[0].field").value("pw"));
 		result.andExpect(jsonPath("$.errors[0].value").value("Not Equal"));
 		result.andExpect(jsonPath("$.errors[0].reason").value("비밀번호 입력값이 올바르지 않습니다."));
-
 	}
 
 	@Test
@@ -139,13 +142,28 @@ public class AuthControllerTests {
 		createDTO.setName("name");
 		createDTO.setEmail("mhmm@mhmm.xyz");
 
-		ResultActions result = mockMvc.perform(post("/auth/signup").contentType(MediaType.APPLICATION_JSON)
+		ResultActions result = mockMvc.perform(post("/api/auth/signup").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createDTO))).andExpect(status().isBadRequest());
 
 		result.andExpect(jsonPath("$.message").value("이미 사용중인 이메일 입니다. 다른 이메일을 사용해주세요."));
 		result.andExpect(jsonPath("$.status").value(400));
 		result.andExpect(jsonPath("$.code").value("A001"));
 		result.andExpect(jsonPath("$.errors").value(IsNull.nullValue()));
+	}
+
+	@Test
+	@Description("회원가입 성공시")
+	public void signUpSuccess() throws Exception {
+		AuthDTO.Create dto = new AuthDTO.Create();
+		dto.setId("user999999");
+		dto.setPw("user999999");
+		dto.setPwCheck("user999999");
+		dto.setName("name");
+		dto.setEmail("mhmm999999@mhmm.xyz");
+
+		ResultActions result = mockMvc.perform(post("/api/auth/signup").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(dto))).andExpect(status().isCreated());
+		System.out.println(result);
 	}
 
 	@Test
@@ -158,7 +176,7 @@ public class AuthControllerTests {
 		map.add("email", "mhmm@mhmm.xyz");
 		map.add("name", "name");
 
-		ResultActions result = mockMvc.perform(post("/auth/signup").params(map))
+		ResultActions result = mockMvc.perform(post("/api/auth/signup").params(map))
 				.andExpect(status().isUnsupportedMediaType());
 
 		result.andDo(print());
@@ -171,7 +189,7 @@ public class AuthControllerTests {
 		loginDTO.setId("userid");
 		loginDTO.setPw("userpw");
 
-		mockMvc.perform(post("/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
+		mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(objectMapper.writeValueAsString(loginDTO))).andDo(print())
 				.andExpect(jsonPath("$.id").value("userid")).andExpect(jsonPath("$.pw").doesNotExist())
 				.andExpect(status().isOk());
@@ -185,15 +203,14 @@ public class AuthControllerTests {
 		loginDTO.setPw("upw");
 
 		ResultActions result = mockMvc
-				.perform(post("/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
 						.content(objectMapper.writeValueAsString(loginDTO)))
 				.andDo(print()).andExpect(status().isBadRequest());
 
 		result.andExpect(jsonPath("$.message").value("Invalid Input Value"));
 		result.andExpect(jsonPath("$.status").value(400));
 		result.andExpect(jsonPath("$.code").value("C001"));
-		
-	
+
 		result.andExpect(jsonPath("$.errors[0].field").value("id"));
 		result.andExpect(jsonPath("$.errors[0].value").value("Length"));
 		result.andExpect(jsonPath("$.errors[0].reason").value("아이디는 최소 5자리 이상입니다."));
@@ -210,15 +227,33 @@ public class AuthControllerTests {
 		loginDTO.setPw("upwpwpw");
 
 		ResultActions result = mockMvc
-				.perform(post("/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
 						.content(objectMapper.writeValueAsString(loginDTO)))
-				.andDo(print())
-				.andExpect(status().isNotFound());
+				.andDo(print()).andExpect(status().isNotFound());
 
 		result.andExpect(jsonPath("$.status").value(404));
 		result.andExpect(jsonPath("$.message").value("아이디 혹은 비밀번호가 올바르지 않습니다."));
 		result.andExpect(jsonPath("$.code").value("A003"));
 		result.andExpect(jsonPath("$.errors").value(IsNull.nullValue()));
+	}
+
+	@Test
+	@Description("아이디로 유저검색시")
+	public void searchUserTest() throws Exception {
+		AuthDTO.searchUser dto = new AuthDTO.searchUser();
+		dto.setId("user1");
+
+		ResultActions result = mockMvc.perform(get("/api/auth/search").param("id", "user1")
+				.contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andDo(print()).andExpect(status().isOk());
+
+		result.andExpect(jsonPath("$.id").value("user1"));
+
+		dto.setId("user1000");
+		result = mockMvc.perform(get("/api/auth/search").contentType(MediaType.APPLICATION_JSON_UTF8)
+				.param("id", "user1000")).andDo(print()).andExpect(status().isOk());
+
+		result.andExpect(content().string(""));
 
 	}
 

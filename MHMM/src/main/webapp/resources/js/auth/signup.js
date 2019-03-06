@@ -51,7 +51,7 @@ class Signup {
 
       let ajaxResult;
       try {
-        ajaxResult = await ajaxUtil.sendPostAjax('/auth/signup', params);
+        ajaxResult = await ajaxUtil.sendPostAjax('/api/auth/signup', params);
       } catch (e) {
     	  let message = "";
     	  

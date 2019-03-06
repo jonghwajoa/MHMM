@@ -40,7 +40,7 @@ public class AuthService {
 		return user;
 	}
 
-	public AuthDTO.Login Login(AuthDTO.Login dto) {
+	public LoginVO Login(AuthDTO.Login dto) {
 
 		LoginVO findUser = loginDAO.findById(dto.getId());
 
@@ -54,13 +54,12 @@ public class AuthService {
 			throw new UserNotExistException();
 		}
 
-		return dto;
+		return findUser;
 
 	}
 
-	public boolean duplicateCheckByEmail(String email) {
-		// TODO Auto-generated method stub
-		return false;
+	public LoginVO existUserById(String id) {
+		return loginDAO.findById(id);
 	}
 
 	public void updateForUser(UserVO user) {

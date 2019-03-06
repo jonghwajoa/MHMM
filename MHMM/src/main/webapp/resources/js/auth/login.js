@@ -25,9 +25,8 @@ class login {
 
       let ajaxResult;
       try {
-        ajaxResult = await ajaxUtil.sendPostAjax('/auth/login', params);
+        ajaxResult = await ajaxUtil.sendPostAjax('/api/auth/login', params);
       } catch (e) {
-    	  console.log(e);
         let message = '';
         let err = JSON.parse(e.message);
         message += err.message;

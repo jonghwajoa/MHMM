@@ -8,33 +8,56 @@ class Friend {
 
   eventInit() {
     this.addInputBtn.addEventListener('click', () => {
-      this.searchResult.style.display = 'block';
       this.searchFriend(this.addInput.value);
     });
 
     this.addInput.addEventListener('keypress', e => {
       let key = e.which || e.keyCode;
       if (key === 13) {
-        this.searchResult.style.display = 'block';
         this.searchFriend(this.addInput.value);
       }
     });
   }
 
-  searchFriend(name) {
-    // sendGetAjax("/api/auth/")
-
-    this.drawPost(name, 'www.mhmm.xyz');
+  async searchFriend(id) {
+	  let result = false;
+	  this.searchResult.style.display = 'none';
+	  try {
+		  result = await ajaxUtil.sendGetAjax(`/api/auth/search?id=${id}`);
+	  } catch (e) {
+		  let message = '';
+		  if(e.status === 404) {
+			  message = '존재하지 않는 아이디 입니다.'
+		  }else {
+			  let err = JSON.parse(e.message);
+		        if(err.errors != null) {
+		        	for (let error of err.errors) {
+		                message += `\n${error.reason}`;
+		              }	
+		        }
+		  }
+		  this.drawPost(false, message);
+		  return;
+	  }
+	  
+	  console.log(result)
+	  console.log(result);
+	  this.drawPost(id, 'url');
   }
-
+  
+  
   drawPost(name, imgUrl) {
     let html = '';
-
-    html += `<img alt=${imgUrl} />`;
-    html += `<span class="friend-name">${name}</span>`;
-    html += `<input type="button" value="친구등록" />`;
-
+    
+    if(!name) {
+        html += imgUrl;	
+    } else {
+    	html += `<img alt=${imgUrl} />`;
+        html += `<span class="friend-name">${name}</span>`;
+        html += `<input type="button" value="친구등록" />`;
+    }
     this.searchResult.innerHTML = html;
+	  this.searchResult.style.display = 'block';
   }
 }
 

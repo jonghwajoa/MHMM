@@ -65,7 +65,7 @@ body {
 }
 
 .friend-add .friend-search-result {
-  display: none; 
+  /* display: none; */
   background: white;
   min-height: 20px;
   margin-top: 1rem;
@@ -84,15 +84,27 @@ body {
   right: 0;
 }
 
-.friend-wrap .friend img {
+.friend {
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.friend-wrap .friend .img {
+  display: inline-block;
   border: 1px solid purple;
   padding: 0.5rem 0.2rem;
   border-radius: 20%;
   margin-right: 5px;
+  width: 20px;
+  height: 20px;
 }
 
 .friend-wrap .friend span.friend-name {
   cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  vertical-align: top;
 }
 
 .messange {
@@ -100,6 +112,6 @@ body {
 
 .messange .messenger-room {
   padding: 1.5rem 0.7rem;
-  /* border-bottom: 1px solid #c8c8c8; */
+  border-bottom: 1px solid #c8c8c8;
   cursor: pointer;
 }

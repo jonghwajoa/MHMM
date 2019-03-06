@@ -24,7 +24,6 @@ import xyz.mhmm.config.WebApplication;
 @ContextConfiguration(classes = WebApplication.class)
 @WebAppConfiguration
 @Transactional
-@Rollback
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuthDaoTests {
 
@@ -87,7 +86,7 @@ public class AuthDaoTests {
 		AuthDTO.Create user = new AuthDTO.Create();
 		user.setId("userid");
 		user.setPw("userpw");
-		user.setEmail("21322mhmm@mhmm.xyz");
+		user.setEmail("mhmm@mhmm.xyz");
 		user.setName("종화");
 		return user;
 	}

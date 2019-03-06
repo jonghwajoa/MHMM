@@ -17,7 +17,7 @@
      <div class="login-wrap">
       <section class="login">
         <h3>로그인 정보</h3>
-        <form action="/auth/login" method="POST">
+        <form>
           <label for="id" class="ir_su">아이디</label>
           <input
             type="input"
@@ -38,10 +38,10 @@
             autocomplete="off"
             maxlength="20"
           />
-          <input type="submit" id="login-submit-btn" value="로그인" />
+        </form>
+        <input type="submit" id="login-submit-btn" value="로그인" />
           <input type="button" value="회원가입" onClick="location.href='/auth/signup'"/>
           <input type="button" value="홈으로" onClick="location.href='/'" />
-        </form>
       </section>
     </div>
     
