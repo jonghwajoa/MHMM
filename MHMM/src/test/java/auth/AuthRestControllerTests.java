@@ -179,12 +179,12 @@ public class AuthRestControllerTests {
 	@Description("로그인 성공시 200과 ID를 응답한다.")
 	public void login() throws Exception {
 		AuthDTO.Login loginDTO = new AuthDTO.Login();
-		loginDTO.setId("userid");
-		loginDTO.setPw("userpw");
+		loginDTO.setId("user1");
+		loginDTO.setPw("user1");
 
 		mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(objectMapper.writeValueAsString(loginDTO))).andDo(print())
-				.andExpect(jsonPath("$.id").value("userid")).andExpect(jsonPath("$.pw").doesNotExist())
+				.andExpect(jsonPath("$.id").value("user1")).andExpect(jsonPath("$.pw").doesNotExist())
 				.andExpect(status().isOk());
 	}
 

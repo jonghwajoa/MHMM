@@ -8,9 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="map">
 		insert into tbl_friend (follower, following ) values ( #{follower}, #{following} )
 	</insert>
-	
-	<select id="findAll" resultType="FriendVO">
-		select * from tbl_friend where follower = ( #{follower} )
+
+	<select id="findAll" resultType="xyz.mhmm.friend.domain.FriendVO$list">
+		select u.no , u.name from tbl_friend as f LEFT JOIN tbl_user as u on f.following = u.no where f.follower = #{following}
 	</select>
+	
+	<delete id="delete">
+		delete from tbl_friend WHERE follower = #{ myNo } and following = #{ targetNo };
+	</delete>
 
 </mapper>

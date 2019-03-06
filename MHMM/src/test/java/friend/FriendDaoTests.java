@@ -1,6 +1,5 @@
 package friend;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -35,9 +34,17 @@ public class FriendDaoTests {
 
 	@Test
 	public void findAllTest() {
-		List<FriendVO> vo = friendDAO.findAll(4L);
-		for (FriendVO e : vo) {
-			System.out.println(e.toString());
+		List<FriendVO.list> list = friendDAO.findAll(4L);
+		
+		for (FriendVO.list e : list) {
+			System.out.println(e);
 		}
+	}
+	
+	@Test
+	@Description("친구 삭제")
+	public void deleteTest() {
+		friendDAO.delete(12L, 16L);
+		
 	}
 }

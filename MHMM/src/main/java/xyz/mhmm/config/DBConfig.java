@@ -54,7 +54,7 @@ public class DBConfig {
 	public SqlSessionFactoryBean sqlSessionFactory(ApplicationContext applicationContext) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource());
-		sqlSessionFactoryBean.setTypeAliasesPackage("xyz.mhmm");
+		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
 		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mappers/*Mapper.xml"));
 		return sqlSessionFactoryBean;
 	}

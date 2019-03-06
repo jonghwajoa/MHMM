@@ -2,6 +2,8 @@ package friend;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import xyz.mhmm.auth.domain.UserVO;
+import xyz.mhmm.auth.exception.InvalidLoginInput;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 import xyz.mhmm.exception.BusinessException;
 import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.friend.FriendDTO;
 import xyz.mhmm.friend.FriendService;
+import xyz.mhmm.friend.domain.FriendVO;
 import xyz.mhmm.friend.exception.AlreadyFriendException;
+import xyz.mhmm.friend.exception.SearchNotFound;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
@@ -32,14 +38,48 @@ public class FriendServiceTests {
 	@Description("친구 추가 테스트")
 	public void createTest() {
 		FriendDTO.Add dto = new FriendDTO.Add();
-		dto.setId("user1");
+		dto.setId("user2");
 		try {
-			service.create(4L, dto);
+			service.create(45L, dto);
 		} catch (BusinessException e) {
 			assertThat(e).isInstanceOf(AlreadyFriendException.class).hasMessage("이미 친구등록한 유저입니다.");
 			ErrorCode code = e.getErrorCode();
 			assertThat(code.getCode()).isEqualTo("F002");
 			assertThat(code.getStatus()).isEqualTo(400);
+		}
+	}
+
+	@Test
+	@Description("모든 친구 불러오기")
+	public void findAllTest() {
+		List<FriendVO.list> list = service.findAll(4L);
+		for (FriendVO.list e : list) {
+			assertThat(e.getName()).isNotNull();
+			assertThat(e.getNo()).isNotNull();
+		}
+	}
+
+	@Test
+	@Description("친구 삭제")
+	public void deleteTest() {
+		FriendDTO.Delete dto = new FriendDTO.Delete();
+		dto.setNo(12L);
+		service.delete(1L, dto);
+	}
+
+	@Test
+	@Description("친구 검색")
+	public void search() {
+		UserVO result = service.search("user2");
+		assertThat(result).hasFieldOrProperty("no");
+		assertThat(result).hasFieldOrProperty("name");
+		assertThat(result).hasFieldOrProperty("email");
+		assertThat(result).hasFieldOrProperty("id");
+
+		try {
+			result = service.search("user22222");
+		}catch(Exception e) {
+			assertThat(e).isInstanceOf(SearchNotFound.class).hasMessage("존재하지 않는 유저 입니다.");
 		}
 	}
 

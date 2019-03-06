@@ -1,6 +1,7 @@
 package xyz.mhmm.friend.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -12,4 +13,12 @@ public class FriendVO {
 
 	// 친구추가 당하는 사람
 	private Long following;
+
+	@Getter
+	@Setter
+	@ToString
+	public static class list {
+		private Long no;
+		private String name;
+	}
 }

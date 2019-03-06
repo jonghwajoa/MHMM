@@ -10,7 +10,7 @@ import xyz.mhmm.auth.domain.LoginVO;
 import xyz.mhmm.auth.domain.UserVO;
 import xyz.mhmm.auth.exception.EmailDuplicatedException;
 import xyz.mhmm.auth.exception.IdDuplicatedException;
-import xyz.mhmm.auth.exception.UserNotExistException;
+import xyz.mhmm.auth.exception.InvalidLoginInput;
 
 @Service
 @Transactional
@@ -27,7 +27,7 @@ public class AuthService {
 		String id = user.getId();
 		String email = user.getEmail();
 
-		if (loginDAO.findById(id) != null) {
+		if (userdao.findById(id) != null) {
 			throw new IdDuplicatedException();
 		}
 
@@ -45,13 +45,13 @@ public class AuthService {
 		LoginVO findUser = loginDAO.findById(dto.getId());
 
 		if (findUser == null) {
-			throw new UserNotExistException();
+			throw new InvalidLoginInput();
 		}
 
 		String bcryptPass = dto.getPw();
 
 		if (!bcryptPass.equals(findUser.getPw())) {
-			throw new UserNotExistException();
+			throw new InvalidLoginInput();
 		}
 
 		return findUser;

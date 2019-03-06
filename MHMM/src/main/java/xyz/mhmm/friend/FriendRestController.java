@@ -8,35 +8,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import xyz.mhmm.auth.AuthDTO;
-import xyz.mhmm.auth.exception.UserNotExistException;
-import xyz.mhmm.exception.BusinessException;
+import xyz.mhmm.auth.domain.LoginVO;
+import xyz.mhmm.auth.domain.UserVO;
 import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
-import xyz.mhmm.friend.exception.OwnSelfAddFriendException;
 
 @RestController
-@RequestMapping("/api/friend")
+@RequestMapping(path = "/api/friend", consumes = "application/json", produces = "application/json")
 public class FriendRestController {
 
 	@Autowired
 	private FriendService friendService;
 
-	@GetMapping(path = "/", consumes = "application/json", produces = "application/json")
-	public void allFriend(HttpSession session) {
-
+	@GetMapping(path = "/")
+	public ResponseEntity<?> allFriend(HttpSession session) {
+		return new ResponseEntity<>(friendService.findAll((Long) session.getAttribute("userNo")), HttpStatus.OK);
 	}
 
-	// 경로를 어떻게 설계할것인가.. 흐음....
-	@PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/")
 	public ResponseEntity<?> addFriend(@Valid @RequestBody FriendDTO.Add dto, BindingResult result,
 			HttpSession session) {
 		if (result.hasErrors()) {
@@ -49,14 +47,25 @@ public class FriendRestController {
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
 
-	@GetMapping(path = "/search", consumes = "application/json", produces = "application/json")
-	public void searchUser() {
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<?> searchUser(@ModelAttribute @Valid FriendDTO.Search id, BindingResult result) {
+		if (result.hasErrors()) {
+			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
+			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+		}
 
+		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendService.search(id)), HttpStatus.OK);
 	}
 
-	@DeleteMapping(path = "/delete", consumes = "application/json", produces = "application/json")
-	public void deleteFriend() {
+	@DeleteMapping(path = "/")
+	public ResponseEntity<?> deleteFriend(@Valid @RequestBody FriendDTO.Delete dto, BindingResult result,
+			HttpSession session) {
+		if (result.hasErrors()) {
+			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
+			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+		}
 
+		friendService.delete((Long) session.getAttribute("userNo"), dto);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
 }

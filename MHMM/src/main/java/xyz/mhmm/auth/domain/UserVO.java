@@ -2,6 +2,7 @@ package xyz.mhmm.auth.domain;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -20,6 +21,11 @@ import lombok.ToString;
 public class UserVO {
 
 	private Long no;
+
+	@NotNull
+	@Length(min = 5, message = "아이디는 최소 5자리 이상입니다.")
+	@Length(max = 20, message = "아이디는 최대 20자리 입니다.")
+	private String id;
 
 	@NotBlank(message = "이메일은 반드시 입력해야 합니다.")
 	@Email(message = "이메일 형식이 올바르지 않습니다.")

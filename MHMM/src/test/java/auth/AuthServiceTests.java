@@ -29,7 +29,6 @@ import xyz.mhmm.exception.ErrorCode;
 @ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
 @WebAppConfiguration
 @Transactional
-@Rollback
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuthServiceTests {
 
@@ -39,7 +38,12 @@ public class AuthServiceTests {
 	@Test
 	@Description("이미 사용중인 아이디 일경우")
 	public void test1_SingupIdExceptionTest() {
-		AuthDTO.Create user = createDto();
+		AuthDTO.Create user = new AuthDTO.Create();
+		user.setEmail("mhmm321@mhmm.xyz");
+		user.setName("jonghwa");
+		user.setId("user1");
+		user.setPw("userpw");
+		user.setPwCheck("userpw");
 		AuthDTO.Create result = null;
 
 		try {
@@ -53,9 +57,14 @@ public class AuthServiceTests {
 	@Test
 	@Description("이미 사용중인 이메일인 경우")
 	public void test1_SingupEmailExceptionTest() {
-		AuthDTO.Create user = createDto();
-		user.setId("updateId");
+		AuthDTO.Create user = new AuthDTO.Create();
+		user.setEmail("mhmm@mhmm.xyz");
+		user.setName("jonghwa");
+		user.setId("user12312");
+		user.setPw("userpw");
+		user.setPwCheck("userpw");
 		AuthDTO.Create result = null;
+		
 		try {
 			result = authService.create(user);
 		} catch (BusinessException e) {
@@ -67,17 +76,24 @@ public class AuthServiceTests {
 	@Test
 	@Description("회원 가입 성공한 경우")
 	public void test1_SingupSuccessTest() {
-		AuthDTO.Create user = createDto();
-		user.setId("updateId");
-		user.setEmail("updateEmail@mhmm.xyz");
+		AuthDTO.Create user = new AuthDTO.Create();
+		user.setEmail("mhmm1111@mhmm.xyz");
+		user.setName("jong1111");
+		user.setId("user111");
+		user.setPw("userpw");
+		user.setPwCheck("userpw");
 		AuthDTO.Create result = null;
+		
 		try {
 			result = authService.create(user);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		assertThat(result).hasFieldOrPropertyWithValue("email", "updateEmail@mhmm.xyz")
-				.hasFieldOrPropertyWithValue("name", "jonghwa").hasFieldOrPropertyWithValue("id", "updateId")
+		
+		assertThat(result)
+				.hasFieldOrPropertyWithValue("email", "mhmm1111@mhmm.xyz")
+				.hasFieldOrPropertyWithValue("name", "jong1111")
+				.hasFieldOrPropertyWithValue("id", "user111")
 				.hasFieldOrProperty("no");
 	}
 
@@ -101,8 +117,8 @@ public class AuthServiceTests {
 	@Description("로그인 성공하는 경우")
 	public void test2_LoginSuccessTest() {
 		AuthDTO.Login user = new AuthDTO.Login();
-		user.setId("userid");
-		user.setPw("userpw");
+		user.setId("user1");
+		user.setPw("user1");
 		try {
 			LoginVO result = authService.Login(user);
 			assertThat(result.getId()).isEqualTo(user.getId());

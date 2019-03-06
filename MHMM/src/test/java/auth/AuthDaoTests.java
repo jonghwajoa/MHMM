@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,10 +19,11 @@ import xyz.mhmm.auth.dao.LoginDAO;
 import xyz.mhmm.auth.dao.UserDAO;
 import xyz.mhmm.auth.domain.LoginVO;
 import xyz.mhmm.auth.domain.UserVO;
+import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = WebApplication.class)
+@ContextConfiguration(classes = { WebApplication.class, DBConfig.class })
 @WebAppConfiguration
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -37,7 +39,13 @@ public class AuthDaoTests {
 
 	@Test
 	public void test1_createUser() {
-		AuthDTO.Create user = createDto();
+		AuthDTO.Create user = new AuthDTO.Create();
+		user.setId("userid");
+		user.setPw("userpw");
+		
+		user.setEmail("mhmm@mhmm.xyz");
+		user.setName("종화");
+
 		userDAO.create(user);
 		userNo = user.getNo();
 		assertThat(user.getNo()).isNotNull();
@@ -45,8 +53,16 @@ public class AuthDaoTests {
 
 	@Test
 	public void test2_createLogin() {
-		AuthDTO.Create user = createDto();
-		user.setPwCheck("userpw");
+		AuthDTO.Create user = new AuthDTO.Create();
+		user.setId("user5");
+		user.setPw("user5");
+		user.setPwCheck("user5");
+		user.setEmail("mhmm5@mhmm.xyz");
+		user.setName("종화5");
+		
+		userDAO.create(user);
+		userNo = user.getNo();
+		
 		user.setNo(userNo);
 		System.out.println(user.toString());
 		loginDAO.create(user);

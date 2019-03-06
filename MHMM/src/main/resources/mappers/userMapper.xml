@@ -9,11 +9,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from
 		tbl_user where email = #{email}
 	</select>
+	
+	<select id="findById" resultType="UserVO">
+		select * from
+		tbl_user where id = #{id}
+	</select>
 
 	<insert id="create" useGeneratedKeys="true" keyProperty="no"
-		parameterType="AuthDTO">
-		insert into tbl_user (name,email) values ( #{name},
-		#{email} )
+		parameterType="xyz.mhmm.auth.AuthDTO$Create">
+		insert into tbl_user (name,email,id) values ( #{name},
+		#{email}, #{id})
 	</insert>
 
 	<update id="updateToName">

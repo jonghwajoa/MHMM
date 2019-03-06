@@ -1,7 +1,6 @@
 package xyz.mhmm.auth.dao;
 
 import xyz.mhmm.auth.AuthDTO;
-import xyz.mhmm.auth.AuthDTO.Create;
 import xyz.mhmm.auth.domain.LoginVO;
 
 public interface LoginDAO {

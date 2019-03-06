@@ -14,11 +14,13 @@ public enum ErrorCode {
 	// Auth
 	EMAIL_DUPLICATION(400, "A001", "이미 사용중인 이메일 입니다. 다른 이메일을 사용해주세요."),
 	ID_DUPLICATION(400, "A001", "이미 사용중인 아이디 입니다. 다른 아이디를 사용해주세요."),
-	USER_NOT_EXIST(404, "A003", "아이디 혹은 비밀번호가 올바르지 않습니다."),
+	
+	INVALID_LOGIN_INPUT(404, "A003", "아이디 혹은 비밀번호가 올바르지 않습니다."),
 
 	// friend
 	USER_NOT_FOUND(404, "F001", "검색한 아이디는 존재하지 않습니다."), USER_ALREADY_FRIEND(400, "F002", "이미 친구등록한 유저입니다."),
-	OWN_SELF_ADD_FRIEND(400, "F003", "자기자신을 친구추가 할 수 없습니다.");
+	OWN_SELF_ADD_FRIEND(400, "F003", "자기자신을 친구추가 할 수 없습니다."),
+	FRIEND_SERACH_NOT_FOUND(404, "F004", "존재하지 않는 유저 입니다.");
 
 	private int status;
 	private final String code;

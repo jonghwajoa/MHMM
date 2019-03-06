@@ -3,7 +3,23 @@ class Friend {
     this.addInput = document.getElementById('friend-add');
     this.addInputBtn = document.getElementById('friend-add-btn');
     this.searchResult = document.getElementById('friend-search-result');
+    this.friendList = document.getElementById('friend-list');
+    this.getAllFriend();
+
     this.eventInit();
+  }
+  
+  async getAllFriend() {
+	  let getAllFriendResult;
+	  try {
+	      getAllFriendResult = await ajaxUtil.sendGetAjax('/api/friend/');
+	  } catch (e) {
+		  alert(e.messege);
+	      return;
+	  }
+	  let parseResult = JSON.parse(getAllFriendResult);
+	  this.allFriendData = parseResult;
+	  this.drawFriend();
   }
 
   eventInit() {
@@ -43,6 +59,18 @@ class Friend {
 	  console.log(result)
 	  console.log(result);
 	  this.drawPost(id, 'url');
+  }
+  
+  drawFriend() {
+	  let friendData = this.allFriendData;
+	  console.log(friendData);
+	  let html = '';
+	  for (let e of friendData) {
+	    html += '<div class="friend"><div class="img"></div>';
+	    html += `<span class="friend-name">${e.name}</span></div>`;
+	  }
+	  console.log(this.friendList)
+	  this.friendList.innerHTML = html;
   }
   
   

@@ -23,7 +23,6 @@ public class GlobalRestExceptionHandler {
 
 	@ExceptionHandler(BusinessException.class)
 	public ResponseEntity<?> handleUserNotExistException(BusinessException e) {
-		System.out.println(e.getErrorCode().getStatus());
 		return new ResponseEntity<>(ErrorResponse.of(e), HttpStatus.valueOf(e.getErrorCode().getStatus()));
 	}
 }
