@@ -69,6 +69,13 @@ class Signup {
       alert("회원가입 성공")
       window.location.href = '/auth/login';
     });
+    
+    this.userName.addEventListener('keypress', e => {
+        let key = e.which || e.keyCode;
+        if (key === 13) {
+          this.submitBtn.click();
+        }
+    });
   }
 
   lengthCheck(target, min, max = Number.MAX_VALUE) {

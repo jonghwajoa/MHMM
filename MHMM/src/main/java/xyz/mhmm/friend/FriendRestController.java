@@ -42,19 +42,22 @@ public class FriendRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
-		friendService.create((Long) session.getAttribute("userNo"), dto);
+		UserVO friendVO = friendService.create((Long) session.getAttribute("userNo"), dto);
 
-		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendVO), HttpStatus.CREATED);
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<?> searchUser(@ModelAttribute @Valid FriendDTO.Search id, BindingResult result) {
+	public ResponseEntity<?> searchUser(@ModelAttribute @Valid FriendDTO.Search id, BindingResult result,
+			HttpSession session) {
 		if (result.hasErrors()) {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
+		
+		UserVO friendVO = friendService.search((Long) session.getAttribute("userNo"), id);
 
-		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendService.search(id)), HttpStatus.OK);
+		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendVO), HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = "/")

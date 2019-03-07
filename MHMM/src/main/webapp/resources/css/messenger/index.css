@@ -64,7 +64,7 @@ body {
 }
 
 .friend-add .friend-search-result {
-	/* display: none; */
+	display: none; 
 	background: white;
 	min-height: 20px;
 	margin-top: 1rem;

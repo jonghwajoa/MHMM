@@ -8,6 +8,7 @@ nav {
   top: 0;
   left: -300px;
   text-align: center;
+  z-index: 9999;
 }
 
 nav .nav-wrap h1 {

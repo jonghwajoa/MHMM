@@ -41,6 +41,13 @@ class login {
 
       window.location.href = '/';
     });
+    
+    this.pw.addEventListener('keypress', e => {
+        let key = e.which || e.keyCode;
+        if (key === 13) {
+          this.loginSubmitBtn.click();
+        }
+    });
   }
 
   lengthCheck(target, min, max = Number.MAX_VALUE) {

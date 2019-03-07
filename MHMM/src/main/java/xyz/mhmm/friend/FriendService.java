@@ -30,7 +30,7 @@ public class FriendService {
 		return friendDAO.findAll(myNo);
 	}
 
-	public void create(Long myNo, FriendDTO.Add dto) {
+	public UserVO create(Long myNo, FriendDTO.Add dto) {
 
 		String friendId = dto.getId();
 		UserVO userVO = userDAO.findById(friendId);
@@ -48,6 +48,8 @@ public class FriendService {
 		} catch (DuplicateKeyException e) {
 			throw new AlreadyFriendException();
 		}
+		
+		return userVO;
 	}
 
 	public void delete(Long myNo, FriendDTO.Delete dto) {
@@ -55,14 +57,17 @@ public class FriendService {
 		friendDAO.delete(myNo, targetNo);
 	}
 
-	public UserVO search(FriendDTO.Search dto) {
+	public UserVO search(Long myNo, FriendDTO.Search dto) {
 
 		UserVO userVO = userDAO.findById(dto.getId());
 
 		if (userVO == null) {
 			throw new SearchNotFound();
 		}
-		// TODO : 검색 허용안할시 처리 기능 추가할때 수정하기
+		
+		if (myNo == userVO.getNo()) {
+			throw new OwnSelfAddFriendException();
+		}
 
 		return userVO;
 	}

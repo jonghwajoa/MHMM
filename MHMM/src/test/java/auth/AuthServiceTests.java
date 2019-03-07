@@ -20,13 +20,14 @@ import xyz.mhmm.auth.exception.EmailDuplicatedException;
 import xyz.mhmm.auth.exception.IdDuplicatedException;
 import xyz.mhmm.auth.AuthService;
 import xyz.mhmm.auth.domain.LoginVO;
+import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 import xyz.mhmm.exception.BusinessException;
 import xyz.mhmm.exception.ErrorCode;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
+@ContextConfiguration(classes = { WebApplication.class, WebConfig.class , DBConfig.class })
 @WebAppConfiguration
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

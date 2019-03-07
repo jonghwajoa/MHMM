@@ -70,14 +70,17 @@ public class FriendServiceTests {
 	@Test
 	@Description("친구 검색")
 	public void search() {
-		UserVO result = service.search("user2");
+		FriendDTO.Search dto = new FriendDTO.Search();
+		dto.setId("user2");
+		UserVO result = service.search(dto);
 		assertThat(result).hasFieldOrProperty("no");
 		assertThat(result).hasFieldOrProperty("name");
 		assertThat(result).hasFieldOrProperty("email");
 		assertThat(result).hasFieldOrProperty("id");
 
+		dto.setId("user22222");
 		try {
-			result = service.search("user22222");
+			result = service.search(dto);
 		}catch(Exception e) {
 			assertThat(e).isInstanceOf(SearchNotFound.class).hasMessage("존재하지 않는 유저 입니다.");
 		}

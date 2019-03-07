@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -40,10 +38,10 @@ public class AuthDaoTests {
 	@Test
 	public void test1_createUser() {
 		AuthDTO.Create user = new AuthDTO.Create();
-		user.setId("userid");
-		user.setPw("userpw");
+		user.setId("userid55");
+		user.setPw("userpw55");
 		
-		user.setEmail("mhmm@mhmm.xyz");
+		user.setEmail("mhmm55@mhmm.xyz");
 		user.setName("종화");
 
 		userDAO.create(user);
@@ -54,10 +52,10 @@ public class AuthDaoTests {
 	@Test
 	public void test2_createLogin() {
 		AuthDTO.Create user = new AuthDTO.Create();
-		user.setId("user5");
-		user.setPw("user5");
-		user.setPwCheck("user5");
-		user.setEmail("mhmm5@mhmm.xyz");
+		user.setId("user55");
+		user.setPw("user55");
+		user.setPwCheck("user55");
+		user.setEmail("mhmm55@mhmm.xyz");
 		user.setName("종화5");
 		
 		userDAO.create(user);
