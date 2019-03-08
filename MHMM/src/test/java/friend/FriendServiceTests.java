@@ -72,7 +72,7 @@ public class FriendServiceTests {
 	public void search() {
 		FriendDTO.Search dto = new FriendDTO.Search();
 		dto.setId("user2");
-		UserVO result = service.search(dto);
+		UserVO result = service.search(45L, dto);
 		assertThat(result).hasFieldOrProperty("no");
 		assertThat(result).hasFieldOrProperty("name");
 		assertThat(result).hasFieldOrProperty("email");
@@ -80,8 +80,8 @@ public class FriendServiceTests {
 
 		dto.setId("user22222");
 		try {
-			result = service.search(dto);
-		}catch(Exception e) {
+			result = service.search(45L, dto);
+		} catch (Exception e) {
 			assertThat(e).isInstanceOf(SearchNotFound.class).hasMessage("존재하지 않는 유저 입니다.");
 		}
 	}

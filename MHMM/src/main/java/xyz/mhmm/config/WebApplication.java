@@ -29,6 +29,7 @@ public class WebApplication implements WebApplicationInitializer {
 		app.setLoadOnStartup(1);
 		app.addMapping("/");
 		app.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+		app.setAsyncSupported(true); // websocket에서 클라이언트가 2명이상일때 동시에 데이터 전송시 제어하기위함..
 
 		FilterRegistration charEncodingFilterReg = servletContext.addFilter("CharacterEncodingFilter",
 				CharacterEncodingFilter.class);

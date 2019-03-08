@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/message")
+@RequestMapping(path = "/api/message", consumes = "application/json", produces = "application/json")
 public class MessageRestController {
 
-	
 	@GetMapping("/")
 	public String index(HttpSession session) {
 		System.out.println("엥...?");

@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,8 +58,8 @@ public class FriendRestControllerTests {
 	}
 
 	@Test
-	@Description("친구 생성 테스트")
-	public void createTest() throws Exception {
+	@Description("친구 생성 테스트 세션이 없으면 리다이렉트")
+	public void createNoSessionFailTest() throws Exception {
 		FriendDTO.Add dto = new FriendDTO.Add();
 		dto.setId("user5");
 
@@ -68,19 +69,30 @@ public class FriendRestControllerTests {
 				.andExpect(redirectedUrl("/auth/login"))
 //		.andDo(print())
 		;
-
-		HashMap<String, Object> session = new HashMap<String, Object>();
-		session.put("userNo", 46L);
-
+	}
+		
+	
+	@Test
+	@Description("친구 생성 성공 테스트")
+	public void createSuccessTest() throws Exception {
+		FriendDTO.Add dto = new FriendDTO.Add();
+		dto.setId("user4");
+		
 		mockMvc.perform(post("/api/friend/").contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(dto))
-					.sessionAttr("userNo", 45L))
+					.sessionAttr("userNo", 47L))
 				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.id").value("user5"))
-//			.andDo(print())
+				.andExpect(jsonPath("$.id").value("user4"))
+			.andDo(print())
 		;
-
+	}
+	
+	@Test
+	@Description("친구 생성 테스트")
+	public void createOwnSeflFailTest() throws Exception {
+		FriendDTO.Add dto = new FriendDTO.Add();
 		dto.setId("user2");
+		
 		ResultActions result = mockMvc
 				.perform(post("/api/friend/").contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(dto)).sessionAttr("userNo", 46L))
@@ -91,6 +103,7 @@ public class FriendRestControllerTests {
 		result.andExpect(jsonPath("$.code").value("F003"));
 		result.andExpect(jsonPath("$.errors").value(IsNull.nullValue()));
 	}
+	
 
 	@Test
 	@Description("친구 목록 불러오기")
@@ -103,8 +116,8 @@ public class FriendRestControllerTests {
 	}
 	
 	@Test
-	@Description("친구 삭제하기")
-	public void delete() throws Exception{
+	@Description("친구 삭제하기 입력값 누락시 실패")
+	public void deleteInvalidFailTest() throws Exception{
 		FriendDTO.Delete dto = new FriendDTO.Delete();
 		
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/friend/").contentType(MediaType.APPLICATION_JSON)
@@ -119,27 +132,37 @@ public class FriendRestControllerTests {
 				.andExpect(jsonPath("$.errors[0].reason").value("삭제할 유저를 반드시 입력해야 합니다."))
 //		.andDo(print())
 		;
+	}
 		
-		dto.setNo(-1L);
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/friend/").contentType(MediaType.APPLICATION_JSON)
+	@Test
+	@Description("친구 삭제하기 입력값 누락시 실패")
+	public void deletImpossibleNoFailTest() throws Exception{
+			FriendDTO.Delete dto = new FriendDTO.Delete();
+			dto.setNo(-1L);
+			mockMvc.perform(MockMvcRequestBuilders.delete("/api/friend/").contentType(MediaType.APPLICATION_JSON)
 					.sessionAttr("userNo", 4L)
 					.content(objectMapper.writeValueAsString(dto)))
-				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.status").value(400))
-				.andExpect(jsonPath("$.message").value("Invalid Input Value"))
-				.andExpect(jsonPath("$.code").value("C001"))
-				.andExpect(jsonPath("$.errors[0].field").value("no"))
-				.andExpect(jsonPath("$.errors[0].value").value("Min"))
-				.andExpect(jsonPath("$.errors[0].reason").value("회원 고유번호는 0 이상의 값이어야 합니다."))
-			.andDo(print())
+			.andExpect(status().isBadRequest())
+			.andExpect(jsonPath("$.status").value(400))
+			.andExpect(jsonPath("$.message").value("Invalid Input Value"))
+			.andExpect(jsonPath("$.code").value("C001"))
+			.andExpect(jsonPath("$.errors[0].field").value("no"))
+			.andExpect(jsonPath("$.errors[0].value").value("Min"))
+			.andExpect(jsonPath("$.errors[0].reason").value("회원 고유번호는 0 이상의 값이어야 합니다."))
+		.andDo(print())
 		;
+	}
 		
+	@Test
+	@Description("친구 삭제하기 성공")
+	public void deleteSuccessTest() throws Exception{ 
+		FriendDTO.Delete dto = new FriendDTO.Delete();
 		dto.setNo(Long.MAX_VALUE);
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/friend/").contentType(MediaType.APPLICATION_JSON)
-					.sessionAttr("userNo", 4L)
-					.content(objectMapper.writeValueAsString(dto)))
-				.andExpect(status().isNoContent())
-			.andDo(print())
+				.sessionAttr("userNo", 4L)
+				.content(objectMapper.writeValueAsString(dto)))
+			.andExpect(status().isNoContent())
+		.andDo(print())
 		;
 	}
 	
@@ -200,11 +223,13 @@ public class FriendRestControllerTests {
 		.andDo(print())
 		;
 		
+	
 		result.andExpect(jsonPath("$.status").value(400));
 		result.andExpect(jsonPath("$.message").value("Invalid Input Value"));
 		result.andExpect(jsonPath("$.code").value("C001"));
 		result.andExpect(jsonPath("$.errors[0].field").value("id"));
 		result.andExpect(jsonPath("$.errors[0].value").value("Length"));
 		result.andExpect(jsonPath("$.errors[0].reason").value("아이디는 최대 20자리 입니다."));
+		
 	}
 }
