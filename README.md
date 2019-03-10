@@ -9,13 +9,5 @@
 
   - 다른 대안 : http://aquerytool.com/
 
-## Use
+## 기록
 
-- Spring5
-- MariaDB : 10.1.37
-- Java 1.8
-- Mybatis
-
-## ERD
-
-![db](https://user-images.githubusercontent.com/31912670/52166657-60202900-2753-11e9-8f34-7b57e3f5cf65.jpg)
