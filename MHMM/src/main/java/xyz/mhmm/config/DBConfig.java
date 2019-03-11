@@ -1,9 +1,6 @@
 package xyz.mhmm.config;
 
-import javax.sql.DataSource;
-
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;

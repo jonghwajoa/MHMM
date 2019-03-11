@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -62,7 +61,6 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/messenger")
 			.addPathPatterns("/api/friend/");
-		
 	}
 
 	@Override
@@ -71,6 +69,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/auth/login").setViewName("auth/login");
 		registry.addViewController("/auth/signup").setViewName("auth/signup");
 		registry.addViewController("/messenger").setViewName("messenger/index");
+		registry.addViewController("/messenger/chatroom").setViewName("messenger/chatRoom");
 	}
 
 }

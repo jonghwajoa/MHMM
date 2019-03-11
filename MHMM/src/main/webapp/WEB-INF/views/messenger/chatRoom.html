@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>MHMM</title>
+
+<link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
+<link rel="stylesheet" th:href="@{~/css/messenger/chatRoom.css}" />
+</head>
+<body>
+	    <div id="wrap">
+      <div class="container">
+        <div class="chat-view-area">
+          <li>dasd</li>
+          <li>dasd</li>
+          <li>dasd</li>
+        </div>
+
+        <div class="chat-input-area">
+          <div class="input-name">
+            <span>닉네임</span>
+            <input type="text" id="nickName" />
+          </div>
+          <div class="input-content">
+            <textarea id="chat-content"></textarea>
+            <input type="button" id="chat-send" value="전송" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
+	<script th:src=@{~/js/messenger/friend.js}></script>
+	<script>
+		
+	</script>
+
+</body>
+</html>

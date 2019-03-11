@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.mhmm.auth.AuthDTO;
 import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
 
@@ -31,7 +29,6 @@ public class ChatRoomRestController {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
-//		dto
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
 }

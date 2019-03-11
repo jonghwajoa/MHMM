@@ -14,7 +14,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import xyz.mhmm.auth.domain.UserVO;
-import xyz.mhmm.auth.exception.InvalidLoginInput;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 import xyz.mhmm.exception.BusinessException;

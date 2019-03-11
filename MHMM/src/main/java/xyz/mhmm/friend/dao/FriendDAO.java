@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import xyz.mhmm.friend.FriendDTO;
 import xyz.mhmm.friend.domain.FriendVO;
 
 public interface FriendDAO {
