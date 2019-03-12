@@ -11,36 +11,61 @@
 <link rel="stylesheet" th:href="@{~/css/messenger/chatRoom.css}" />
 </head>
 <body>
-	    <div id="wrap">
-      <div class="container">
-        <div class="chat-view-area">
-          <li>dasd</li>
-          <li>dasd</li>
-          <li>dasd</li>
-        </div>
+	<div id="wrap">
+		<div class="container">
+			<div class="chat-view-area">
+				<li>dasd</li>
+				<li>dasd</li>
+				<li>dasd</li>
+			</div>
 
-        <div class="chat-input-area">
-          <div class="input-name">
-            <span>닉네임</span>
-            <input type="text" id="nickName" />
-          </div>
-          <div class="input-content">
-            <textarea id="chat-content"></textarea>
-            <input type="button" id="chat-send" value="전송" />
-          </div>
-        </div>
-      </div>
-    </div>
+			<div class="chat-input-area">
+				<div class="input-name">
+					<span>닉네임</span> <input type="text" id="nickName" />
+				</div>
+				<div class="input-content">
+					<textarea id="chat-content"></textarea>
+					<input type="button" id="chat-send" value="전송" />
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
-	<script th:src=@{~/js/messenger/friend.js}></script>
-	<script>
-		
-	</script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
+	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
+
+	<script>
+        console.log('으응');
+        let name = document.getElementById('nickName');
+        let message = document.getElementById('chat-content');
+        let submit = document.getElementById('chat-send');
+
+        let sock = new SockJS('/ws/chat');
+        sock.onopen = function() {
+            console.log('open');
+            sock.send('open');
+        };
+        
+        sock.onmessage = function(e) {
+            console.log('message', e.data);
+        };
+
+        sock.onclose = function() {
+            console.log('close');
+        };
+
+        submit.addEventListener('click', e => {
+          sock.send(message.value);
+          message.value = '';
+        });
+       
+      </script>
 </body>
+</html>
 </html>
