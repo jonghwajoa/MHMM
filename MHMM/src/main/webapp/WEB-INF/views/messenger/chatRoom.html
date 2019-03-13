@@ -13,11 +13,7 @@
 <body>
 	<div id="wrap">
 		<div class="container">
-			<div class="chat-view-area">
-				<li>dasd</li>
-				<li>dasd</li>
-				<li>dasd</li>
-			</div>
+			<div class="chat-view-area" id="chat-view-area"></div>
 
 			<div class="chat-input-area">
 				<div class="input-name">
@@ -41,31 +37,29 @@
 	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
 
 	<script>
-        console.log('으응');
-        let name = document.getElementById('nickName');
-        let message = document.getElementById('chat-content');
-        let submit = document.getElementById('chat-send');
-
-        let sock = new SockJS('/ws/chat');
-        sock.onopen = function() {
-            console.log('open');
-            sock.send('open');
-        };
+    const name = document.getElementById('nickName');
+    const message = document.getElementById('chat-content');
+    const submit = document.getElementById('chat-send');
+	const messageScreen = document.getElementById('chat-view-area');
+		let parse;
+    let sock = new SockJS('/ws/chat');
+    sock.onopen = function() {
+        console.log("open");
+    };
         
-        sock.onmessage = function(e) {
-            console.log('message', e.data);
-        };
+    sock.onmessage = function(e) {
+			parse = JSON.parse(e.data);
+			messageScreen.innerHTML +=`<li>${parse.writer} : ${parse.message} </li>`;
+    };
 
-        sock.onclose = function() {
-            console.log('close');
-        };
+    sock.onclose = function() {
+      console.log('close');
+    };
 
-        submit.addEventListener('click', e => {
-          sock.send(message.value);
-          message.value = '';
-        });
-       
-      </script>
+  	submit.addEventListener('click', e => {
+    	sock.send(JSON.stringify({writer:name.value , message: message.value}));
+    	message.value = '';
+    });
+  </script>
 </body>
-</html>
 </html>

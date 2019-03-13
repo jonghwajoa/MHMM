@@ -11,24 +11,30 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class ChatHandler extends TextWebSocketHandler {
 	private static Logger logger = LoggerFactory.getLogger(ChatHandler.class);
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 
+	private ObjectMapper objectMapper = new ObjectMapper();
+
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessionList.add(session);
-		logger.info("{} 연결됨", session.getId());
+		System.out.println(session.getId() + "연결됨");
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
-		for (WebSocketSession sess : sessionList) {
-			sess.sendMessage(new TextMessage(session.getId() + " : " + message.getPayload()));
-		}
+		System.out.println("{}로 부터 {} 받음 : " + session.getId() + " " + message.getPayload());
+		MessageDTO dto = objectMapper.readValue(message.getPayload(), MessageDTO.class);
 
+		System.out.println(dto.getMessage() + " " + dto.getWriter());
+		for (WebSocketSession sess : sessionList) {
+			sess.sendMessage(new TextMessage(objectMapper.writeValueAsString(dto)));
+		}
 	}
 
 	@Override
