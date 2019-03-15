@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class UserChatroom {
+public class UserChatroomDAO {
 
 	private Long userNo;
 	private Long chatRoomNo;

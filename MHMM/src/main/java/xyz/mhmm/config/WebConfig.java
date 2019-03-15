@@ -59,8 +59,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/messenger")
-			.addPathPatterns("/api/friend/");
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/messenger").addPathPatterns("/api/friend/");
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/auth/login").setViewName("auth/login");
 		registry.addViewController("/auth/signup").setViewName("auth/signup");
 		registry.addViewController("/messenger").setViewName("messenger/index");
-		registry.addViewController("/messenger/chatroom").setViewName("messenger/chatRoom");
+
 	}
 
 }

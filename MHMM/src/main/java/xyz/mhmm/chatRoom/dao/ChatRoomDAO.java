@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class ChatRoom {
+public class ChatRoomDAO {
 
 	private Long no;
 	

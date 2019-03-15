@@ -12,7 +12,9 @@
 </head>
 <body>
 	<div id="wrap">
+
 		<div class="container">
+			<h1 th:text="#{No}">방번호 입니다.</h1>
 			<div class="chat-view-area" id="chat-view-area"></div>
 
 			<div class="chat-input-area">
@@ -36,15 +38,23 @@
 
 	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
 
-	<script>
+	<script th:inline="javascript">
     const name = document.getElementById('nickName');
     const message = document.getElementById('chat-content');
     const submit = document.getElementById('chat-send');
 	const messageScreen = document.getElementById('chat-view-area');
+	
+	/*<![CDATA[*/
+    const roomNo = [[${No}]];
+	/*]]>*/
+	
+	console.log(roomNo);
+		
 		let parse;
     let sock = new SockJS('/ws/chat');
     sock.onopen = function() {
-        console.log("open");
+			sock.send(JSON.stringify({chatRoomId: roomNo, type: 'JOIN',writer:name.value}));
+				console.log("open");
     };
         
     sock.onmessage = function(e) {
@@ -57,8 +67,16 @@
     };
 
   	submit.addEventListener('click', e => {
-    	sock.send(JSON.stringify({writer:name.value , message: message.value}));
+    	sock.send(JSON.stringify({chatRoomId: roomNo, writer:name.value , message: message.value , type : 'CHAT'}));
     	message.value = '';
+    });
+
+		message.addEventListener('keypress', e => {
+      const key = e.which || e.keyCode;
+      if (key === 13) {
+    	e.preventDefault()
+        submit.click();
+      }
     });
   </script>
 </body>

@@ -27,11 +27,11 @@ public class WebApplication implements WebApplicationInitializer {
 		app.addMapping("/");
 		app.setInitParameter("throwExceptionIfNoHandlerFound", "true");
 
-		FilterRegistration charEncodingFilterReg = servletContext.addFilter("CharacterEncodingFilter",
-				CharacterEncodingFilter.class);
-		charEncodingFilterReg.setInitParameter("encoding", "UTF-8");
-		charEncodingFilterReg.setInitParameter("forceEncoding", "true");
-		charEncodingFilterReg.addMappingForUrlPatterns(null, true, "/*");
+		FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter",
+				new CharacterEncodingFilter());
+		encodingFilter.setInitParameter("encoding", "UTF-8");
+		encodingFilter.setInitParameter("forceEncoding", "true");
+		encodingFilter.addMappingForUrlPatterns(null, true, "/*");
 
 	}
 }

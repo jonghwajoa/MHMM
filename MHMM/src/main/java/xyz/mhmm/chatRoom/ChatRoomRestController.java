@@ -16,13 +16,16 @@ import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
 
 @RestController
+
 @RequestMapping(path = "/api/messenger/chatroom")
 public class ChatRoomRestController {
 
 	@Autowired
 	ChatRoomService chatRoomService;
 
-	@PostMapping("/")
+	
+	
+/*	@PostMapping("/")
 	public ResponseEntity<?> create(@RequestBody @Valid ChatRoomDTO.ChatRoomCreate dto, BindingResult result,
 			HttpSession session) {
 		if (result.hasErrors()) {
@@ -30,5 +33,5 @@ public class ChatRoomRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
-	}
+	}*/
 }
