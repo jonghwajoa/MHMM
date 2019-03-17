@@ -3,8 +3,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>MHMM</title>
 <link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
 <link rel="stylesheet" th:href="@{~/css/common/nav.css}" />
@@ -14,7 +12,7 @@
 	<div th:insert="~{fragments/nav::nav}"></div>
 
     <div class="signup-wrap">
-      <section class="signup">
+      <section class="signup"> 
         <h3>회원가입</h3>
         <form>
           <div class="input-form">
@@ -75,7 +73,7 @@
           />
         </form>
           <input type="submit" id="signup-submit-btn" value="회원가입" />
-          <input type="button" value="로그인페이지로" onClick="location.href='/auth/login'"/>
+          <input type="button" value="로그인페이지로" onClick="location.href='/auth/login'" />
           <input type="button" value="홈으로" onClick="location.href='/'" />
       </section>
     </div>

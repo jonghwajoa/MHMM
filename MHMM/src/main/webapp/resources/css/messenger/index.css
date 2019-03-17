@@ -9,7 +9,7 @@ body {
 }
 
 .content-container {
-	width: 80%;
+	width: 800px;
 	height: 90vh;
 	box-sizing: border-box;
 	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
@@ -20,7 +20,7 @@ body {
 }
 
 .content-container>section {
-	flex: 1 1 100%;
+	flex: 1 1 400px;
 	overflow: auto;
 }
 
@@ -86,6 +86,19 @@ body {
 .friend {
 	border-bottom: 1px solid #c8c8c8;
 }
+
+.friend-wrap .friend .chatBtn {
+  outline: none;
+  border: none;
+  background: rgba(153, 102, 255, 0.2);
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+  float: right;
+  border-radius: 3px;
+  cursor:pointer;
+}
+
 
 .friend-wrap .friend-list>div {
 	padding: 0.8rem 0.5rem;

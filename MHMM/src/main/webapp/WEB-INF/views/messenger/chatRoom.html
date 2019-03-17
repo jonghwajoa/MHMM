@@ -47,7 +47,8 @@
         const messageScreen = document.getElementById('chat-view-area');
 
         /*<![CDATA[*/
-         	const roomNo = [[${No}]];
+        const roomNo = [[${roomNo}]];
+        const userId = [[${userId}]];
         /*]]>*/
 
         const sock = new SockJS('/stomp-chat');
@@ -56,16 +57,16 @@
         client.debug = function(e) {};
 
         client.connect({}, function() {
-          client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: name.value  }));
+          client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: userId  }));
 
           client.subscribe('/subscribe/chat/room/' + roomNo, function(chat) {
             let content = JSON.parse(chat.body);
-						messageScreen.innerHTML += `<li>${content.writer} : ${content.message} </li>`;
+			messageScreen.innerHTML += `<li>${content.writer} : ${content.message} </li>`;
           });
         });
 
         submit.addEventListener('click', e => {
-					client.send('/publish/chat/message',{}, JSON.stringify({ chatRoomId: roomNo, type: 'CHAT', message: message.value, writer: name.value })
+        	client.send('/publish/chat/message',{}, JSON.stringify({ chatRoomId: roomNo, type: 'CHAT', message: message.value, writer: userId })
           );
           message.value = '';
         });

@@ -22,11 +22,6 @@ class ChatRoom {
       this.message.value = '';
     });
 
-    // sendBtn.click(function() {
-    //   var message = messageInput.val();
-    //   sock.send(JSON.stringify({ chatRoomId: roomId, type: 'CHAT', message: message, writer: member }));
-    //   messageInput.val('');
-    // });
   }
 }
 

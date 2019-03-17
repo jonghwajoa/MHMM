@@ -1,5 +1,7 @@
 package xyz.mhmm.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -59,16 +61,16 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/messenger").addPathPatterns("/api/friend/");
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**")
+				.excludePathPatterns(Arrays.asList("/", "/auth/*", "/api/auth/*", "/js/**", "/css/**"));
 	}
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
-		registry.addViewController("/auth/login").setViewName("auth/login");
-		registry.addViewController("/auth/signup").setViewName("auth/signup");
-		registry.addViewController("/messenger").setViewName("messenger/index");
-
-	}
+	/*
+	 * @Override public void addViewControllers(ViewControllerRegistry registry) {
+	 * registry.addViewController("/").setViewName("index");
+	 * registry.addViewController("/auth/login").setViewName("auth/login");
+	 * registry.addViewController("/auth/signup").setViewName("auth/signup");
+	 * registry.addViewController("/messenger").setViewName("messenger/index"); }
+	 */
 
 }
