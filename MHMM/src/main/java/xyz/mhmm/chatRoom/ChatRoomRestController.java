@@ -13,7 +13,7 @@ import xyz.mhmm.messenger.MessageDTO;
 public class ChatRoomRestController {
 
 	@Autowired
-	ChatRoomService chatRoomService;
+	OneToOneService chatRoomService;
 
 	private final SimpMessagingTemplate template;
 

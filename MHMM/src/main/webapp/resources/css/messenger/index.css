@@ -1,90 +1,86 @@
 @charset "UTF-8";
 
 body {
-	background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 .content-wrap {
-	
 }
 
 .content-container {
-	width: 800px;
-	height: 90vh;
-	box-sizing: border-box;
-	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
-	border-radius: 10px;
-	margin: 30px auto 0;
-	background: white;
-	display: flex;
+  width: 800px;
+  height: 90vh;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  margin: 30px auto 0;
+  background: white;
+  display: flex;
 }
 
-.content-container>section {
-	flex: 1 1 400px;
-	overflow: auto;
+.content-container > section {
+  flex: 1 1 400px;
+  overflow: auto;
 }
 
 .content-container .friend-wrap {
-	
 }
 
 .messange-wrap {
-	
 }
 
 .messenger-select {
-	
 }
 
 .friend-wrap .friend-add {
-	padding: 1.1rem 10px !important;
-	font-weight: bold;
-	border-bottom: 3px dotted #c8c8c8;
+  padding: 1.1rem 10px !important;
+  font-weight: bold;
+  border-bottom: 3px dotted #c8c8c8;
 }
 
 .friend-wrap .friend-add input {
-	margin-left: 0.5rem;
-	outline: none;
-	border: none;
-	font-size: 1rem;
-	font-weight: bold;
+  margin-left: 0.5rem;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .friend-wrap .friend-add input[type='text'] {
-	border-bottom: 1px solid grey;
-	padding: 0px 5px;
+  border-bottom: 1px solid grey;
+  padding: 0px 5px;
 }
 
 .friend-wrap .friend-add input[type='button'] {
-	background: #6741d9;
-	padding: 5px 10px;
-	font-size: 1rem;
-	color: #f8f9fa;
-	cursor: pointer;
+  background: #6741d9;
+  padding: 5px 10px;
+  font-size: 1rem;
+  color: #f8f9fa;
+  cursor: pointer;
 }
 
 .friend-add .friend-search-result {
-	display: none; 
-	background: white;
-	min-height: 20px;
-	margin-top: 1rem;
-	position: relative;
+  display: none;
+  background: white;
+  min-height: 20px;
+  margin-top: 1rem;
+  position: relative;
 }
 
 .friend-add .friend-search-result img {
-	border: 1px solid purple;
-	padding: 0.5rem 0.2rem;
-	border-radius: 20%;
-	margin-right: 5px;
+  border: 1px solid purple;
+  padding: 0.5rem 0.2rem;
+  border-radius: 20%;
+  margin-right: 5px;
 }
 
 .friend-add .friend-search-result input[type='button'] {
-	position: absolute;
-	right: 0;
+  position: absolute;
+  right: 0;
 }
 
 .friend {
-	border-bottom: 1px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .friend-wrap .friend .chatBtn {
@@ -96,39 +92,36 @@ body {
   font-weight: bold;
   float: right;
   border-radius: 3px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-
-.friend-wrap .friend-list>div {
-	padding: 0.8rem 0.5rem;
+.friend-wrap .friend-list > div {
+  padding: 0.8rem 0.5rem;
 }
 
 .friend-wrap .friend-list .friend .img {
-	display: inline-block;
-	border: 1px solid purple;
-	padding: 0.5rem 0.2rem;
-	border-radius: 20%;
-	margin-right: 5px;
-	width: 20px;
-	height: 20px;
+  display: inline-block;
+  padding: 0.5rem 0.2rem;
+  border-radius: 20%;
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
 }
 
 .friend-wrap .friend-list .friend span.friend-name {
-	cursor: pointer;
-	display: inline-block;
-	height: 30px;
-	font-size: 1rem;
-	margin-top: 1rem;
-	vertical-align: top;
+  cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  vertical-align: top;
 }
 
 .messange {
-	
 }
 
 .messange .messenger-room {
-	padding: 1.5rem 0.7rem;
-	border-bottom: 1px solid #c8c8c8;
-	cursor: pointer;
+  padding: 1.5rem 0.7rem;
+  border-bottom: 1px solid #c8c8c8;
+  cursor: pointer;
 }

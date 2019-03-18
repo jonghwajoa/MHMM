@@ -71,16 +71,36 @@ class Friend {
 
   drawFriend() {
     let friendData = this.allFriendData;
-    console.log(friendData);
     friendData = friendData.sort((a, b) => a.name.localeCompare(b.name));
+    this.friendList.innerHTML = '';
 
-    let html = '';
     for (let e of friendData) {
-      html += '<div class="friend"><div class="img"></div>';
-      html += `<span class="friend-name">${e.name}</span>`;
-      html += `<input type="button" value="채팅하기" class="chatBtn" /></div>`;
+      let friendClass = document.createElement('div');
+      let img = document.createElement('img');
+      let friendName = document.createElement('span');
+      let chatBtn = document.createElement('input');
+
+      friendClass.className = 'friend';
+      img.className = 'img';
+
+      friendName.innerText = e.name;
+      friendName.className = 'friend-name';
+      chatBtn.type = 'button';
+      chatBtn.value = '채팅하기';
+      chatBtn.className = 'chatBtn';
+      chatBtn.addEventListener('click', event => {
+        this.chatEvent(e.no);
+      });
+      friendClass.appendChild(img);
+      friendClass.appendChild(friendName);
+      friendClass.appendChild(chatBtn);
+
+      this.friendList.appendChild(friendClass);
     }
-    this.friendList.innerHTML = html;
+  }
+
+  chatEvent(userNo) {
+    window.open('/messenger/chatroom/1', 'ChatRoom', 'width=800, height=700');
   }
 
   drawSearchResult(name, imgUrl) {

@@ -13,13 +13,9 @@
 <body>
 	<div id="wrap">
 		<div class="container">
-			<h1 th:text="#{No}">방번호 입니다.</h1>
 			<div class="chat-view-area" id="chat-view-area"></div>
 
 			<div class="chat-input-area">
-				<div class="input-name">
-					<span>닉네임</span> <input type="text" id="nickName" />
-				</div>
 				<div class="input-content">
 					<textarea id="chat-content"></textarea>
 					<input type="button" id="chat-send" value="전송" />
@@ -41,7 +37,6 @@
 	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
 
 	<script th:inline="javascript">
-        const name = document.getElementById('nickName');
         const message = document.getElementById('chat-content');
         const submit = document.getElementById('chat-send');
         const messageScreen = document.getElementById('chat-view-area');
@@ -78,25 +73,6 @@
             submit.click();
           }
         });
-
-
-        // let parse;
-        // let sock = new SockJS('/ws/chat');
-        // sock.onopen = function() {
-        //   sock.send(JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: name.value }));
-        //   console.log('open');
-        // };
-
-        // sock.onmessage = function(e) {
-        //   parse = JSON.parse(e.data);
-        //   messageScreen.innerHTML += `<li>${parse.writer} : ${parse.message} </li>`;
-        // };
-
-        // sock.onclose = function() {
-        //   console.log('close');
-        // };
-
-
       </script>
 </body>
 </html>

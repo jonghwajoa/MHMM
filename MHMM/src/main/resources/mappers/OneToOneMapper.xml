@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.mhmm.chatRoom.dao.OneToOneDAO">
+
+	<insert id="createFromTo" parameterType="map"
+		useGeneratedKeys="true" keyProperty="no">
+		insert into tbl_onetoone
+		(from_userno, to_userno)
+		values (
+		#{from_userno}, #{to_userno} )
+	</insert>
+
+	<insert id="createToFrom" parameterType="map"
+		useGeneratedKeys="true" keyProperty="no">
+		insert into tbl_onetoone
+		(from_userno, to_userno)
+		values (
+		#{to_userno} ,#{from_userno})
+	</insert>
+
+	<select id="selectFromTo" resultType="OneToOneVO">
+		SELECT * FROM tbl_onetoone
+		where from_userno = #{from_userno} and to_userno = #{to_userno}
+	</select>
+
+	<select id="selectToFrom" resultType="OneToOneVO">
+		SELECT * FROM tbl_onetoone
+		where from_userno = #{to_userno} and to_userno = #{from_userno}
+	</select>
+
+
+</mapper>
