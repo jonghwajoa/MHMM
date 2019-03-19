@@ -1,15 +1,15 @@
 package xyz.mhmm.chatRoom.dao;
 
+import java.util.List;
+
 import xyz.mhmm.chatRoom.domain.OneToOneVO;
 import xyz.mhmm.chatRoom.dto.OneToOneDTO;
 
 public interface OneToOneDAO {
 
-	public void createFromTo(OneToOneDTO.create dto);
+	public void create(OneToOneDTO.FindAndCreate dto);
 
-	public void createToFrom(OneToOneDTO.create dto);
+	public OneToOneVO select(OneToOneDTO.FindAndCreate dto);
 
-	public OneToOneVO selectFromTo(OneToOneDTO.create dto);
-
-	public OneToOneVO selectToFrom(OneToOneDTO.create dto);
+	public List<OneToOneVO> selectAll(Long userNo);
 }

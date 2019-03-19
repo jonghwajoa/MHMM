@@ -1,45 +1,30 @@
 package xyz.mhmm.chatRoom;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.mhmm.messenger.MessageDTO;
+import xyz.mhmm.chatRoom.domain.OneToOneVO;
 
 @RestController
-//@RequestMapping(path = "/api/messenger/chatroom")
+@RequestMapping(path = "/api/messenger/chatroom")
 
 public class ChatRoomRestController {
 
 	@Autowired
-	OneToOneService chatRoomService;
+	OneToOneService oneToOneService;
 
-	private final SimpMessagingTemplate template;
+	@GetMapping("/")
+	public ResponseEntity<?> findAll(HttpSession session) {
 
-	@Autowired
-	public ChatRoomRestController(SimpMessagingTemplate template) {
-		this.template = template;
+		List<OneToOneVO> list = oneToOneService.findAll((Long) session.getAttribute("userNo"));
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-
-	@MessageMapping("/chat/join")
-	public void join(MessageDTO message) {
-		message.setMessage(message.getWriter() + "님이 입장하셨습니다.");
-		template.convertAndSend("/subscribe/chat/room/" + message.getChatRoomId(), message);
-	}
-
-	@MessageMapping("/chat/message")
-	public void message(MessageDTO message) {
-		template.convertAndSend("/subscribe/chat/room/" + message.getChatRoomId(), message);
-	}
-
 }
-
-/*
- * @PostMapping("/") public ResponseEntity<?> create(@RequestBody @Valid
- * ChatRoomDTO.ChatRoomCreate dto, BindingResult result, HttpSession session) {
- * if (result.hasErrors()) { ErrorResponse errorResponse =
- * ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result); return new
- * ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST); } return new
- * ResponseEntity<>(dto, HttpStatus.CREATED); }
- */

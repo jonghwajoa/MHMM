@@ -1,5 +1,7 @@
 package chatroom;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { WebApplication.class, DBConfig.class, WebConfig.class })
+@ContextConfiguration(classes = { WebApplication.class, DBConfig.class })
 @WebAppConfiguration
 @Transactional
 public class OneToOneDaoTests {
@@ -26,23 +28,26 @@ public class OneToOneDaoTests {
 
 	@Test
 	public void insertTest() {
-		OneToOneDTO.create dto = new OneToOneDTO.create();
+		OneToOneDTO.FindAndCreate dto = new OneToOneDTO.FindAndCreate();
 		dto.setTo_userno(2L);
 		dto.setFrom_userno(3L);
-		dao.createFromTo(dto);
-		dao.createToFrom(dto);
+		dao.create(dto);
 		System.out.println(dto.toString());
 	}
 
 	@Test
 	public void selectTest() {
-		OneToOneDTO.create dto = new OneToOneDTO.create();
+		OneToOneDTO.FindAndCreate dto = new OneToOneDTO.FindAndCreate();
 		dto.setTo_userno(1L);
 		dto.setFrom_userno(2L);
-		OneToOneVO result = dao.selectFromTo(dto);
-		System.out.println(result.toString());
+	}
 
-		result = dao.selectToFrom(dto);
-		System.out.println(result.toString());
+	@Test
+	public void selectAll() {
+		List<OneToOneVO> list = dao.selectAll(3L);
+
+		for (OneToOneVO e : list) {
+			System.out.println(e.toString());
+		}
 	}
 }

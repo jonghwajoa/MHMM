@@ -117,10 +117,10 @@ body {
   vertical-align: top;
 }
 
-.messange {
+.chatroom-section {
 }
 
-.messange .messenger-room {
+.chatroom-section .messenger-room {
   padding: 1.5rem 0.7rem;
   border-bottom: 1px solid #c8c8c8;
   cursor: pointer;

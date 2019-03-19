@@ -7,5 +7,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<package name="xyz.mhmm" />
 	</typeAliases>
+	
+	
 
 </configuration>

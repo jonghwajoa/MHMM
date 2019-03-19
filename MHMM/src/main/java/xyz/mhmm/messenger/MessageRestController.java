@@ -1,22 +1,28 @@
 package xyz.mhmm.messenger;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/message", consumes = "application/json", produces = "application/json")
 public class MessageRestController {
 
-	@GetMapping("/")
-	public String index(HttpSession session) {
-		System.out.println("엥...?");
-		System.out.println(session.toString());
-		System.out.println(session.getAttribute("userId"));
-		System.out.println(session.getAttribute("userNo"));
-		
-		return "ㅎㅎ..?";
+	private final SimpMessagingTemplate template;
+
+	@Autowired
+	public MessageRestController(SimpMessagingTemplate template) {
+		this.template = template;
+	}
+
+	@MessageMapping("/chat/join")
+	public void join(MessageDTO message) {
+		message.setMessage(message.getWriter() + "님이 입장하셨습니다.");
+		template.convertAndSend("/subscribe/chat/room/" + message.getChatRoomId(), message);
+	}
+
+	@MessageMapping("/chat/message")
+	public void message(MessageDTO message) {
+		template.convertAndSend("/subscribe/chat/room/" + message.getChatRoomId(), message);
 	}
 }
