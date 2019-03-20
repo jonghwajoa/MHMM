@@ -26,7 +26,9 @@ public class PageController {
 	}
 
 	@GetMapping("/messenger")
-	public String messenger() {
+	public String messenger(HttpSession session, Model model) {
+		model.addAttribute("userId", (String) session.getAttribute("userId"));
+
 		return "messenger/index";
 	}
 

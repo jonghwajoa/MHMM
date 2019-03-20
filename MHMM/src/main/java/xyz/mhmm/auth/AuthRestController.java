@@ -21,9 +21,6 @@ import xyz.mhmm.exception.ErrorResponse;
 @RequestMapping("/api/auth")
 public class AuthRestController {
 
-	/*
-	 * 제공해야하는 기능 로그인 , 회원가입 POST 요청 로그아웃 회원 탈퇴 기능
-	 */
 	// TODO : 비밀번호 변경
 
 	@Autowired

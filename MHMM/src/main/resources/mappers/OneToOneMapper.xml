@@ -19,9 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from_userno = #{from_userno} and to_userno = #{to_userno}
 	</select>
 
-	<select id="selectAll" resultType="OneToOneVO">
+
+	<!-- 	
+		SELECT o.no, u1.id as fromUserId, u2.id as toUserId FROM tbl_onetoone as o 
+		INNER JOIN tbl_user u1 ON o.from_userno = u1.no 
+		INNER JOIN tbl_user u2 ON o.to_userno = u2.no 
+		where o.from_userno = 46 or o.to_userno = 46;
+		
 		SELECT * FROM tbl_onetoone
 		where from_userno = #{userNo} or to_userno = #{userNo}
+	 -->
+	
+	<select id="selectAll" resultType="xyz.mhmm.chatRoom.domain.OneToOneVO$findAllVO">
+		SELECT o.no, u1.id as from_user_id, u2.id as to_user_id FROM tbl_onetoone as o 
+		INNER JOIN tbl_user u1 ON o.from_userno = u1.no 
+		INNER JOIN tbl_user u2 ON o.to_userno = u2.no 
+		where o.from_userno = #{userNo} or o.to_userno = #{userNo}
 	</select>
 
 

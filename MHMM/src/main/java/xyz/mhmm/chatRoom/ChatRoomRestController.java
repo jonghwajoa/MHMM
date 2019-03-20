@@ -24,7 +24,7 @@ public class ChatRoomRestController {
 	@GetMapping("/")
 	public ResponseEntity<?> findAll(HttpSession session) {
 
-		List<OneToOneVO> list = oneToOneService.findAll((Long) session.getAttribute("userNo"));
+		List<OneToOneVO.findAllVO> list = oneToOneService.findAll((Long) session.getAttribute("userNo"));
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }

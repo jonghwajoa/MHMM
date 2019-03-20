@@ -35,7 +35,7 @@ public class OneToOneService {
 	public void select(OneToOneDTO.FindAndCreate dto) {
 	}
 
-	public List<OneToOneVO> findAll(Long userNo) {
+	public List<OneToOneVO.findAllVO> findAll(Long userNo) {
 		return oneToOneDAO.selectAll(userNo);
 	}
 

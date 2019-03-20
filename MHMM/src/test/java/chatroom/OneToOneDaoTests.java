@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import xyz.mhmm.chatRoom.dao.OneToOneDAO;
 import xyz.mhmm.chatRoom.domain.OneToOneVO;
+import xyz.mhmm.chatRoom.domain.OneToOneVO.findAllVO;
 import xyz.mhmm.chatRoom.dto.OneToOneDTO;
 import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
@@ -44,9 +45,9 @@ public class OneToOneDaoTests {
 
 	@Test
 	public void selectAll() {
-		List<OneToOneVO> list = dao.selectAll(3L);
+		List<OneToOneVO.findAllVO> list = dao.selectAll(46L);
 
-		for (OneToOneVO e : list) {
+		for (OneToOneVO.findAllVO e : list) {
 			System.out.println(e.toString());
 		}
 	}

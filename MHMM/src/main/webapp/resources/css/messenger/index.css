@@ -10,17 +10,19 @@ body {
 .content-container {
   width: 800px;
   height: 90vh;
-  box-sizing: border-box;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  margin: 30px auto 0;
-  background: white;
+  margin: 0 auto;
   display: flex;
 }
 
 .content-container > section {
   flex: 1 1 400px;
   overflow: auto;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  margin: 30px auto 0;
+  background: white;
+  margin-right: 30px;
+  border-radius: 10px;
 }
 
 .content-container .friend-wrap {
@@ -49,6 +51,7 @@ body {
 .friend-wrap .friend-add input[type='text'] {
   border-bottom: 1px solid grey;
   padding: 0px 5px;
+  width: 120px;
 }
 
 .friend-wrap .friend-add input[type='button'] {
@@ -56,6 +59,7 @@ body {
   padding: 5px 10px;
   font-size: 1rem;
   color: #f8f9fa;
+  float: right;
   cursor: pointer;
 }
 
@@ -120,8 +124,14 @@ body {
 .chatroom-section {
 }
 
-.chatroom-section .messenger-room {
+.chatroom-section .chat-room {
   padding: 1.5rem 0.7rem;
   border-bottom: 1px solid #c8c8c8;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.chatroom-section .chat-room:hover {
+  color: #6741d9;
 }
