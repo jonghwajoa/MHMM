@@ -7,6 +7,13 @@ body {
 .content-wrap {
 }
 
+#userid {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
 .content-container {
   width: 800px;
   height: 90vh;
@@ -134,4 +141,8 @@ body {
 
 .chatroom-section .chat-room:hover {
   color: #6741d9;
+}
+
+.chatroom-section .chat-room span {
+  margin-left: 0.5rem;
 }

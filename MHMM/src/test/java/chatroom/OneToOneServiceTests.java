@@ -49,7 +49,7 @@ public class OneToOneServiceTests {
 
 	@Test
 	public void findAllTest() {
-		List<OneToOneVO> list = oneToOneService.findAll(3L);
+		List<OneToOneVO.findAllVO> list = oneToOneService.findAll(3L);
 
 		System.out.println(list.toString());
 	}

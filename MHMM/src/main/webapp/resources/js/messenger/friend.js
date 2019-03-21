@@ -4,6 +4,7 @@ class Friend {
     this.searchInputBtn = document.getElementById('friend-search-btn');
     this.searchResult = document.getElementById('friend-search-result');
     this.friendList = document.getElementById('friend-list');
+
     this.getAllFriend();
 
     this.eventInit();
@@ -99,8 +100,16 @@ class Friend {
     }
   }
 
-  chatEvent(userNo) {
-    window.open('/messenger/chatroom/1', 'ChatRoom', 'width=800, height=700');
+  async chatEvent(userNo) {
+    let createOrFind;
+    try {
+      createOrFind = await ajaxUtil.sendPostAjax('/api/messenger/chatroom/', { to_userno: userNo });
+    } catch (e) {
+      alert('채팅 실패');
+      return;
+    }
+
+    window.open(`/messenger/chatroom/${JSON.parse(createOrFind).no}`, 'ChatRoom', 'width=800, height=700');
   }
 
   drawSearchResult(name, imgUrl) {

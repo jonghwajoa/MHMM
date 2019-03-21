@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,10 +15,11 @@
 
 
 	<div class="content-wrap">
-	
-		<div th:text="#{userId}">user name</div>
+		<h1 th:text='${userId + "님의 채팅방"}' id='userid'>user name</h1>
+
 		<!-- content-container -->
 		<div class="content-container">
+			
 			<!-- friend-wrap -->
 			<section class="friend-wrap">
 				<div class="friend-add">
@@ -36,7 +36,7 @@
 
 			<!-- messange-room -->
 			<section class="chatroom-section" id='chatroom-section'>
-		
+				
 			</section>
 
 		</div>
