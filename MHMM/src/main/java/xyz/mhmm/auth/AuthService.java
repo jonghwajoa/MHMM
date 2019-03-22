@@ -47,7 +47,8 @@ public class AuthService {
 		if (findUser == null) {
 			throw new InvalidLoginInput();
 		}
-
+		
+		// TODO : PASSWORD 암호화
 		String bcryptPass = dto.getPw();
 
 		if (!bcryptPass.equals(findUser.getPw())) {

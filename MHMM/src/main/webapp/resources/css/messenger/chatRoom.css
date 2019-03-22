@@ -17,6 +17,7 @@ body {
 .container .chat-view-area {
   height: 70vh;
   border: 2px solid pink;
+  overflow-y: scroll;
 }
 
 .container .chat-input-area {
@@ -60,6 +61,35 @@ body {
 
 li {
   list-style: none;
-  padding: 0.25rem;
   font-size: 1rem;
+  min-height: 1rem;
+}
+
+li.myMessage {
+  text-align: right;
+  margin: 10px 5px 0 0;
+}
+
+li.theOtherMessage {
+  text-align: left;
+  margin: 10px 0 0 5px;
+}
+
+li span.message {
+  display: inline-block;
+  padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+  border: 1px solid #c8c8c8;
+  border-radius: 0.4rem;
+  font-weight: bold;
+  background: #cccccc;
+}
+
+li.theOtherMessage .writer {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+li.theOtherMessage .message {
+  margin-left: 0.7rem;
 }

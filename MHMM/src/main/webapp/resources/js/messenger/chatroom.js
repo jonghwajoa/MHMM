@@ -1,50 +1,64 @@
-class ChatRoom {
+class ChatRoomList {
   constructor() {
-    this.messangeSection = document.getElementById('chatroom-section');
-    this.userId = document.getElementById('userid');
+    const roomNo = document.getElementById('roomNo').value;
+    const userId = document.getElementById('userId').value;
+    this.stompInit(roomNo, userId);
+    this.eventInit(roomNo, userId);
+  }
 
-    this.getAllChatRoom().then(chatRoomData => {
-      this.drawInit(chatRoomData);
+  stompInit(roomNo, userId) {
+    const messageScreen = document.getElementById('chat-view-area');
+
+    const sock = new SockJS('/stomp-chat');
+    const client = Stomp.over(sock);
+
+    client.debug = function(e) {};
+
+    client.connect({}, function() {
+      client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: userId }));
+
+      client.subscribe('/subscribe/chat/room/' + roomNo, function(chat) {
+        let content = JSON.parse(chat.body);
+
+        if (content.writer === userId) {
+          messageScreen.innerHTML += `<li class="myMessage"><span class="message">${content.message}</span></li>`;
+        } else {
+          messageScreen.innerHTML += `<li class="theOtherMessage"><div class='writer'>${
+            content.writer
+          }</div> <span class="message">${content.message}</span></li>`;
+        }
+      });
     });
+
+    this.client = client;
   }
 
-  async getAllChatRoom() {
-    let getAllChatRoomResult;
-    try {
-      getAllChatRoomResult = await ajaxUtil.sendGetAjax('/api/messenger/chatroom/');
-    } catch (e) {
-      alert(e.messege);
-      return;
-    }
-    return JSON.parse(getAllChatRoomResult);
-  }
+  eventInit(roomNo, userId) {
+    const message = document.getElementById('chat-content');
+    const submit = document.getElementById('chat-send');
 
-  drawInit(roomData) {
-    const messangeSection = this.messangeSection;
-
-    for (let e of roomData) {
-      const divRoom = document.createElement('div');
-      const img = document.createElement('img');
-      const span = document.createElement('span');
-      img.alt = '사진';
-
-      divRoom.className = 'chat-room';
-
-      if (this.userId === e.from_user_id) {
-        span.innerHTML = `${e.from_user_id}님과 채팅`;
-      } else {
-        span.innerHTML = `${e.to_user_id}님과 채팅`;
+    submit.addEventListener('click', e => {
+      if (message.value.trim() === '') {
+    	  message.value = ''
+        return;
       }
-      divRoom.onclick = () => this.chatRoomOnclick(e.no);
-      divRoom.appendChild(img);
-      divRoom.appendChild(span);
-      messangeSection.appendChild(divRoom);
-    }
-  }
 
-  chatRoomOnclick(roomNo) {
-    window.open(`/messenger/chatroom/${roomNo}`, 'ChatRoom', 'width=800, height=700');
+      this.client.send(
+        '/publish/chat/message',
+        {},
+        JSON.stringify({ chatRoomId: roomNo, type: 'CHAT', message: message.value, writer: userId })
+      );
+      message.value = '';
+    });
+
+    message.addEventListener('keypress', e => {
+      const key = e.which || e.keyCode;
+      if (key === 13) {
+        e.preventDefault();
+        submit.click();
+      }
+    });
   }
 }
 
-new ChatRoom();
+new ChatRoomList();

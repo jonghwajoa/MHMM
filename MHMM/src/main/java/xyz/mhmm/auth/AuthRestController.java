@@ -70,4 +70,6 @@ public class AuthRestController {
 		}
 		return new ResponseEntity<>(AuthDTO.convertSearchResponse(vo), HttpStatus.OK);
 	}
+	
+	
 }

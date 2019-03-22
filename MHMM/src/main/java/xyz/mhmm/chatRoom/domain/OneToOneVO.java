@@ -17,6 +17,7 @@ public class OneToOneVO {
 		private Long no;
 		private String from_user_id;
 		private String to_user_id;
-
+		private String from_user_name;
+		private String to_user_name;
 	}
 }

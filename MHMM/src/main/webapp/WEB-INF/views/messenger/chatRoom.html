@@ -1,79 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="ko">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>MHMM</title>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
-<link rel="stylesheet" th:href="@{~/css/messenger/chatRoom.css}" />
-</head>
-<body>
-	<div id="wrap">
-		<div class="container">
-			<div class="chat-view-area" id="chat-view-area"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>MHMM</title>
+    <link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
+    <link rel="stylesheet" th:href="@{~/css/messenger/chatRoom.css}" />
+  </head>
 
-			<div class="chat-input-area">
-				<div class="input-content">
-					<textarea id="chat-content"></textarea>
-					<input type="button" id="chat-send" value="전송" />
-				</div>
-			</div>
-		</div>
-	</div>
+  <body>
+    <div id="wrap">
+      <input th:value='${userId}' id='userId' type="hidden" />
+      <input th:value='${roomNo}' id='roomNo' type="hidden" />
+      <div class="container">
+        <div class="chat-view-area" id="chat-view-area"></div>
+        <div class="chat-input-area">
+          <div class="input-content">
+            <textarea id="chat-content"></textarea>
+            <input type="button" id="chat-send" value="전송" />
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
-
-	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
-
-	<script th:inline="javascript">
-        const message = document.getElementById('chat-content');
-        const submit = document.getElementById('chat-send');
-        const messageScreen = document.getElementById('chat-view-area');
-
-        /*<![CDATA[*/
-        const roomNo = [[${roomNo}]];
-        const userId = [[${userId}]];
-        /*]]>*/
-
-        const sock = new SockJS('/stomp-chat');
-        const client = Stomp.over(sock);
-
-        client.debug = function(e) {};
-
-        client.connect({}, function() {
-          client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: userId  }));
-
-          client.subscribe('/subscribe/chat/room/' + roomNo, function(chat) {
-            let content = JSON.parse(chat.body);
-			messageScreen.innerHTML += `<li>${content.writer} : ${content.message} </li>`;
-          });
-        });
-
-        submit.addEventListener('click', e => {
-        	client.send('/publish/chat/message',{}, JSON.stringify({ chatRoomId: roomNo, type: 'CHAT', message: message.value, writer: userId })
-          );
-          message.value = '';
-        });
-
-        message.addEventListener('keypress', e => {
-          const key = e.which || e.keyCode;
-          if (key === 13) {
-            e.preventDefault();
-            submit.click();
-          }
-        });
-      </script>
-</body>
-</html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+    <script th:src=@{~/js/utils/ajaxUtil.js}> </script> 
+    <script th:src=@{~/js/messenger/chatRoom.js}></script>
+    
+  </body>
 </html>
