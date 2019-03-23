@@ -3,8 +3,19 @@ class ChatRoomList {
     const roomNo = document.getElementById('roomNo').value;
     const userId = document.getElementById('userId').value;
     const userNo = document.getElementById('userNo').value;
+    this.getChatData(roomNo).then(result => {
+      console.log(result);
+    });
     this.stompInit(roomNo, userId);
     this.eventInit(roomNo, userId, userNo);
+  }
+
+  async getChatData(roomNo) {
+    try {
+      await ajaxUtil.sendGetAjax('/api/chat');
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   stompInit(roomNo, userId) {

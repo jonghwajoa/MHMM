@@ -37,5 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where o.from_userno = #{userNo} or o.to_userno = #{userNo}
 	</select>
 
+	<select id="findByPk"  resultType="OneToOneVO"> 
+		SELECT * FROM tbl_onetoone WHERE no = #{no}
+	</select>
 
 </mapper>

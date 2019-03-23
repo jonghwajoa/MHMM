@@ -1,6 +1,7 @@
 package message;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
-import xyz.mhmm.messenger.MessageDTO;
-import xyz.mhmm.messenger.MessageType;
-import xyz.mhmm.messenger.dao.MessageDAO;
+import xyz.mhmm.messenge.MessageDTO;
+import xyz.mhmm.messenge.MessageType;
+import xyz.mhmm.messenge.dao.MessageDAO;
+import xyz.mhmm.messenge.domain.MessageVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebApplication.class, DBConfig.class })
@@ -24,7 +26,7 @@ import xyz.mhmm.messenger.dao.MessageDAO;
 public class MessageDAOTest {
 
 	@Autowired
-	MessageDAO dao;
+	private MessageDAO dao;
 
 	@Test
 	public void createTest() {
@@ -37,5 +39,15 @@ public class MessageDAOTest {
 		dto.setUser_id("아이디");
 
 		dao.create(dto);
+	}
+
+	@Test
+	public void findAllTest() {
+
+		List<MessageVO> vo = dao.findAll(24L);
+
+		for (MessageVO e : vo) {
+			System.out.println(e.toString());
+		}
 	}
 }

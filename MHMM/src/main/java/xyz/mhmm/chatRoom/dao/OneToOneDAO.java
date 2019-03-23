@@ -12,4 +12,6 @@ public interface OneToOneDAO {
 	public OneToOneVO select(OneToOneDTO.FindAndCreate dto);
 
 	public List<OneToOneVO.findAllVO> selectAll(Long userNo);
+
+	public OneToOneVO findByPk(Long no);
 }

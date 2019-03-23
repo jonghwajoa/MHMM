@@ -22,7 +22,14 @@ public enum ErrorCode {
 	OWN_SELF_ADD_FRIEND(400, "F003", "자기자신을 친구추가 할 수 없습니다."), FRIEND_SERACH_NOT_FOUND(404, "F004", "존재하지 않는 유저 입니다."),
 
 	// OneToOne ChatRoom
-	ONETOONE_NOT_FOUND(404, "O002", "존재하지 않는 채팅방 입니다.");
+	ONETOONE_NOT_FOUND(404, "O002", "존재하지 않는 채팅방 입니다."),
+
+	// Message
+	CHATROOM_NOT_ACCESS(403, "M001", "접근할 수 없는 채팅방입니다."),
+	CHATROOM_NOT_FOUND(404, "M002", "접근할 수 없는 채팅방입니다.")
+	
+
+	;
 
 	private int status;
 	private final String code;

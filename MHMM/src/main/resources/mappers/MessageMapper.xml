@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xyz.mhmm.messenger.dao.MessageDAO">
+<mapper namespace="xyz.mhmm.messenge.dao.MessageDAO">
 
 	<insert id="create" parameterType="map">
 		insert into tbl_message (
@@ -11,8 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{message}, #{user_no}, #{chatroom_no}, #{user_id}, #{created_at} )
 	</insert>
 
+	<select id="findAll" resultType="MessageVO">
+		select * from tbl_message where chatroom_no = #{chatroomNo}
+	</select>
+
 	<!-- <insert id="create"> insert into tbl_login ( no, id, pw ) values ( 
 		#{no}, #{id}, #{pw} ) </insert> <select id="selectExistId" resultType="string"> 
+		
 		select id from tbl_login where id = #{id} </select> <select id="findById" 
 		resultType="LoginVO"> select * from tbl_login where id = #{id} </select> 
 		<update id="updateToPw"> update tbl_login set pw= #{pw} where no = #{no} 

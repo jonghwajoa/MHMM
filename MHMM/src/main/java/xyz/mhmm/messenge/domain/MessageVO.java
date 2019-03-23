@@ -1,6 +1,4 @@
-package xyz.mhmm.messenger.domain;
-
-import java.sql.Timestamp;
+package xyz.mhmm.messenge.domain;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -14,5 +12,5 @@ public class MessageVO {
 	private String message;
 	private String user_no;
 	private String user_name;
-	private Timestamp created_at;
+	private String created_at;
 }

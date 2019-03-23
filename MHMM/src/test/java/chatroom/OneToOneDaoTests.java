@@ -51,4 +51,11 @@ public class OneToOneDaoTests {
 			System.out.println(e.toString());
 		}
 	}
+
+	@Test
+	public void findByPkTest() {
+		OneToOneVO vo = dao.findByPk(24L);
+		System.out.println(vo.toString());
+
+	}
 }
