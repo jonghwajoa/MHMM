@@ -34,13 +34,13 @@ public class PageController {
 	@GetMapping("/messenger")
 	public String messenger(HttpSession session, Model model) {
 		model.addAttribute("userId", (String) session.getAttribute("userId"));
-
 		return "messenger/index";
 	}
 
 	@GetMapping("/messenger/chatroom/{id}")
 	public String chatRoom(@PathVariable Long id, HttpSession session, Model model) {
 
+		model.addAttribute("userNo", session.getAttribute("userNo"));
 		model.addAttribute("userId", session.getAttribute("userId"));
 		model.addAttribute("roomNo", id);
 

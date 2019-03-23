@@ -2,8 +2,9 @@ class ChatRoomList {
   constructor() {
     const roomNo = document.getElementById('roomNo').value;
     const userId = document.getElementById('userId').value;
+    const userNo = document.getElementById('userNo').value;
     this.stompInit(roomNo, userId);
-    this.eventInit(roomNo, userId);
+    this.eventInit(roomNo, userId, userNo);
   }
 
   stompInit(roomNo, userId) {
@@ -15,16 +16,16 @@ class ChatRoomList {
     client.debug = function(e) {};
 
     client.connect({}, function() {
-      client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: userId }));
+      //client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: userId }));
 
       client.subscribe('/subscribe/chat/room/' + roomNo, function(chat) {
         let content = JSON.parse(chat.body);
 
-        if (content.writer === userId) {
+        if (content.user_id === userId) {
           messageScreen.innerHTML += `<li class="myMessage"><span class="message">${content.message}</span></li>`;
         } else {
           messageScreen.innerHTML += `<li class="theOtherMessage"><div class='writer'>${
-            content.writer
+            content.user_id
           }</div> <span class="message">${content.message}</span></li>`;
         }
       });
@@ -33,20 +34,20 @@ class ChatRoomList {
     this.client = client;
   }
 
-  eventInit(roomNo, userId) {
+  eventInit(roomNo, userId, userNo) {
     const message = document.getElementById('chat-content');
     const submit = document.getElementById('chat-send');
 
     submit.addEventListener('click', e => {
       if (message.value.trim() === '') {
-    	  message.value = ''
+        message.value = '';
         return;
       }
 
       this.client.send(
         '/publish/chat/message',
         {},
-        JSON.stringify({ chatRoomId: roomNo, type: 'CHAT', message: message.value, writer: userId })
+        JSON.stringify({ chatroom_no: roomNo, type: 'CHAT', message: message.value, user_id: userId, user_no: userNo })
       );
       message.value = '';
     });

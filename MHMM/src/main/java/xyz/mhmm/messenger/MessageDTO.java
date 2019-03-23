@@ -4,14 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @ToString
+@Getter
 @Setter
 public class MessageDTO {
 
-	private Long chatRoomId;
-	private String writer;
+	private Long chatroom_no;
+	private Long user_no;
+	private String user_id;
 	private String message;
 	private MessageType type;
+	private String created_at;
 
 }
