@@ -3,43 +3,46 @@ class ChatRoomList {
     const roomNo = document.getElementById('roomNo').value;
     const userId = document.getElementById('userId').value;
     const userNo = document.getElementById('userNo').value;
-    this.getChatData(roomNo).then(result => {
-      console.log(result);
+    this.messageScreen = document.getElementById('chat-view-area');
+
+    this.getChatData(roomNo).then(data => {
+      this.dataDraw(JSON.parse(data), userNo);
     });
-    this.stompInit(roomNo, userId);
+    this.stompInit(roomNo, userNo);
     this.eventInit(roomNo, userId, userNo);
   }
 
   async getChatData(roomNo) {
     try {
-      await ajaxUtil.sendGetAjax('/api/chat');
+      return await ajaxUtil.sendGetAjax(`/api/message/onetoone/${roomNo}`);
     } catch (e) {
       console.log(e);
     }
   }
 
-  stompInit(roomNo, userId) {
-    const messageScreen = document.getElementById('chat-view-area');
+  dataDraw(data, userNo) {
+    for (let message of data) {
+      this.viewDraw(message, userNo);
+    }
+  }
 
+  viewDraw(message, userNo) {
+    if (message.user_no == userNo) {
+      this.messageScreen.innerHTML += `<li class="myMessage"><span class="message">${message.message}</span></li>`;
+    } else {
+      this.messageScreen.innerHTML += `<li class="theOtherMessage"><div class='writer'>${
+        message.user_name
+      }</div> <span class="message">${message.message}</span></li>`;
+    }
+    this.messageScreen.scrollTop = this.messageScreen.scrollHeight;
+  }
+
+  stompInit(roomNo, userNo) {
     const sock = new SockJS('/stomp-chat');
     const client = Stomp.over(sock);
 
-    client.debug = function(e) {};
-
-    client.connect({}, function() {
-      //client.send('/publish/chat/join', {}, JSON.stringify({ chatRoomId: roomNo, type: 'JOIN', writer: userId }));
-
-      client.subscribe('/subscribe/chat/room/' + roomNo, function(chat) {
-        let content = JSON.parse(chat.body);
-
-        if (content.user_id === userId) {
-          messageScreen.innerHTML += `<li class="myMessage"><span class="message">${content.message}</span></li>`;
-        } else {
-          messageScreen.innerHTML += `<li class="theOtherMessage"><div class='writer'>${
-            content.user_id
-          }</div> <span class="message">${content.message}</span></li>`;
-        }
-      });
+    client.connect({}, () => {
+      client.subscribe('/subscribe/chat/room/' + roomNo, chat => this.viewDraw(JSON.parse(chat.body), userNo));
     });
 
     this.client = client;
@@ -58,7 +61,13 @@ class ChatRoomList {
       this.client.send(
         '/publish/chat/message',
         {},
-        JSON.stringify({ chatroom_no: roomNo, type: 'CHAT', message: message.value, user_id: userId, user_no: userNo })
+        JSON.stringify({
+          chatroom_no: roomNo,
+          type: 'CHAT',
+          message: message.value,
+          user_name: userId,
+          user_no: userNo
+        })
       );
       message.value = '';
     });

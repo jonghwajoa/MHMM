@@ -17,7 +17,7 @@ public class MessageDTO {
 
 	private Long chatroom_no;
 	private Long user_no;
-	private String user_id;
+	private String user_name;
 	private String message;
 	private MessageType type;
 	private String created_at;

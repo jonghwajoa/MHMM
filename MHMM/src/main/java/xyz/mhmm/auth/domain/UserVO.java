@@ -14,10 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserVO {
 
 	private Long no;

@@ -8,7 +8,6 @@ import lombok.ToString;
 public class MessageVO {
 
 	private Long no;
-	private String content;
 	private String message;
 	private String user_no;
 	private String user_name;
