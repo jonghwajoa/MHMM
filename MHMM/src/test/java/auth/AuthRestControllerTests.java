@@ -28,7 +28,6 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import xyz.mhmm.auth.AuthDTO;
-import xyz.mhmm.auth.AuthRestController;
 import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
@@ -38,9 +37,6 @@ import xyz.mhmm.config.WebConfig;
 @WebAppConfiguration
 @Transactional
 public class AuthRestControllerTests {
-
-	@Autowired
-	private AuthRestController authController;
 
 	private MockMvc mockMvc;
 

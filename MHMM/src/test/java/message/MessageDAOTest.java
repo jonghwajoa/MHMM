@@ -6,7 +6,6 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -36,7 +35,7 @@ public class MessageDAOTest {
 		dto.setMessage("헤헤");
 		dto.setType(MessageType.CHAT);
 		dto.setUser_no(44L);
-		dto.setUser_id("아이디");
+		dto.setUser_name("아이디");
 
 		dao.create(dto);
 	}

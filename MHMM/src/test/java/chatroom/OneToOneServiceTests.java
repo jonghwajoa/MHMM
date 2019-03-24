@@ -4,12 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,7 +29,7 @@ public class OneToOneServiceTests {
 	private OneToOneService oneToOneService;
 
 	@Test
-	public void createTest() {
+	public void createTest() {	
 		OneToOneDTO.FindAndCreate dto = new OneToOneDTO.FindAndCreate();
 		dto.setFrom_userno(2L);
 		dto.setTo_userno(3L);

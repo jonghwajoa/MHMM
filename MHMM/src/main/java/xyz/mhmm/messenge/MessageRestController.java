@@ -33,21 +33,23 @@ public class MessageRestController {
 
 	@MessageMapping("/chat/message")
 	public void message(final MessageDTO dto) {
-		dto.setCreated_at(new SimpleDateFormat("yyyy-MM-dd HH시 mm분").format(new java.util.Date()));
+		Long start = System.currentTimeMillis();
+		dto.setCreated_at(new SimpleDateFormat("yyyy-MM-dd HH시 mm분 ss초").format(new java.util.Date()));
 		service.create(dto);
+		System.out.println((System.currentTimeMillis() - start));
 		template.convertAndSend(url + dto.getChatroom_no(), dto);
 	}
 
 	@GetMapping("/api/message/onetoone/{chatroom_no}")
 	public ResponseEntity<?> getChatMessage(@ModelAttribute @Valid MessageDTO.noOnly dto, BindingResult result,
 			HttpSession session) {
+
 		if (result.hasErrors()) {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
 		dto.setUser_no((Long) session.getAttribute("userNo"));
-
 		return new ResponseEntity<>(service.oneToOneChatFindAll(dto), HttpStatus.OK);
 	}
 }

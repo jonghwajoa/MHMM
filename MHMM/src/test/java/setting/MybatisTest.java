@@ -1,4 +1,4 @@
-package xyz.mhmm.setting;
+package setting;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

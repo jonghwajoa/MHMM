@@ -1,6 +1,6 @@
 package xyz.mhmm.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +16,15 @@ import xyz.mhmm.auth.exception.InvalidLoginInput;
 @Transactional
 public class AuthService {
 
-	@Autowired
-	UserDAO userdao;
+	private UserDAO userdao;
+	private LoginDAO loginDAO;
+	private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	LoginDAO loginDAO;
+	public AuthService(UserDAO userdao, LoginDAO loginDAO, PasswordEncoder passwordEncoder) {
+		this.userdao = userdao;
+		this.loginDAO = loginDAO;
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	public AuthDTO.Create create(AuthDTO.Create user) {
 
@@ -35,6 +39,8 @@ public class AuthService {
 			throw new EmailDuplicatedException();
 		}
 
+		user.setPw(passwordEncoder.encode(user.getPw()));
+
 		userdao.create(user);
 		loginDAO.create(user);
 		return user;
@@ -42,20 +48,17 @@ public class AuthService {
 
 	public LoginVO Login(AuthDTO.Login dto) {
 
-		LoginVO findUser = loginDAO.findById(dto.getId());
+		LoginVO findUserVO = loginDAO.findById(dto.getId());
 
-		if (findUser == null) {
-			throw new InvalidLoginInput();
-		}
-		
-		// TODO : PASSWORD 암호화
-		String bcryptPass = dto.getPw();
-
-		if (!bcryptPass.equals(findUser.getPw())) {
+		if (findUserVO == null) {
 			throw new InvalidLoginInput();
 		}
 
-		return findUser;
+		if (!dto.getPw().equals(findUserVO.getPw()) && !passwordEncoder.matches(dto.getPw(), findUserVO.getPw())) {
+			throw new InvalidLoginInput();
+		}
+
+		return findUserVO;
 
 	}
 

@@ -1,4 +1,4 @@
-package xyz.mhmm.setting;
+package setting;
 
 import java.sql.Connection;
 

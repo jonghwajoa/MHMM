@@ -76,19 +76,21 @@ public class AuthDaoTests {
 
 	public void updateToNameTest() {
 		UserVO user = createUserDtoForUser();
-		user.setNo(1L);
+//		user.setNo(1L);
+		
+		
 		userDAO.updateToName(user);
 	}
 
 	public void updateToEmailTest() {
 		UserVO user = createUserDtoForUser();
-		user.setNo(1L);
+//		user.setNo(1L);
 		userDAO.updateToEmail(user);
 	}
 
 	public void test4_updateToPwTest() {
 		LoginVO user = createLoginDto();
-		user.setPw("바꾼비밀번호");
+//		user.setPw("바꾼비밀번호");
 		loginDAO.updateToPw(user);
 	}
 
@@ -107,9 +109,9 @@ public class AuthDaoTests {
 
 	public LoginVO createLoginDto() {
 		LoginVO user = new LoginVO();
-		user.setId("userid");
-		user.setPw("userpw");
-		user.setNo(33L);
+//		user.setId("userid");
+//		user.setPw("userpw");
+//		user.setNo(33L);
 		return user;
 	}
 

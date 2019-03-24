@@ -12,11 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import xyz.mhmm.chatRoom.dao.OneToOneDAO;
 import xyz.mhmm.chatRoom.domain.OneToOneVO;
-import xyz.mhmm.chatRoom.domain.OneToOneVO.findAllVO;
 import xyz.mhmm.chatRoom.dto.OneToOneDTO;
 import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
-import xyz.mhmm.config.WebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebApplication.class, DBConfig.class })

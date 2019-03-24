@@ -6,7 +6,9 @@ class ChatRoomList {
     this.messageScreen = document.getElementById('chat-view-area');
 
     this.getChatData(roomNo).then(data => {
+      console.time('start');
       this.dataDraw(JSON.parse(data), userNo);
+      console.timeEnd('start');
     });
     this.stompInit(roomNo, userNo);
     this.eventInit(roomNo, userId, userNo);
