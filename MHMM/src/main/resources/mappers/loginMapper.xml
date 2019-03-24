@@ -19,9 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from tbl_login
 		where id = #{id}
 	</select>
+	
+	<select id="findByPk" resultType="LoginVO">
+		select * from tbl_login
+		where no = #{no}
+	</select>
 
-	<update id="updateToPw">
-		update tbl_login set pw= #{pw} where no = #{no}
+	<update id="updatePw">
+		update tbl_login set pw= #{changePw} where no = #{userNo}
 	</update>
 
 

@@ -86,5 +86,28 @@ const ajaxUtil = {
       xhr.send();
       xhr.onerror = () => reject(req.status);
     });
+  },
+
+  /**
+   * @param {String} url
+   * @param {Object} params
+   * @param {Function} predicate
+   * @returns responseText
+   */
+  sendPathAjax(url, params, predicate) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        if (predicate(xhr.status)) {
+          resolve(xhr.responseText);
+        } else {
+          reject({ status: xhr.status, message: xhr.responseText });
+        }
+      };
+      xhr.open('PATCH', url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(JSON.stringify(params));
+      xhr.onerror = () => reject(req.status);
+    });
   }
 };

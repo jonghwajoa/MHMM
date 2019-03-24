@@ -11,7 +11,7 @@
 				<li th:if="${authCheck == false}"><a href="/auth/login">Login</a></li>
 				<li th:unless="${authCheck == false}"><a href="/api/auth/logout">Logout</a></li>
 				<li><a href="/messenger">Messenger</a></li>
-				<li th:unless="${authCheck == false}"><a href="/MyPage">MyPage</a></li>
+				<li th:unless="${authCheck == false}"><a href="/mypage">MyPage</a></li>
 				<li><a>About Team</a></li>
 			</ul>
 			<footer>

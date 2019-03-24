@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -65,13 +64,4 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**")
 				.excludePathPatterns(Arrays.asList("/", "/auth/*", "/api/auth/*", "/js/**", "/css/**"));
 	}
-
-	/*
-	 * @Override public void addViewControllers(ViewControllerRegistry registry) {
-	 * registry.addViewController("/").setViewName("index");
-	 * registry.addViewController("/auth/login").setViewName("auth/login");
-	 * registry.addViewController("/auth/signup").setViewName("auth/signup");
-	 * registry.addViewController("/messenger").setViewName("messenger/index"); }
-	 */
-
 }

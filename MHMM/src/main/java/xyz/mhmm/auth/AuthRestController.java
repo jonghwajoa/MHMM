@@ -21,13 +21,13 @@ import xyz.mhmm.exception.ErrorResponse;
 @RequestMapping("/api/auth")
 public class AuthRestController {
 
-	// TODO : 비밀번호 변경
-
-	@Autowired
 	private AuthService authService;
-
-	@Autowired
 	private AuthValidation userValidation;
+
+	public AuthRestController(AuthService authService, AuthValidation userValidation) {
+		this.authService = authService;
+		this.userValidation = userValidation;
+	}
 
 	@PostMapping(path = "/signup", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> signupPOST(@RequestBody @Valid AuthDTO.Create dto, BindingResult result) {
@@ -42,7 +42,8 @@ public class AuthRestController {
 	}
 
 	@PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> loginPOST(@RequestBody @Valid AuthDTO.Login dto, BindingResult result, HttpSession session) {
+	public ResponseEntity<?> loginPOST(@RequestBody @Valid AuthDTO.Login dto, BindingResult result,
+			HttpSession session) {
 
 		if (result.hasErrors()) {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
@@ -52,7 +53,7 @@ public class AuthRestController {
 		LoginVO loginVO = authService.Login(dto);
 		session.setAttribute("userId", loginVO.getId());
 		session.setAttribute("userNo", loginVO.getNo());
-		
+
 		return new ResponseEntity<>(AuthDTO.convertLoginResponse(dto), HttpStatus.OK);
 	}
 
@@ -70,6 +71,5 @@ public class AuthRestController {
 		}
 		return new ResponseEntity<>(AuthDTO.convertSearchResponse(vo), HttpStatus.OK);
 	}
-	
-	
+
 }

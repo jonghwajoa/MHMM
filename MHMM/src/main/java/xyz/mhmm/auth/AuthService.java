@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.mhmm.auth.dao.LoginDAO;
 import xyz.mhmm.auth.dao.UserDAO;
 import xyz.mhmm.auth.domain.LoginVO;
-import xyz.mhmm.auth.domain.UserVO;
 import xyz.mhmm.auth.exception.EmailDuplicatedException;
 import xyz.mhmm.auth.exception.IdDuplicatedException;
 import xyz.mhmm.auth.exception.InvalidLoginInput;
@@ -65,15 +64,4 @@ public class AuthService {
 	public LoginVO existUserById(String id) {
 		return loginDAO.findById(id);
 	}
-
-	public void updateForUser(UserVO user) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void updateForPw(LoginVO login) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>MHMM</title>
+<link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
+<link rel="stylesheet" th:href="@{~/css/common/nav.css}" />
+<link rel="stylesheet" th:href="@{~/css/auth/signup.css}" />
+</head>
+<body>
+	<div th:insert="~{fragments/nav::nav}"></div>
+
+    <div class="signup-wrap">
+      <section class="signup"> 
+        <h3>패스워드 변경</h3>
+        <form>
+          <div class="input-form">
+            <label for="curPW" class="ir_su">현재 비밀번호</label>
+            <input
+              type="password"
+              id="curPW"
+              name="curPw"
+              class="input_text"
+              placeholder="현재 비밀번호를 입력해주세요"
+              autocomplete="off"
+              maxlength="20"
+            />
+            <span class="message" id="userId-Message"></span>
+          </div>
+          <div class="input-form">
+            <label for="changePw" class="ir_su">변경할 비밀번호</label>
+            <input
+              type="password"
+              id="changePw"
+              name="changePw"
+              class="input_text"
+              placeholder="변경할 비밀번호를 입력해주세요"
+              autocomplete="off"
+              maxlength="20"
+            />
+            <span class="message"></span>
+          </div>
+          <label for="changePwCheck" class="ir_su">변경할 비밀번호 확인</label>
+          <input
+            type="password"
+            id="changePwCheck"
+            name="changePwCheck"
+            class="input_text"
+            placeholder="변경할 비밀번호를 한번더 입력해주세요"
+            autocomplete="off"
+            maxlength="20"
+          />
+        </form>
+          <input type="submit" id="change-pw-submit-btn" value="비밀번호 변경" />
+          <input type="button" value="홈으로" onClick="location.href='/'" />
+      </section>
+    </div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+	<script th:src=@{~/js/common/nav.js}></script>
+	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
+	<script th:src=@{~/js/mypage/mypage.js}></script> 
+</body>
+</html>

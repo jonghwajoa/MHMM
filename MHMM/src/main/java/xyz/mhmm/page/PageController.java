@@ -44,8 +44,12 @@ public class PageController {
 		model.addAttribute("userId", session.getAttribute("userId"));
 		model.addAttribute("roomNo", id);
 
-		System.out.println(session.getAttribute("userId"));
 		return "messenger/chatRoom";
+	}
+
+	@GetMapping("/mypage")
+	public String chatRoom(HttpSession session, Model model) {
+		return "mypage/mypage";
 	}
 
 }
