@@ -20,33 +20,26 @@ class login {
 
       const params = {
         id: this.id.value,
-        pw: this.pw.value,
+        pw: this.pw.value
       };
 
       let ajaxResult;
+      const predicate = status => status === 200;
       try {
-        ajaxResult = await ajaxUtil.sendPostAjax('/api/auth/login', params);
+        ajaxResult = await ajaxUtil.sendPostAjax('/api/auth/login', params, predicate);
       } catch (e) {
-        let message = '';
-        let err = JSON.parse(e.message);
-        message += err.message;
-        if(err.errors != null) {
-        	for (let error of err.errors) {
-                message += `\n${error.reason}`;
-              }	
-        }
-        alert(message);
+        alert(e.message);
         return;
       }
 
       window.location.href = '/';
     });
-    
+
     this.pw.addEventListener('keypress', e => {
-        let key = e.which || e.keyCode;
-        if (key === 13) {
-          this.loginSubmitBtn.click();
-        }
+      let key = e.which || e.keyCode;
+      if (key === 13) {
+        this.loginSubmitBtn.click();
+      }
     });
   }
 

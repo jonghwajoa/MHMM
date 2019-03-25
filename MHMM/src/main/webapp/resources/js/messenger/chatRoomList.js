@@ -11,10 +11,11 @@ class ChatRoomList {
 
   async getAllChatRoom() {
     let getAllChatRoomResult;
+    const predicate = status => status === 200;
     try {
-      getAllChatRoomResult = await ajaxUtil.sendGetAjax('/api/messenger/chatroom/');
+      getAllChatRoomResult = await ajaxUtil.sendGetAjax('/api/messenger/chatroom/', predicate);
     } catch (e) {
-      alert(e.messege);
+      alert(e.message);
       return;
     }
     return JSON.parse(getAllChatRoomResult);

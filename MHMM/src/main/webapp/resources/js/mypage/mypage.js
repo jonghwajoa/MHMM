@@ -18,7 +18,8 @@ class MyPage {
       try {
         await ajaxUtil.sendPathAjax(`/api/mypage/password`, params, predicate);
       } catch (e) {
-        console.log(e);
+        alert(e.message);
+        return;
       }
 
       alert('비밀번호 변경 완료');

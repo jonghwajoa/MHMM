@@ -6,19 +6,19 @@ class ChatRoomList {
     this.messageScreen = document.getElementById('chat-view-area');
 
     this.getChatData(roomNo).then(data => {
-      console.time('start');
-      this.dataDraw(JSON.parse(data), userNo);
-      console.timeEnd('start');
+      this.dataDraw(JSON.parse(data).reverse(), userNo);
     });
     this.stompInit(roomNo, userNo);
     this.eventInit(roomNo, userId, userNo);
   }
 
   async getChatData(roomNo) {
+    const predicate = status => status === 200;
     try {
-      return await ajaxUtil.sendGetAjax(`/api/message/onetoone/${roomNo}`);
+      return await ajaxUtil.sendGetAjax(`/api/message/onetoone/${roomNo}`, predicate);
     } catch (e) {
-      console.log(e);
+      alert(e.message);
+      return;
     }
   }
 

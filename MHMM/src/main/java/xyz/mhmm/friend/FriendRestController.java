@@ -64,6 +64,8 @@ public class FriendRestController {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
+		
+		// TODO : 로직 추가
 
 		friendService.delete((Long) session.getAttribute("userNo"), dto);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

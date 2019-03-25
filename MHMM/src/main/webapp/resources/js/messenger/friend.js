@@ -12,10 +12,11 @@ class Friend {
 
   async getAllFriend() {
     let getAllFriendResult;
+    const predicate = status => status === 200;
     try {
-      getAllFriendResult = await ajaxUtil.sendGetAjax('/api/friend/');
+      getAllFriendResult = await ajaxUtil.sendGetAjax('/api/friend/', predicate);
     } catch (e) {
-      alert(e.messege);
+      alert(e.message);
       return;
     }
     this.allFriendData = JSON.parse(getAllFriendResult);
@@ -38,16 +39,11 @@ class Friend {
   async searchFriend(id) {
     let result = false;
     this.searchResult.style.display = 'none';
+    const predicate = status => status === 200;
     try {
-      result = await ajaxUtil.sendGetAjax(`/api/friend/${id}`);
+      result = await ajaxUtil.sendGetAjax(`/api/friend/${id}`, predicate);
     } catch (e) {
-      let message = '';
-      if (e.status === 404 || e.status === 400) {
-        message = JSON.parse(e.message).message;
-      } else {
-        message += this.errorParse(e);
-      }
-      this.drawSearchResult(false, message);
+      this.drawSearchResult(false, e.message);
       return;
     }
 
@@ -102,10 +98,11 @@ class Friend {
 
   async chatEvent(userNo) {
     let createOrFind;
+    const predicate = status => status === 201;
     try {
-      createOrFind = await ajaxUtil.sendPostAjax('/api/messenger/chatroom/', { to_userno: userNo });
+      createOrFind = await ajaxUtil.sendPostAjax('/api/messenger/chatroom/', { to_userno: userNo }, predicate);
     } catch (e) {
-      alert('채팅 실패');
+      alert(e.message);
       return;
     }
 
@@ -137,11 +134,11 @@ class Friend {
   async addFriend(name) {
     let param = { id: name };
     let result;
+    const predicate = status => status === 201;
     try {
-      result = await ajaxUtil.sendPostAjax(`/api/friend/`, param);
+      result = await ajaxUtil.sendPostAjax(`/api/friend/`, param, predicate);
     } catch (e) {
-      let message = '';
-      this.drawSearchResult(false, message);
+      this.drawSearchResult(false, e.message);
       return;
     }
     this.drawSearchResult(false, '등록성공');

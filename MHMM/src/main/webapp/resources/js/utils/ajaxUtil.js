@@ -1,19 +1,19 @@
 const ajaxUtil = {
   /**
    * @param {String} url
-   * @returns responseText
+   * @param {Function} predicate
+   * @returns {String} responseText
    */
-  sendGetAjax(url) {
+  sendGetAjax(url, predicate) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = () => {
-        if (xhr.status === 200) {
+        if (predicate(xhr.status)) {
           resolve(xhr.responseText);
         } else {
-          reject({ status: xhr.status, message: xhr.responseText });
+          reject({ status: xhr.status, message: ajaxUtil.errorFormat(xhr.responseText) });
         }
       };
-
       xhr.open('GET', url, true);
       xhr.setRequestHeader('Content-type', 'application/json');
       xhr.send();
@@ -24,16 +24,17 @@ const ajaxUtil = {
   /**
    * @param {String} url
    * @param {Object} params
-   * @returns responseText
+   * @param {Function} predicate
+   * @returns {String} responseText
    */
-  sendPostAjax(url, params) {
+  sendPostAjax(url, params, predicate) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status <= 210) {
+        if (predicate(xhr.status)) {
           resolve(xhr.responseText);
         } else {
-          reject({ status: xhr.status, message: xhr.responseText });
+          reject({ status: xhr.status, message: ajaxUtil.errorFormat(xhr.responseText) });
         }
       };
       xhr.open('POST', url, true);
@@ -47,7 +48,8 @@ const ajaxUtil = {
   /**
    * @param {String} url
    * @param {Object} params
-   * @returns responseText
+   * @param {Function} predicate
+   * @returns {String} responseText
    */
   sendPutAjax(url, params) {
     return new Promise((resolve, reject) => {
@@ -56,7 +58,7 @@ const ajaxUtil = {
         if (xhr.status < 300) {
           resolve(xhr.responseText);
         } else {
-          reject({ status: xhr.status, message: xhr.responseText });
+          reject({ status: xhr.status, message: ajaxUtil.errorFormat(xhr.responseText) });
         }
       };
       xhr.open('PUT', url, true);
@@ -68,16 +70,17 @@ const ajaxUtil = {
 
   /**
    * @param {String} url
-   * @returns {Boolean}
+   * @param {Function} predicate
+   * @returns {String} responseText
    */
-  sendDeleteAjax(url) {
+  sendDeleteAjax(url, predicate) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = () => {
-        if (xhr.status === 204) {
+        if (predicate(xhr.status)) {
           resolve(true);
         } else {
-          reject({ status: xhr.status, message: xhr.responseText });
+          reject({ status: xhr.status, message: ajaxUtil.errorFormat(xhr.responseText) });
         }
       };
 
@@ -92,7 +95,7 @@ const ajaxUtil = {
    * @param {String} url
    * @param {Object} params
    * @param {Function} predicate
-   * @returns responseText
+   * @returns {String} responseText
    */
   sendPathAjax(url, params, predicate) {
     return new Promise((resolve, reject) => {
@@ -101,7 +104,7 @@ const ajaxUtil = {
         if (predicate(xhr.status)) {
           resolve(xhr.responseText);
         } else {
-          reject({ status: xhr.status, message: xhr.responseText });
+          reject({ status: xhr.status, message: ajaxUtil.errorFormat(xhr.responseText) });
         }
       };
       xhr.open('PATCH', url, true);
@@ -109,5 +112,17 @@ const ajaxUtil = {
       xhr.send(JSON.stringify(params));
       xhr.onerror = () => reject(req.status);
     });
+  },
+
+  errorFormat(responseText) {
+    let returnMessage = '';
+    let parseText = JSON.parse(responseText);
+    returnMessage += parseText.message;
+    if (parseText.errors != null) {
+      for (let error of parseText.errors) {
+        returnMessage += `\n${error.reason}`;
+      }
+    }
+    return returnMessage;
   }
 };

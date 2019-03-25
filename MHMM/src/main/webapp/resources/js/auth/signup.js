@@ -14,7 +14,7 @@ class Signup {
   eventInit() {
     this.submitBtn.addEventListener('click', async e => {
       e.preventDefault();
-      
+
       let lengthCheck = this.lengthCheck;
 
       if (!lengthCheck(this.userId.value, 5, 20)) {
@@ -50,31 +50,23 @@ class Signup {
       };
 
       let ajaxResult;
+      const predicate = status => status === 201;
       try {
-        ajaxResult = await ajaxUtil.sendPostAjax('/api/auth/signup', params);
+        ajaxResult = await ajaxUtil.sendPostAjax('/api/auth/signup', params, predicate);
       } catch (e) {
-    	  let message = "";
-    	  
-    	  let err = JSON.parse(e.message);
-    	  message += err.message;
-    	  if(err.errors != null) {
-          	for (let error of err.errors) {
-                  message += `\n${error.reason}`;
-                }	
-          }
-    	  alert(message);
-    	  return;
+        alert(e.message);
+        return;
       }
-      
-      alert("회원가입 성공")
+
+      alert('회원가입 성공');
       window.location.href = '/auth/login';
     });
-    
+
     this.userName.addEventListener('keypress', e => {
-        let key = e.which || e.keyCode;
-        if (key === 13) {
-          this.submitBtn.click();
-        }
+      let key = e.which || e.keyCode;
+      if (key === 13) {
+        this.submitBtn.click();
+      }
     });
   }
 

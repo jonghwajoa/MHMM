@@ -12,6 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="findAll" resultType="MessageVO">
-		select * from tbl_message where chatroom_no = #{chatroomNo} limit 100
+		select * from tbl_message where chatroom_no = #{chatroomNo} order by no desc limit 100
 	</select>
 </mapper>

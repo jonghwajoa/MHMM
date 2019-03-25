@@ -59,7 +59,7 @@ public class MessageRestControllerTest {
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.status").value(404))
 				.andExpect(jsonPath("$.message").value("접근할 수 없는 채팅방입니다."))
-				.andExpect(jsonPath("$.code").value("M002"))
+				.andExpect(jsonPath("$.code").value("MESSAGE002"))
 		;
 	}
 	
@@ -72,7 +72,7 @@ public class MessageRestControllerTest {
 			.andExpect(status().isForbidden())
 			.andExpect(jsonPath("$.status").value(403))
 			.andExpect(jsonPath("$.message").value("접근할 수 없는 채팅방입니다."))
-			.andExpect(jsonPath("$.code").value("M001"))
+			.andExpect(jsonPath("$.code").value("MESSAGE001"))
 		;
 	}
 
