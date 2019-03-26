@@ -1,14 +1,13 @@
 package xyz.mhmm.auth.exception;
 
-import lombok.Getter;
 import xyz.mhmm.exception.BusinessException;
 import xyz.mhmm.exception.ErrorCode;
 
-@Getter
+@SuppressWarnings("serial")
 public class EmailDuplicatedException extends BusinessException {
 
 	public EmailDuplicatedException() {
-        super(ErrorCode.EMAIL_DUPLICATION);
-    }
+		super(ErrorCode.EMAIL_DUPLICATION);
+	}
 
 }

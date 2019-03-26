@@ -9,9 +9,10 @@ public enum ErrorCode {
 
 	// Common
 	INVALID_INPUT_VALUE(400, "COMMON001", "Invalid Input Value"), 
-	METHOD_NOT_ALLOWED(405, "COMMON005", " Invalid Input Value"),
 	HANDLE_ACCESS_DENIED(403, "COMMON003", "Access is Denied"), 
 	NOT_FOUND_EXCEPTION(404, "COMMON004", "Page Not Found"),
+	METHOD_NOT_ALLOWED(405, "COMMON005", " Method Not Allowed"),
+	UNSUPPORTED_MEDIA_TYPE(415,"COMMON015", "Unsupported Media Type"),
 
 	// Auth
 	EMAIL_DUPLICATION(400, "AUTH001", "이미 사용중인 이메일 입니다. 다른 이메일을 사용해주세요."),

@@ -1,5 +1,6 @@
 package xyz.mhmm.exception;
 
+@SuppressWarnings("serial")
 public class BusinessException extends RuntimeException {
 
 	private ErrorCode errorCode;
