@@ -6,7 +6,7 @@ class ChatRoomList {
     this.messageScreen = document.getElementById('chat-view-area');
 
     this.getChatData(roomNo).then(data => {
-      this.dataDraw(JSON.parse(data).reverse(), userNo);
+      this.initDraw(JSON.parse(data).reverse(), userNo);
     });
     this.stompInit(roomNo, userNo);
     this.eventInit(roomNo, userId, userNo);
@@ -22,7 +22,7 @@ class ChatRoomList {
     }
   }
 
-  dataDraw(data, userNo) {
+  initDraw(data, userNo) {
     for (let message of data) {
       this.viewDraw(message, userNo);
     }
@@ -44,7 +44,7 @@ class ChatRoomList {
     const client = Stomp.over(sock);
 
     client.connect({}, () => {
-      client.subscribe('/subscribe/chat/room/' + roomNo, chat => this.viewDraw(JSON.parse(chat.body), userNo));
+      client.subscribe('/app/chat/room/' + roomNo, chat => this.viewDraw(JSON.parse(chat.body), userNo));
     });
 
     this.client = client;

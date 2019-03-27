@@ -16,11 +16,11 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		// handshake와 통신을 담당할 endpoint를 지정한다.
 	}
 
-	// Application 내부에서 사용할 path를 지정할 수 있다.
+	// Application 내부에서 사용할 path를 지정할 수 있다.  메모리기반
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		registry.setApplicationDestinationPrefixes("/publish"); // client에서 SEND 요청을 처리한다
-		registry.enableSimpleBroker("/subscribe");
+		registry.enableSimpleBroker("/app");
 	}
 
 	/**

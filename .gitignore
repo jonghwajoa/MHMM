@@ -35,15 +35,17 @@ src/.recommenders
 src/MHMM/target
 
 ### MHMM
-MHMM/mvnw*
-MHMM/.mvn
-MHMM/target
+*/mvnw*
+*/.mvn
+*/target
 Servers
 
 ### setting include file
-MHMM/src/test/java/xyz/mhmm/setting/MariaDbConnectionTest.java
-MHMM/src/main/webapp/WEB-INF/spring/root-context.xml
-MHMM/.*
+*/src/test/java/xyz/mhmm/setting/MariaDbConnectionTest.java
+*/src/main/webapp/WEB-INF/spring/root-context.xml
+*/.*
 
 ### 설정파일
-MHMM/src/main/resources/application.properties
+*/src/main/resources/application.properties
+
+

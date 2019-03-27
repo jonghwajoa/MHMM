@@ -22,7 +22,7 @@ public class MessageRestController {
 
 	private final SimpMessagingTemplate template;
 	private final MessageService service;
-	private final String url = "/subscribe/chat/room/";
+	private final String url = "/app/chat/room/";
 
 	public MessageRestController(final SimpMessagingTemplate template, MessageService messageService) {
 		this.template = template;
