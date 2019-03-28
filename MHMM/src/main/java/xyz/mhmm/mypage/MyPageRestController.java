@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.mhmm.auth.SessionAttribute;
 import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
 
@@ -36,7 +37,7 @@ public class MyPageRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
-		dto.setUserNo((Long) session.getAttribute("userNo"));
+		dto.setUserNo((Long) session.getAttribute(SessionAttribute.USER_NO));
 		service.passwordChange(dto);
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

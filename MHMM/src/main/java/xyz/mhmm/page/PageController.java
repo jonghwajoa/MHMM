@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import xyz.mhmm.auth.SessionAttribute;
+
 @Controller
 public class PageController {
 
 	@ModelAttribute
 	public void authCheck(Model model, HttpSession session) {
-		model.addAttribute("authCheck", session.getAttribute("userId") != null ? true : false);
+		model.addAttribute("authCheck", session.getAttribute(SessionAttribute.USER_ID) != null ? true : false);
 	}
 
 	@GetMapping("/")
@@ -33,15 +35,15 @@ public class PageController {
 
 	@GetMapping("/messenger")
 	public String messenger(HttpSession session, Model model) {
-		model.addAttribute("userId", (String) session.getAttribute("userId"));
+		model.addAttribute("userId", (String) session.getAttribute(SessionAttribute.USER_ID));
 		return "messenger/index";
 	}
 
 	@GetMapping("/messenger/chatroom/{id}")
 	public String chatRoom(@PathVariable Long id, HttpSession session, Model model) {
 
-		model.addAttribute("userNo", session.getAttribute("userNo"));
-		model.addAttribute("userId", session.getAttribute("userId"));
+		model.addAttribute("userNo", session.getAttribute(SessionAttribute.USER_NO));
+		model.addAttribute("userId", session.getAttribute(SessionAttribute.USER_ID));
 		model.addAttribute("roomNo", id);
 
 		return "messenger/chatRoom";

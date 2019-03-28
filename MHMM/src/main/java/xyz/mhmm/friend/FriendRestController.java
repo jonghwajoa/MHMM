@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.mhmm.auth.SessionAttribute;
 import xyz.mhmm.auth.domain.UserVO;
 import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
@@ -28,7 +29,7 @@ public class FriendRestController {
 
 	@GetMapping(path = "/")
 	public ResponseEntity<?> allFriend(HttpSession session) {
-		return new ResponseEntity<>(friendService.findAll((Long) session.getAttribute("userNo")), HttpStatus.OK);
+		return new ResponseEntity<>(friendService.findAll((Long) session.getAttribute(SessionAttribute.USER_NO)), HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/")
@@ -39,7 +40,7 @@ public class FriendRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
-		UserVO friendVO = friendService.create((Long) session.getAttribute("userNo"), dto);
+		UserVO friendVO = friendService.create((Long) session.getAttribute(SessionAttribute.USER_NO), dto);
 
 		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendVO), HttpStatus.CREATED);
 	}
@@ -52,7 +53,7 @@ public class FriendRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 		
-		UserVO friendVO = friendService.search((Long) session.getAttribute("userNo"), id);
+		UserVO friendVO = friendService.search((Long) session.getAttribute(SessionAttribute.USER_NO), id);
 
 		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendVO), HttpStatus.OK);
 	}
@@ -67,7 +68,7 @@ public class FriendRestController {
 		
 		// TODO : 로직 추가
 
-		friendService.delete((Long) session.getAttribute("userNo"), dto);
+		friendService.delete((Long) session.getAttribute(SessionAttribute.USER_NO), dto);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

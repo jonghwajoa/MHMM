@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.mhmm.auth.SessionAttribute;
 import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
 
@@ -31,10 +32,9 @@ public class MessageRestController {
 
 	@MessageMapping("/chat/message")
 	public void message(final MessageDTO dto) {
-		Long start = System.currentTimeMillis();
+		System.out.println("일단 여기온다..");
 		dto.setCreated_at(new SimpleDateFormat("yyyy-MM-dd HH시 mm분 ss초").format(new java.util.Date()));
 		service.create(dto);
-		System.out.println((System.currentTimeMillis() - start));
 		template.convertAndSend(url + dto.getChatroom_no(), dto);
 	}
 
@@ -47,7 +47,7 @@ public class MessageRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
-		dto.setUser_no((Long) session.getAttribute("userNo"));
+		dto.setUser_no((Long) session.getAttribute(SessionAttribute.USER_NO));
 		return new ResponseEntity<>(service.oneToOneChatFindAll(dto), HttpStatus.OK);
 	}
 }

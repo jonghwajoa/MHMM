@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.mhmm.auth.SessionAttribute;
 import xyz.mhmm.chatRoom.domain.OneToOneVO;
 import xyz.mhmm.chatRoom.dto.OneToOneDTO;
 import xyz.mhmm.exception.ErrorCode;
@@ -29,7 +30,7 @@ public class ChatRoomRestController {
 
 	@GetMapping("/")
 	public ResponseEntity<?> findAll(HttpSession session) {
-		List<OneToOneVO.findAllVO> list = oneToOneService.findAll((Long) session.getAttribute("userNo"));
+		List<OneToOneVO.findAllVO> list = oneToOneService.findAll((Long) session.getAttribute(SessionAttribute.USER_NO));
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
@@ -41,7 +42,7 @@ public class ChatRoomRestController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
 
-		dto.setFrom_userno((Long) session.getAttribute("userNo"));
+		dto.setFrom_userno((Long) session.getAttribute(SessionAttribute.USER_NO));
 		Long roomNo = oneToOneService.create(dto);
 		return new ResponseEntity<>(new OneToOneDTO.roomNoResponse(roomNo), HttpStatus.CREATED);
 	}

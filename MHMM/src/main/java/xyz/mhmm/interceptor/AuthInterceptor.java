@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import xyz.mhmm.auth.SessionAttribute;
+
 public class AuthInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -14,7 +16,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
-		if (session.getAttribute("userNo") == null) {
+		
+		if (session.getAttribute(SessionAttribute.USER_NO) == null) {
 			response.sendRedirect("/auth/login");
 			return false;
 		}

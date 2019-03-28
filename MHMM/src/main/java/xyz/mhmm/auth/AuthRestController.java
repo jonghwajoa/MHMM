@@ -50,8 +50,8 @@ public class AuthRestController {
 		}
 
 		LoginVO loginVO = authService.Login(dto);
-		session.setAttribute("userId", loginVO.getId());
-		session.setAttribute("userNo", loginVO.getNo());
+		session.setAttribute(SessionAttribute.USER_ID, loginVO.getId());
+		session.setAttribute(SessionAttribute.USER_NO, loginVO.getNo());
 
 		return new ResponseEntity<>(AuthDTO.convertLoginResponse(dto), HttpStatus.OK);
 	}
@@ -69,6 +69,14 @@ public class AuthRestController {
 			return new ResponseEntity<>(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(AuthDTO.convertSearchResponse(vo), HttpStatus.OK);
+	}
+
+	@PostMapping(path = "/logout", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> logou(HttpSession session) {
+		session.removeAttribute(SessionAttribute.USER_ID);
+		session.removeAttribute(SessionAttribute.USER_NO);
+		session.invalidate();
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }
