@@ -16,7 +16,7 @@ class MyPage {
       };
 
       try {
-        await ajaxUtil.sendPathAjax(`/api/mypage/password`, params, predicate);
+        await ajaxUtil.sendPatchAjax(`/api/mypage/password`, params, predicate);
       } catch (e) {
         alert(e.message);
         return;

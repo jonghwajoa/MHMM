@@ -1,60 +1,68 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <title>MHMM</title>
 <link rel="stylesheet" th:href="@{~/css/common/reset.css}" />
 <link rel="stylesheet" th:href="@{~/css/common/nav.css}" />
-<link rel="stylesheet" th:href="@{~/css/auth/signup.css}" />
+<link rel="stylesheet" th:href="@{~/css/mypage/mypage.css}" />
 </head>
 <body>
 	<div th:insert="~{fragments/nav::nav}"></div>
 
-    <div class="signup-wrap">
-      <section class="signup"> 
-        <h3>패스워드 변경</h3>
-        <form>
-          <div class="input-form">
-            <label for="curPW" class="ir_su">현재 비밀번호</label>
+        <div id="wrap">
+      <div class="container">
+        <section class="change-pw">
+          <h3>패스워드 변경</h3>
+          <form>
+            <div class="input-form">
+              <label for="curPW" class="ir_su">현재 비밀번호</label>
+              <input
+                type="password"
+                id="curPW"
+                name="curPw"
+                class="input_text"
+                placeholder="현재 비밀번호를 입력해주세요"
+                autocomplete="off"
+                maxlength="20"
+              />
+            </div>
+            <div class="input-form">
+              <label for="changePw" class="ir_su">변경할 비밀번호</label>
+              <input
+                type="password"
+                id="changePw"
+                name="changePw"
+                class="input_text"
+                placeholder="변경할 비밀번호를 입력해주세요"
+                autocomplete="off"
+                maxlength="20"
+              />
+              <span class="message"></span>
+            </div>
+            <label for="changePwCheck" class="ir_su">변경할 비밀번호 확인</label>
             <input
               type="password"
-              id="curPW"
-              name="curPw"
+              id="changePwCheck"
+              name="changePwCheck"
               class="input_text"
-              placeholder="현재 비밀번호를 입력해주세요"
+              placeholder="변경할 비밀번호를 한번더 입력해주세요"
               autocomplete="off"
               maxlength="20"
             />
-            <span class="message" id="userId-Message"></span>
-          </div>
-          <div class="input-form">
-            <label for="changePw" class="ir_su">변경할 비밀번호</label>
-            <input
-              type="password"
-              id="changePw"
-              name="changePw"
-              class="input_text"
-              placeholder="변경할 비밀번호를 입력해주세요"
-              autocomplete="off"
-              maxlength="20"
-            />
-            <span class="message"></span>
-          </div>
-          <label for="changePwCheck" class="ir_su">변경할 비밀번호 확인</label>
-          <input
-            type="password"
-            id="changePwCheck"
-            name="changePwCheck"
-            class="input_text"
-            placeholder="변경할 비밀번호를 한번더 입력해주세요"
-            autocomplete="off"
-            maxlength="20"
-          />
-        </form>
+          </form>
           <input type="submit" id="change-pw-submit-btn" value="비밀번호 변경" />
           <input type="button" value="홈으로" onClick="location.href='/'" />
-      </section>
+        </section>
+
+        <section class="user-info">
+          <div id="photo-wrap">
+            <img src="" alt="사진" id="user-phto" />
+            <input type="file" name="profile" id="photo-upload-btn" />
+            <input type="button" id="photo-save-btn" value="저장하기" />
+          </div>
+        </section>
+      </div>
     </div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -62,6 +70,7 @@
 
 	<script th:src=@{~/js/common/nav.js}></script>
 	<script th:src=@{~/js/utils/ajaxUtil.js}></script>
-	<script th:src=@{~/js/mypage/mypage.js}></script> 
+	<script th:src=@{~/js/mypage/mypage.js}></script>
+	<script th:src=@{~/js/mypage/userinfo.js}></script>  
 </body>
 </html>

@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -17,6 +19,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import xyz.mhmm.interceptor.AuthInterceptor;
+import xyz.mhmm.mypage.FileUpload;
 
 @Configuration
 @ComponentScan("xyz.mhmm")
@@ -25,6 +28,16 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private ApplicationContext applicationContext;
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		// 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기
+		resolver.setMaxInMemorySize(FileUpload.MAX_IN_MEMORY_SIZE);
+		resolver.setMaxUploadSize(FileUpload.MAX_UPLOAD_SIZE);
+		resolver.setMaxUploadSizePerFile(FileUpload.MAX_UPLOAD_SIZE_PER_FILE);
+		return resolver;
+	}
 
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {

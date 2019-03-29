@@ -1,7 +1,9 @@
 const ajaxUtil = {
   /**
-   * @param {String} url
-   * @param {Function} predicate
+   * @param {String}
+   *            url
+   * @param {Function}
+   *            predicate
    * @returns {String} responseText
    */
   sendGetAjax(url, predicate) {
@@ -22,9 +24,12 @@ const ajaxUtil = {
   },
 
   /**
-   * @param {String} url
-   * @param {Object} params
-   * @param {Function} predicate
+   * @param {String}
+   *            url
+   * @param {Object}
+   *            params
+   * @param {Function}
+   *            predicate
    * @returns {String} responseText
    */
   sendPostAjax(url, params, predicate) {
@@ -46,9 +51,12 @@ const ajaxUtil = {
   },
 
   /**
-   * @param {String} url
-   * @param {Object} params
-   * @param {Function} predicate
+   * @param {String}
+   *            url
+   * @param {Object}
+   *            params
+   * @param {Function}
+   *            predicate
    * @returns {String} responseText
    */
   sendPutAjax(url, params) {
@@ -62,15 +70,18 @@ const ajaxUtil = {
         }
       };
       xhr.open('PUT', url, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xhr.send(JSON.stringify(params));
       xhr.onerror = () => reject(req.status);
     });
   },
 
   /**
-   * @param {String} url
-   * @param {Function} predicate
+   * @param {String}
+   *            url
+   * @param {Function}
+   *            predicate
    * @returns {String} responseText
    */
   sendDeleteAjax(url, predicate) {
@@ -85,19 +96,23 @@ const ajaxUtil = {
       };
 
       xhr.open('DELETE', url, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xhr.send();
       xhr.onerror = () => reject(req.status);
     });
   },
 
   /**
-   * @param {String} url
-   * @param {Object} params
-   * @param {Function} predicate
+   * @param {String}
+   *            url
+   * @param {Object}
+   *            params
+   * @param {Function}
+   *            predicate
    * @returns {String} responseText
    */
-  sendPathAjax(url, params, predicate) {
+  sendPatchAjax(url, params, predicate) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function() {
@@ -108,8 +123,31 @@ const ajaxUtil = {
         }
       };
       xhr.open('PATCH', url, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xhr.send(JSON.stringify(params));
+      xhr.onerror = () => reject(req.status);
+    });
+  },
+
+  saveFileAjax(url, photo, predicate) {
+    if (predicate === undefined) {
+      predicate = status => status === 204;
+    }
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      formData.append('photo', photo);
+      xhr.onload = () => {
+        if (predicate(xhr.status)) {
+          resolve(xhr.responseText);
+        } else {
+          reject({ status: xhr.status, message: ajaxUtil.errorFormat(xhr.responseText) });
+        }
+      };
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.send(formData);
       xhr.onerror = () => reject(req.status);
     });
   },

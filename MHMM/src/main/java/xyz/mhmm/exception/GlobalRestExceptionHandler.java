@@ -13,7 +13,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalRestExceptionHandler {
 
 	@ExceptionHandler(NoHandlerFoundException.class)
-	@RequestMapping(produces = "application/json", consumes = "application/json")
 	public ResponseEntity<?> handle(NoHandlerFoundException e) {
 		return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_FOUND_EXCEPTION), HttpStatus.NOT_FOUND);
 	}
@@ -25,7 +24,7 @@ public class GlobalRestExceptionHandler {
 
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
 	public ResponseEntity<?> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-		return new ResponseEntity<>(ErrorResponse.of(ErrorCode.UNSUPPORTED_MEDIA_TYPE), HttpStatus.METHOD_NOT_ALLOWED);
+		return new ResponseEntity<>(ErrorResponse.of(ErrorCode.UNSUPPORTED_MEDIA_TYPE), HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 	}
 
 	@ExceptionHandler(BusinessException.class)
