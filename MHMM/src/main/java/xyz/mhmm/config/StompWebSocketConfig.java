@@ -33,8 +33,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		registry.setApplicationDestinationPrefixes("/publish");
-
-		registry.enableStompBrokerRelay("/app")
+		registry.enableStompBrokerRelay("/topic")
 			.setRelayHost(rabbitmqHost)
 			.setRelayPort(rabbitmqPort)
 			.setClientLogin(rabbitmqId).

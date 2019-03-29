@@ -44,7 +44,6 @@ class Nav {
       e.preventDefault();
       var target = $(this);
       var index = target.index();
-      // alert(index);
       var section = sectionTag.eq(index);
       var offset = section.offset().top;
       $('html,body').animate({ scrollTop: offset });

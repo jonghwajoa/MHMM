@@ -45,7 +45,7 @@ class ChatRoomList {
   }
 
   chatRoomOnclick(roomNo) {
-    window.open(`/messenger/chatroom/${roomNo}`, 'ChatRoom', 'width=800, height=700');
+    window.open(`/messenger/chatroom/${roomNo}`,"_blank",'width=600, height=800',false);
   }
 }
 

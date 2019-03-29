@@ -18,6 +18,7 @@ class ChatRoomList {
       return await ajaxUtil.sendGetAjax(`/api/message/onetoone/${roomNo}`, predicate);
     } catch (e) {
       alert(e.message);
+      window.close();
       return;
     }
   }
@@ -44,7 +45,7 @@ class ChatRoomList {
     const client = Stomp.over(sock);
 
     client.connect({}, () => {
-      client.subscribe('/app/chat/room/' + roomNo, chat => this.viewDraw(JSON.parse(chat.body), userNo));
+      client.subscribe('/topic/chatroom.' + roomNo, chat => this.viewDraw(JSON.parse(chat.body), userNo));
     });
 
     this.client = client;
@@ -61,7 +62,7 @@ class ChatRoomList {
       }
 
       this.client.send(
-        '/publish/chat/message',
+        '/publish/api/message',
         {},
         JSON.stringify({
           chatroom_no: roomNo,

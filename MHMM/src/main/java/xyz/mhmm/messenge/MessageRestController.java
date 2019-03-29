@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +24,16 @@ public class MessageRestController {
 
 	private final SimpMessagingTemplate template;
 	private final MessageService service;
-	private final String url = "/app/chat/room/";
+	private final String url = "/topic/chatroom.";
 
 	public MessageRestController(final SimpMessagingTemplate template, MessageService messageService) {
 		this.template = template;
 		this.service = messageService;
 	}
 
-	@MessageMapping("/chat/message")
+
+	@MessageMapping("/api/message")
 	public void message(final MessageDTO dto) {
-		System.out.println("일단 여기온다..");
 		dto.setCreated_at(new SimpleDateFormat("yyyy-MM-dd HH시 mm분 ss초").format(new java.util.Date()));
 		service.create(dto);
 		template.convertAndSend(url + dto.getChatroom_no(), dto);
