@@ -4,6 +4,8 @@ class MyPage {
     this.changePw = document.getElementById('changePw');
     this.changePwCheck = document.getElementById('changePwCheck');
     this.submitBtn = document.getElementById('change-pw-submit-btn');
+
+    this.eventInit();
   }
 
   eventInit() {

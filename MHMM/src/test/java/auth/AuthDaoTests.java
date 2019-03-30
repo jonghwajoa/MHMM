@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -72,6 +73,28 @@ public class AuthDaoTests {
 		UserVO vo = userDAO.findByEmail("mhmm@mhmm.xyz");
 		System.out.println("응???");
 		System.out.println(vo.toString());
+	}
+
+	@Test
+	public void findByPkTest() {
+		UserVO vo = userDAO.findByPk(45L);
+		if (vo == null) {
+			System.out.println("null");
+		} else {
+			System.out.println(vo.toString());
+		}
+
+	}
+
+	@Test
+	public void updateToPhotoTest() {
+		userDAO.updateToPhoto("/test/dqwdq", 45L);
+		UserVO vo = userDAO.findByPk(45L);
+		if (vo == null) {
+			System.out.println("null");
+		} else {
+			System.out.println(vo.toString());
+		}
 	}
 
 	public void updateToNameTest() {

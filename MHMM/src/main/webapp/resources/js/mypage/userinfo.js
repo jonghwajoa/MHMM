@@ -1,8 +1,12 @@
 class Userinfo {
   constructor() {
     const uploadBtn = document.getElementById('photo-upload-btn');
-    const photoImg = document.getElementById('user-phto');
+    const photoImg = document.getElementById('user-photo');
     const savePhotoBtn = document.getElementById('photo-save-btn');
+
+    this.getData().then(result => {
+      photoImg.src = `/img/userPhoto/${result}`;
+    });
 
     uploadBtn.addEventListener('change', event => {
       const target = event.target;
@@ -32,7 +36,15 @@ class Userinfo {
     });
   }
 
-  saveUserPhoto() {}
+  async getData() {
+    const predicate = status => status === 200;
+    try {
+      return await ajaxUtil.sendGetAjax('/api/mypage/', predicate);
+    } catch (e) {
+      alert(e);
+      return;
+    }
+  }
 }
 
 new Userinfo();

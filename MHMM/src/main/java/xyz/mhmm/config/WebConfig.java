@@ -70,6 +70,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(31556926);
+		registry.addResourceHandler("/img/**").addResourceLocations("file:c:/gitfolder/mhmm/img/").setCachePeriod(31556926);
 	}
 
 	@Override

@@ -49,3 +49,6 @@ Servers
 */src/main/resources/application.properties
 
 
+img/*
+MHMM/src/main/webapp/resources/img/*
+

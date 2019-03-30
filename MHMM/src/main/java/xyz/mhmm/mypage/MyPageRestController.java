@@ -1,11 +1,13 @@
 package xyz.mhmm.mypage;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,15 @@ public class MyPageRestController {
 		this.myPageValidation = myPageValidation;
 	}
 
+	@GetMapping("/")
+	public ResponseEntity<?> getMyPage(HttpSession session) {
+
+		Long userNo = (Long) session.getAttribute(SessionAttribute.USER_NO);
+		String path = service.getMyPage(userNo);
+
+		return new ResponseEntity<>(path, HttpStatus.OK);
+	}
+
 	@PatchMapping("/password")
 	public ResponseEntity<?> passwordChange(@RequestBody @Valid MyPageDTO.PasswordChange dto, BindingResult result,
 			HttpSession session) {
@@ -48,15 +59,13 @@ public class MyPageRestController {
 	}
 
 	@PostMapping("/photo")
-	public ResponseEntity<?> changePhoto(@RequestParam MultipartFile photo, HttpSession session) {
-		
-		service.changeProfilePhoto(photo);
-		
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<?> changePhoto(final @RequestParam MultipartFile photo, final HttpServletRequest req,
+			HttpSession session) {
+
+		final String path = req.getSession().getServletContext().getRealPath("/img/userPhoto/");
+		Long userNo = (Long) session.getAttribute(SessionAttribute.USER_NO);
+		String saveFileName = service.changeProfilePhoto(photo, path, userNo);
+
+		return new ResponseEntity<>(saveFileName, HttpStatus.CREATED);
 	}
 }
-
-
-
-
-

@@ -7,12 +7,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findByEmail" resultType="UserVO">
 		select * from
-		tbl_user where email = #{email}
+		tbl_user where
+		email = #{email}
 	</select>
-	
+
+	<select id="findByPk" resultType="UserVO">
+		select * from
+		tbl_user where no
+		= #{no}
+	</select>
+
 	<select id="findById" resultType="UserVO">
 		select * from
-		tbl_user where id = #{id}
+		tbl_user where id
+		= #{id}
 	</select>
 
 	<insert id="create" useGeneratedKeys="true" keyProperty="no"
@@ -27,6 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateToEmail">
 		update tbl_user set email= #{email} where no = #{no}
+	</update>
+
+	<update id="updateToPhoto">
+		update tbl_user set photo_path = #{path} where no = #{no}
 	</update>
 
 	<delete id="delete">
