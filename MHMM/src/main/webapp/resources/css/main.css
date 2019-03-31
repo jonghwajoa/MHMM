@@ -1,25 +1,39 @@
+section {
+}
+
 #section1 {
 }
+
 #section1 p {
-  width: 200px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px 50px;
-  background: skyblue;
   text-align: center;
   cursor: pointer;
 }
 
-#section2 {
+#section1 p a {
+  font-weight: bold;
+  font-size: 2rem;
+  font-family: 'Nanum Gothic';
+  text-transform: uppercase;
+  color: black;
+  padding: 20px 50px;
+  border: 2px solid #e599f7;
 }
+
+#section2 {
+  background: #f8f9fa;
+}
+
 #section3 {
 }
+
 #section4 {
+  background: #f8f9fa;
 }
 
 section .content-container {
   width: 1200px;
-  height: inherit;
-  border: 5px solid violet;
   margin: 0 auto;
 }
 
@@ -62,4 +76,17 @@ section .content-container {
 
 .content .content-side ul li.active a {
   transform: scale(0.4);
+}
+
+.content-container h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Do Hyeon';
+  text-align: center;
+}
+
+.content-container img {
+  margin: 6.25rem auto;
+  text-align: center;
+  display: block;
 }
