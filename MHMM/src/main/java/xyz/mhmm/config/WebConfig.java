@@ -19,7 +19,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import xyz.mhmm.interceptor.AuthInterceptor;
-import xyz.mhmm.mypage.FileUpload;
+import xyz.mhmm.utils.FileUpload;
 
 @Configuration
 @ComponentScan("xyz.mhmm")

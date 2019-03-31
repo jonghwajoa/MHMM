@@ -22,7 +22,7 @@ import xyz.mhmm.config.DBConfig;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 import xyz.mhmm.exception.BusinessException;
-import xyz.mhmm.exception.ErrorCode;
+import xyz.mhmm.utils.ErrorCode;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebApplication.class, WebConfig.class , DBConfig.class })

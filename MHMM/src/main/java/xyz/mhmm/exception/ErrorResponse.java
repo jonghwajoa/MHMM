@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import xyz.mhmm.utils.ErrorCode;
 
 @Getter
 public class ErrorResponse {

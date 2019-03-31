@@ -15,21 +15,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.mhmm.auth.SessionAttribute;
 import xyz.mhmm.auth.domain.UserVO;
-import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
+import xyz.mhmm.utils.ErrorCode;
+import xyz.mhmm.utils.SessionAttribute;
 
 @RestController
 @RequestMapping(path = "/api/friend", consumes = "application/json", produces = "application/json")
 public class FriendRestController {
 
-	@Autowired
 	private FriendService friendService;
+
+	public FriendRestController(FriendService friendService) {
+		this.friendService = friendService;
+	}
 
 	@GetMapping(path = "/")
 	public ResponseEntity<?> allFriend(HttpSession session) {
-		return new ResponseEntity<>(friendService.findAll((Long) session.getAttribute(SessionAttribute.USER_NO)), HttpStatus.OK);
+		return new ResponseEntity<>(friendService.findAll((Long) session.getAttribute(SessionAttribute.USER_NO)),
+				HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/")
@@ -52,7 +56,7 @@ public class FriendRestController {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		UserVO friendVO = friendService.search((Long) session.getAttribute(SessionAttribute.USER_NO), id);
 
 		return new ResponseEntity<>(FriendDTO.convertSearchResponse(friendVO), HttpStatus.OK);
@@ -65,7 +69,7 @@ public class FriendRestController {
 			ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, result);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		// TODO : 로직 추가
 
 		friendService.delete((Long) session.getAttribute(SessionAttribute.USER_NO), dto);

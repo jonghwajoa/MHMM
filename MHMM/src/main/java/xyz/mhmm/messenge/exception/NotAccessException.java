@@ -1,7 +1,7 @@
 package xyz.mhmm.messenge.exception;
 
 import xyz.mhmm.exception.BusinessException;
-import xyz.mhmm.exception.ErrorCode;
+import xyz.mhmm.utils.ErrorCode;
 
 @SuppressWarnings("serial")
 public class NotAccessException extends BusinessException {

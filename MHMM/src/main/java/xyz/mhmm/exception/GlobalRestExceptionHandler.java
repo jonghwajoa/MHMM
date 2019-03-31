@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import xyz.mhmm.utils.ErrorCode;
+
 @RestControllerAdvice
 public class GlobalRestExceptionHandler {
 

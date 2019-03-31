@@ -1,5 +1,7 @@
 package xyz.mhmm.exception;
 
+import xyz.mhmm.utils.ErrorCode;
+
 @SuppressWarnings("serial")
 public class BusinessException extends RuntimeException {
 

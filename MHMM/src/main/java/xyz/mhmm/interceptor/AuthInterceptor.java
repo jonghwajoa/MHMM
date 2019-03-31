@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import xyz.mhmm.auth.SessionAttribute;
+import xyz.mhmm.utils.SessionAttribute;
 
 public class AuthInterceptor implements HandlerInterceptor {
 

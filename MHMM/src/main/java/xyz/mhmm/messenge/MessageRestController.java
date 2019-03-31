@@ -8,16 +8,15 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.mhmm.auth.SessionAttribute;
-import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
+import xyz.mhmm.utils.ErrorCode;
+import xyz.mhmm.utils.SessionAttribute;
 
 @RestController
 public class MessageRestController {

@@ -79,9 +79,9 @@ body {
 }
 
 .friend-add .friend-search-result img {
-  border: 1px solid purple;
-  padding: 0.5rem 0.2rem;
   border-radius: 20%;
+  width: 30px;
+  height: 30px;
   margin-right: 5px;
 }
 
@@ -107,7 +107,7 @@ body {
 }
 
 .friend-wrap .friend-list > div {
-  padding: 0.8rem 0.5rem;
+  padding: 0.5rem 0.5rem;
 }
 
 .friend-wrap .friend-list .friend .img {
@@ -115,12 +115,11 @@ body {
   padding: 0.5rem 0.2rem;
   border-radius: 20%;
   margin-right: 5px;
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
 }
 
 .friend-wrap .friend-list .friend span.friend-name {
-  cursor: pointer;
   display: inline-block;
   height: 30px;
   font-size: 1rem;
@@ -132,7 +131,7 @@ body {
 }
 
 .chatroom-section .chat-room {
-  padding: 1.5rem 0.7rem;
+  padding: 1rem 0.7rem;
   border-bottom: 1px solid #c8c8c8;
   font-size: 1rem;
   font-weight: bold;
@@ -145,4 +144,9 @@ body {
 
 .chatroom-section .chat-room span {
   margin-left: 0.5rem;
+}
+
+.chatroom-section .chat-room img {
+  width: 50px;
+  height: 50px;
 }

@@ -1,4 +1,4 @@
-package xyz.mhmm.exception;
+package xyz.mhmm.utils;
 
 import lombok.Getter;
 import lombok.ToString;

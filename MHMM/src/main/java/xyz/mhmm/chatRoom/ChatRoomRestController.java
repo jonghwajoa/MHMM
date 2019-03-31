@@ -15,22 +15,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.mhmm.auth.SessionAttribute;
 import xyz.mhmm.chatRoom.domain.OneToOneVO;
 import xyz.mhmm.chatRoom.dto.OneToOneDTO;
-import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
+import xyz.mhmm.utils.ErrorCode;
+import xyz.mhmm.utils.SessionAttribute;
 
 @RestController
 @RequestMapping(path = "/api/messenger/chatroom")
 public class ChatRoomRestController {
 
-	@Autowired
 	OneToOneService oneToOneService;
+
+	public ChatRoomRestController(final OneToOneService oneToOneService) {
+		this.oneToOneService = oneToOneService;
+	}
 
 	@GetMapping("/")
 	public ResponseEntity<?> findAll(HttpSession session) {
-		List<OneToOneVO.findAllVO> list = oneToOneService.findAll((Long) session.getAttribute(SessionAttribute.USER_NO));
+		List<OneToOneVO.findAllVO> list = oneToOneService
+				.findAll((Long) session.getAttribute(SessionAttribute.USER_NO));
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 

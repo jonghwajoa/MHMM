@@ -23,11 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import xyz.mhmm.chatRoom.dto.OneToOneDTO;
 import xyz.mhmm.config.DBConfig;
+import xyz.mhmm.config.StompWebSocketConfig;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { WebApplication.class, WebConfig.class, DBConfig.class })
+@ContextConfiguration(classes = { WebApplication.class, WebConfig.class, DBConfig.class, StompWebSocketConfig.class })
 @WebAppConfiguration
 @Transactional
 public class OneToOneRestControllerTests {
@@ -56,15 +57,9 @@ public class OneToOneRestControllerTests {
 		OneToOneDTO.FindAndCreate dto = new OneToOneDTO.FindAndCreate();
 		dto.setTo_userno(1L);
 
-		mockMvc.perform(post("/api/messenger/chatroom/")
-					.sessionAttr("userNo", 47L)
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(dto))
-				)
-				.andDo(print())
-				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.no").exists())
-		;
+		mockMvc.perform(post("/api/messenger/chatroom/").sessionAttr("userNo", 47L)
+				.contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dto))).andDo(print())
+				.andExpect(status().isCreated()).andExpect(jsonPath("$.no").exists());
 	}
 
 }

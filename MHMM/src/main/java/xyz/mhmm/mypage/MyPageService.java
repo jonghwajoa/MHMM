@@ -15,6 +15,7 @@ import xyz.mhmm.auth.dao.UserDAO;
 import xyz.mhmm.auth.domain.LoginVO;
 import xyz.mhmm.auth.domain.UserVO;
 import xyz.mhmm.mypage.exception.PwDidNotMatchException;
+import xyz.mhmm.utils.FileUpload;
 
 @Service
 @Transactional
@@ -30,9 +31,9 @@ public class MyPageService {
 		this.userDAO = userDAO;
 	}
 
-	public String getMyPage(Long no) {
+	public MyPageDTO.PhotoPathResponse getMyPage(Long no) {
 		UserVO vo = userDAO.findByPk(no);
-		return vo.getPhoto_path();
+		return new MyPageDTO.PhotoPathResponse(vo.getPhoto_path());
 	}
 
 	public void passwordChange(MyPageDTO.PasswordChange dto) {
@@ -48,7 +49,7 @@ public class MyPageService {
 		loginDAO.updatePw(dto);
 	}
 
-	public String changeProfilePhoto(MultipartFile photo, String path, Long userNo) {
+	public MyPageDTO.PhotoPathResponse changeProfilePhoto(MultipartFile photo, String path, Long userNo) {
 		UUID saveFileName = null;
 		File file = null;
 		String uploadPath = null, fileFullName = null;
@@ -64,6 +65,7 @@ public class MyPageService {
 			} while (file.exists());
 
 			byte[] bytes = photo.getBytes();
+			@SuppressWarnings("resource")
 			FileOutputStream outputStream = new FileOutputStream(file);
 			outputStream.write(bytes);
 		} catch (IOException e) {
@@ -71,6 +73,6 @@ public class MyPageService {
 		}
 
 		userDAO.updateToPhoto(saveFileName + ext, userNo);
-		return fileFullName;
+		return new MyPageDTO.PhotoPathResponse(fileFullName);
 	}
 }

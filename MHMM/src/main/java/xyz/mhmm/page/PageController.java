@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import xyz.mhmm.auth.SessionAttribute;
+import xyz.mhmm.utils.SessionAttribute;
 
 @Controller
 public class PageController {

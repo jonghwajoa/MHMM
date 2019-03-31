@@ -49,7 +49,7 @@ class Friend {
 
     let searchResultParse = JSON.parse(result);
     if (this.isAlreadyFriend(searchResultParse.no)) {
-      this.drawSearchResult(id, 'url');
+      this.drawSearchResult(id, searchResultParse.photo);
     } else {
       this.drawSearchResult(false, '이미 등록된 친구 입니다.');
     }
@@ -79,7 +79,7 @@ class Friend {
 
       friendClass.className = 'friend';
       img.className = 'img';
-
+      img.src = e.photo != null ? `/img/userPhoto/${e.photo}` : '/img/userPhoto/default.jpg';
       friendName.innerText = e.name;
       friendName.className = 'friend-name';
       chatBtn.type = 'button';
@@ -115,7 +115,9 @@ class Friend {
     if (!name) {
       html += imgUrl;
     } else {
-      html += `<img alt=${imgUrl} />`;
+      html += `<img alt="프로필 사진" src=${
+        imgUrl != null ? `/img/userPhoto/${imgUrl}` : '/img/userPhoto/default.jpg'
+      }/>`;
       html += `<span class="friend-name">${name}</span>`;
       html += `<input type="button" value="친구등록" id="friendAddBtn" />`;
     }

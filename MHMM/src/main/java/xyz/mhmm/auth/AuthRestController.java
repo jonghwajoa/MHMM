@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import xyz.mhmm.auth.domain.LoginVO;
-import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.exception.ErrorResponse;
+import xyz.mhmm.utils.ErrorCode;
+import xyz.mhmm.utils.SessionAttribute;
 
 @RestController
 @RequestMapping("/api/auth")

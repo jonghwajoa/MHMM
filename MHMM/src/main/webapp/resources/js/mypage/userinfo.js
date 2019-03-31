@@ -5,7 +5,7 @@ class Userinfo {
     const savePhotoBtn = document.getElementById('photo-save-btn');
 
     this.getData().then(result => {
-      photoImg.src = `/img/userPhoto/${result}`;
+      photoImg.src = `/img/userPhoto/${JSON.parse(result).fileFullName}`;
     });
 
     uploadBtn.addEventListener('change', event => {
@@ -27,11 +27,13 @@ class Userinfo {
 
       if (confirm('사진을 저장하시겠습니까? ')) {
         try {
-          await ajaxUtil.saveFileAjax(`/api/mypage/photo`, uploadBtn.files[0]);
+          const result = await ajaxUtil.saveFileAjax(`/api/mypage/photo`, uploadBtn.files[0]);
+          photoImg.src = `/img/userPhoto/${JSON.parse(result).fileFullName}`;
         } catch (e) {
-          alert(e);
+          alert(e.message);
           return;
         }
+        alert('사진 변경 완료');
       }
     });
   }
@@ -41,7 +43,7 @@ class Userinfo {
     try {
       return await ajaxUtil.sendGetAjax('/api/mypage/', predicate);
     } catch (e) {
-      alert(e);
+      alert(e.message);
       return;
     }
   }

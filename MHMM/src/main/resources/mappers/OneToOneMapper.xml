@@ -21,7 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!--
-		SELECT o.no, u1.id as fromUserId,u1.name as fromUserName, u2.id as toUserId, u2.name as toUserName 
+		SELECT o.no, u1.id as fromUserId,u1.name as fromUserName, u2.id as toUserId, 
+		u2.name as toUserName, u1.photo_path as fromPhoto, u2.photo_path as toPhoto
 		FROM tbl_onetoone as o 
 		INNER JOIN tbl_user u1 ON o.from_userno = u1.no 
 		INNER JOIN tbl_user u2 ON o.to_userno = u2.no 
@@ -29,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	-->
 	<select id="selectAll"
 		resultType="xyz.mhmm.chatRoom.domain.OneToOneVO$findAllVO">
-		SELECT o.no, u1.id as from_user_id,u1.name as from_user_name,
+		SELECT o.no, u1.id as from_user_id,u1.name as from_user_name, u1.photo_path as from_photo, u2.photo_path as to_photo,
 		u2.id as to_user_id, u2.name as to_user_name
 		FROM tbl_onetoone as o
 		INNER JOIN tbl_user u1 ON o.from_userno = u1.no

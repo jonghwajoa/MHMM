@@ -20,5 +20,6 @@ public class FriendVO {
 	public static class list {
 		private Long no;
 		private String name;
+		private String photo;
 	}
 }

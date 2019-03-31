@@ -1,4 +1,4 @@
-package xyz.mhmm.auth;
+package xyz.mhmm.utils;
 
 public final class SessionAttribute {
 	public static final String USER_NO = "userNo";

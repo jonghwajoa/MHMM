@@ -4,7 +4,6 @@ class ChatRoomList {
     this.userId = document.getElementById('userid');
 
     this.getAllChatRoom().then(chatRoomData => {
-      console.log(chatRoomData);
       this.drawInit(chatRoomData);
     });
   }
@@ -28,14 +27,16 @@ class ChatRoomList {
       const divRoom = document.createElement('div');
       const img = document.createElement('img');
       const span = document.createElement('span');
-      img.alt = '사진';
+      img.alt = '채팅방 사진';
 
       divRoom.className = 'chat-room';
 
       if (this.userId === e.from_user_id) {
         span.innerHTML = `${e.from_user_name}님과 채팅`;
+        img.src = e.from_photo != null ? `/img/userPhoto/${e.from_photo}` : '/img/userPhoto/default.jpg';
       } else {
         span.innerHTML = `${e.to_user_name}님과 채팅`;
+        img.src = e.to_photo != null ? `/img/userPhoto/${e.to_photo}` : '/img/userPhoto/default.jpg';
       }
       divRoom.onclick = () => this.chatRoomOnclick(e.no);
       divRoom.appendChild(img);
@@ -45,7 +46,7 @@ class ChatRoomList {
   }
 
   chatRoomOnclick(roomNo) {
-    window.open(`/messenger/chatroom/${roomNo}`,"_blank",'width=600, height=800',false);
+    window.open(`/messenger/chatroom/${roomNo}`, '_blank', 'width=600, height=800', false);
   }
 }
 

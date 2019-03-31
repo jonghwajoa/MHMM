@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="findAll" resultType="xyz.mhmm.friend.domain.FriendVO$list">
-		select u.no , u.name from tbl_friend as f LEFT JOIN tbl_user as u on f.following = u.no where f.follower = #{following}
+		select u.no , u.name, u.photo_path as photo from tbl_friend as f LEFT JOIN tbl_user as u on f.following = u.no where f.follower = #{following}
 	</select>
 	
 	<delete id="delete">

@@ -20,14 +20,20 @@ import xyz.mhmm.friend.exception.SearchNotFound;
 @Transactional
 public class FriendService {
 
-	@Autowired
 	private UserDAO userDAO;
-
-	@Autowired
 	private FriendDAO friendDAO;
 
+	public FriendService(UserDAO userDAO, FriendDAO friendDAO) {
+		this.userDAO = userDAO;
+		this.friendDAO = friendDAO;
+	}
+
 	public List<FriendVO.list> findAll(Long myNo) {
-		return friendDAO.findAll(myNo);
+		List<FriendVO.list> list = friendDAO.findAll(myNo);
+
+		System.out.println(list.toString());
+
+		return list;
 	}
 
 	public UserVO create(Long myNo, FriendDTO.Add dto) {
@@ -48,7 +54,7 @@ public class FriendService {
 		} catch (DuplicateKeyException e) {
 			throw new AlreadyFriendException();
 		}
-		
+
 		return userVO;
 	}
 
@@ -64,7 +70,7 @@ public class FriendService {
 		if (userVO == null) {
 			throw new SearchNotFound();
 		}
-		
+
 		if (myNo == userVO.getNo()) {
 			throw new OwnSelfAddFriendException();
 		}

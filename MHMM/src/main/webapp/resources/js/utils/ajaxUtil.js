@@ -51,12 +51,9 @@ const ajaxUtil = {
   },
 
   /**
-   * @param {String}
-   *            url
-   * @param {Object}
-   *            params
-   * @param {Function}
-   *            predicate
+   * @param {String} url
+   * @param {Object} params
+   * @param {Function} predicate
    * @returns {String} responseText
    */
   sendPutAjax(url, params) {
@@ -132,7 +129,7 @@ const ajaxUtil = {
 
   saveFileAjax(url, photo, predicate) {
     if (predicate === undefined) {
-      predicate = status => status === 204;
+      predicate = status => status === 204 || status == 201;
     }
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();

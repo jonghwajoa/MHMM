@@ -46,7 +46,7 @@ public class OneToOneServiceTests {
 
 	@Test
 	public void findAllTest() {
-		List<OneToOneVO.findAllVO> list = oneToOneService.findAll(3L);
+		List<OneToOneVO.findAllVO> list = oneToOneService.findAll(45L);
 
 		System.out.println(list.toString());
 	}

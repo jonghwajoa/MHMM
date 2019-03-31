@@ -1,4 +1,4 @@
-package xyz.mhmm.mypage;
+package xyz.mhmm.utils;
 
 public class FileUpload {
 

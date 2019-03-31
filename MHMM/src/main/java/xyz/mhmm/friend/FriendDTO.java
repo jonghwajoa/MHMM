@@ -51,6 +51,7 @@ public class FriendDTO {
 		private Long no;
 		private String id;
 		private String name;
+		private String photo;
 	}
 
 	public static FriendDTO.searchrResponse convertSearchResponse(UserVO origin) {
@@ -58,6 +59,7 @@ public class FriendDTO {
 		dto.setId(origin.getId());
 		dto.setName(origin.getName());
 		dto.setNo(origin.getNo());
+		dto.setPhoto(origin.getPhoto_path());
 		return dto;
 	}
 	

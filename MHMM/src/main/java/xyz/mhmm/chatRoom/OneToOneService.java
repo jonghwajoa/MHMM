@@ -15,11 +15,11 @@ public class OneToOneService {
 
 	private OneToOneDAO oneToOneDAO;
 
-	public OneToOneService(OneToOneDAO oneToOneDAO) {
+	public OneToOneService(final OneToOneDAO oneToOneDAO) {
 		this.oneToOneDAO = oneToOneDAO;
 	}
 
-	public Long create(OneToOneDTO.FindAndCreate dto) {
+	public Long create(final OneToOneDTO.FindAndCreate dto) {
 
 		swap(dto);
 		OneToOneVO vo = oneToOneDAO.select(dto);
@@ -32,7 +32,7 @@ public class OneToOneService {
 		return dto.getNo();
 	}
 
-	public void select(OneToOneDTO.FindAndCreate dto) {
+	public void select(final OneToOneDTO.FindAndCreate dto) {
 	}
 
 	public List<OneToOneVO.findAllVO> findAll(Long userNo) {
@@ -43,7 +43,7 @@ public class OneToOneService {
 
 	}
 
-	private void swap(OneToOneDTO.FindAndCreate dto) {
+	private void swap(final OneToOneDTO.FindAndCreate dto) {
 		Long toUserNo = dto.getTo_userno();
 		Long fromUserNo = dto.getFrom_userno();
 

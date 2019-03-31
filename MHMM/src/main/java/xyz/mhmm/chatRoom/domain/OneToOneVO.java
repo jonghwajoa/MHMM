@@ -19,5 +19,7 @@ public class OneToOneVO {
 		private String to_user_id;
 		private String from_user_name;
 		private String to_user_name;
+		private String from_photo;
+		private String to_photo;
 	}
 }

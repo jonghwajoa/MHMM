@@ -17,12 +17,12 @@ import xyz.mhmm.auth.domain.UserVO;
 import xyz.mhmm.config.WebApplication;
 import xyz.mhmm.config.WebConfig;
 import xyz.mhmm.exception.BusinessException;
-import xyz.mhmm.exception.ErrorCode;
 import xyz.mhmm.friend.FriendDTO;
 import xyz.mhmm.friend.FriendService;
 import xyz.mhmm.friend.domain.FriendVO;
 import xyz.mhmm.friend.exception.AlreadyFriendException;
 import xyz.mhmm.friend.exception.SearchNotFound;
+import xyz.mhmm.utils.ErrorCode;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebApplication.class, WebConfig.class })
