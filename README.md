@@ -3,7 +3,7 @@
 메신저 만들기 (MHM + HMM) - 2019.02.02 기획
 
 > 프로젝트 기간
-> 19.02.22 ~ 
+> 19.02.22 ~
 
 - DOMAIN : http://www.mhmm.xyz/
 - TRELLO : https://trello.com/b/pcE691wg/mhmm
@@ -22,7 +22,7 @@
 
 ---
 
-![Messanger Page](https://user-images.githubusercontent.com/31912670/55289314-14f75f00-5400-11e9-8c2b-087efdcfdfce.jpg)
+![Messanger Page](https://user-images.githubusercontent.com/31912670/55289480-44a76680-5402-11e9-8031-1daadec5b099.jpg)
 
 ## 기록
 

@@ -7,11 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import xyz.mhmm.utils.SessionAttribute;
 
 @Controller
 public class PageController {
+
+	private static final Logger logger = LogManager.getLogger(PageController.class);
 
 	@ModelAttribute
 	public void authCheck(Model model, HttpSession session) {
@@ -20,6 +24,9 @@ public class PageController {
 
 	@GetMapping("/")
 	public String home() {
+		
+		logger.trace("Entering application.");
+		logger.info("인덱스 페이지이다..");
 		return "index";
 	}
 
