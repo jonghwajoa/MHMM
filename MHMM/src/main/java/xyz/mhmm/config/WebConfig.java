@@ -2,7 +2,6 @@ package xyz.mhmm.config;
 
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,8 +25,11 @@ import xyz.mhmm.utils.FileUpload;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-	@Autowired
 	private ApplicationContext applicationContext;
+
+	public WebConfig(ApplicationContext applicationContex) {
+		this.applicationContext = applicationContex;
+	}
 
 	@Bean
 	public MultipartResolver multipartResolver() {
@@ -71,12 +73,13 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(31556926);
 		registry.addResourceHandler("/fonts/**").addResourceLocations("/resources/fonts/").setCachePeriod(31556926);
-		registry.addResourceHandler("/img/**").addResourceLocations("file:c:/gitfolder/mhmm/img/").setCachePeriod(31556926);
+		registry.addResourceHandler("/img/**").addResourceLocations("file:c:/gitfolder/mhmm/img/")
+				.setCachePeriod(31556926);
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**")
-				.excludePathPatterns(Arrays.asList("/", "/auth/*", "/api/auth/*", "/js/**", "/css/**","/img/use/**", "/fonts/**"));
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns(Arrays.asList("/",
+				"/auth/*", "/api/auth/*", "/js/**", "/css/**", "/img/use/**", "/fonts/**", "/email/**"));
 	}
 }

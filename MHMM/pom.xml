@@ -51,6 +51,11 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 
 		<!-- Websocket & STOMP -->
 		<dependency>
@@ -104,11 +109,11 @@
 			<version>5.6.0</version>
 		</dependency>
 
-		<!-- AspectJ -->
+		<!-- Mail 인증 -->
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -129,35 +134,8 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>runtime</scope>
-		</dependency>
 
-		<!-- log4j2 setting -->
-
-		<!-- Binding for Log4J -->
-
+		<!-- log4j2 -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
@@ -174,9 +152,6 @@
 			<version>${log4j2.version}</version>
 		</dependency>
 
-
-
-		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>

@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-	<Appenders>
+<configuration status="warn">
+
+	<properties>
+		<property name="pattern">%-5p %d{YYYY-MM-DD HH:mm:ss} %m [%t] %C{2} %n
+		</property>
+	</properties>
+
+	<appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout
-				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<PatternLayout pattern="${pattern}" />
 		</Console>
-	</Appenders>
-	<Loggers>
-		<Root level="error">
-			<AppenderRef ref="Console" />
-		</Root>
-	</Loggers>
-</Configuration>
+
+		<File name="file" fileName="/MHMM/log/daily.log">
+			<PatternLayout pattern="${pattern}" />
+		</File>
+
+		<RollingFile name="RollingFile">
+			<FileName>C:/gitFolder/MHMM/log/mylog.log</FileName>
+			<FilePattern>C:/gitFolder/MHMM/log/daily/%d{yyyy-MM-dd}.log.zip
+			</FilePattern>
+			<PatternLayout pattern="${pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="2"
+					modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+	</appenders>
+
+	<loggers>
+		<root level="info">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</root>
+	</loggers>
+</configuration>
